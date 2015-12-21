@@ -31,10 +31,12 @@ router.post('/calculate', function(req, res) {
 		result = Number(first) * Number(second);
 	else if(symbol == '3')
 		result = Number(first) / Number(second);
-	req.flash('success', '􏿲􏿳􏱛􏴛计算完成！');
-	req.flash('result',result);
+	// req.flash('success', '􏿲􏿳􏱛􏴛计算完成！');
+	// req.flash('result',result);
 
-	res.redirect('/calculate');
+	// res.redirect('/calculate');
+
+	res.json({success:'ok',result:result});
 });
 
 
