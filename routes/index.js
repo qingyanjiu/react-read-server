@@ -21,7 +21,6 @@ router.post('/calculate', function(req, res) {
 	var first = req.body['first'];
 	var second = req.body['second'];
 	var symbol = req.body['symbol'];
-
 	var result ;
 	if(symbol == '0')
 		result = Number(first) + Number(second);

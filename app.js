@@ -7,11 +7,11 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var session = require('express-session');
 var flash = require('connect-flash');
-var MongoStore = require('connect-mongo')(session);
+// var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var books = require('./routes/Books');
 
 var app = express();
 
@@ -29,15 +29,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-      secret: settings.cookieSecret, 
-      key:'sid',
-      store: new MongoStore({
-        url: settings.url,
-      }),
-      resave: true,
-      saveUninitialized: true,
-}));
+
+// app.use(session({
+//       secret: settings.cookieSecret, 
+//       key:'sid',
+//       store: new MongoStore({
+//         url: settings.url,
+//       }),
+//       resave: true,
+//       saveUninitialized: true,
+// }));
 
 app.use(flash());
 
@@ -71,7 +72,7 @@ app.use(function(req, res, next){
 
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
