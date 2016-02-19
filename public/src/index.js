@@ -1,3 +1,4 @@
-var Button = require('Button');
+var ReactDOM = require('react-dom');
+var Button = require('./Button');
 
-React.render(Button, document.getElementById('content'));
+ReactDOM.render(<Button/>, document.getElementById('content'));
