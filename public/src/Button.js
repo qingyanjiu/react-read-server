@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Button = React.createClass({
+var But = React.createClass({
 	render:function(){
     	var button = React.DOM.button({
     	    className: "btn btn-lg btn-success",
@@ -10,4 +10,4 @@ var Button = React.createClass({
 	}
 });
 
-module.exports=Button;
+module.exports=But;
