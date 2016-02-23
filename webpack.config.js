@@ -3,11 +3,12 @@ var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('public/common.js');
 
 module.exports = {
     entry: {
-        entry1: __dirname+'/public/src/index.js'
+        index:__dirname+'/public/src/index.js',
+        MyImage:__dirname+'/public/src/MyImage.js'
     },
     output: {
         path: __dirname,
-        filename: 'public/[name].entry.js'
+        filename: 'public/build/[name].js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx']

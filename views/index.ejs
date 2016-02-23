@@ -15,33 +15,99 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.28.3/react-bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <!--<script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>-->
   <!--<script src="/common.js"></script>-->
+
+
 
 </head>
 <body>
   <div id="content"/>
-  
     
   <script type="text/babel">
     var Jumbotron = ReactBootstrap.Jumbotron;
     var Button = ReactBootstrap.Button;
     var Image = ReactBootstrap.Image;
+    var Grid = ReactBootstrap.Grid;
+    var Row = ReactBootstrap.Row;
+    var Col = ReactBootstrap.Col;
+    
+    var tip = {
+        fontFamily:'微软雅黑',
+        fontSize:'18',
+        color:'#A98580',
+        marginTop:'4%',
+        textAlign:'center',
+    };
+    
+    //菜单按钮
+    var MyImage = React.createClass({
+        
+        getInitialState:function(){   
+          return({
+            isMouseOver:false,
+          });
+        },
+        
+        changeBack:function(){
+            this.setState({
+                isMouseOver:this.state.isMouseOver? false:true
+            });
+        },
+        
+        render:function(){
+            var backcolor = 'rgba(255,255,255,0.4)';
+            if(this.state.isMouseOver)
+                backcolor = 'rgba(255,245,142,0.4)';
+            return(
+            <Image src={this.props.src} style={{width:'36%',backgroundColor:backcolor}} circle onMouseOver={this.changeBack} onMouseOut={this.changeBack}>
+            </Image>
+            );
+        }
+       
+    });
+    
+    
     
     var jumbotron = (
       <div>
-        <Jumbotron style={{paddingLeft:'2%',height:'1024',backgroundImage:'url(/assets/i/shuji.jpg)',backgroundSize:'100%'}}>
-            <h1>Hello, world!</h1>
-            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <p><Button bsStyle="primary">Learn more</Button></p>
+        <Jumbotron style={{textAlign:'center',paddingTop:'8%',height:$(window).height()>480? $(window).height():480,
+            backgroundImage:'url(/assets/i/shuji-2.jpg)',backgroundSize:'cover',}}>
+            <h1>乐读</h1>
+            <p style={{marginTop:'2%',fontFamily:'微软雅黑'}}>记录阅读，更好的阅读</p>
+            
+            
+            <div style={{marginTop:'8%'}}>
+            <Grid>
+                <Row>
+                  <Col xs={6} md={3}>
+                    <MyImage src="http://i11.tietuku.com/9db222ff64800304.png"/>
+                    <p style={tip}>笔记</p>
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <MyImage src="http://i11.tietuku.com/6a2017a8ec024297.png"/>
+                    <p style={tip}>书签</p>
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <MyImage src="http://i11.tietuku.com/927fd0bb82a33d49.png"/>
+                    <p style={tip}>收藏</p>
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <MyImage src="http://i11.tietuku.com/cfb65f0eb3897b98.png"/>
+                    <p style={tip}>分享</p>
+                  </Col>
+                </Row>
+            </Grid>
+        </div>
         </Jumbotron>
-        
+      
       </div>
     );
     
     ReactDOM.render(jumbotron, document.getElementById('content'));
       
   </script>
-  
-  <!-- <script type="text/babel" src="/entry1.entry.js"></script> -->
+  <!--<script type="text/babel" src="/build/index.js"></script>-->
 </body>
 </html>

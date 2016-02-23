@@ -1,4 +1,4 @@
-var React = require('react');
+
 
 var But = React.createClass({
 	render:function(){
@@ -9,5 +9,3 @@ var But = React.createClass({
 		return(button);
 	}
 });
-
-module.exports=But;
