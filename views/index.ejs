@@ -23,7 +23,10 @@
 
 </head>
 <body>
-  <div id="content"/>
+<!-- form放在div上面，用于跳转，因为js是顺序加载的-->
+  <form id="form">
+    <div id="content"/>
+  </form>
 
   <script type="text/babel" src="/build/index.js"></script>
 </body>

@@ -13,140 +13,150 @@ webpackJsonp([0,1],[
 	var Col = __webpack_require__(159).Col;
 
 	var tip = {
-	  fontFamily: '微软雅黑',
-	  fontSize: '18',
-	  color: '#A98580',
-	  marginTop: '4%',
-	  textAlign: 'center'
+	    fontFamily: '微软雅黑',
+	    fontSize: '18',
+	    color: '#A98580',
+	    marginTop: '4%',
+	    textAlign: 'center'
 	};
 
 	//菜单按钮
 	var MyImage = React.createClass({
-	  displayName: 'MyImage',
+	    displayName: 'MyImage',
 
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      isMouseOver: false
-	    };
-	  },
+	    getInitialState: function getInitialState() {
+	        return {
+	            isMouseOver: false
+	        };
+	    },
 
-	  changeBack: function changeBack() {
-	    this.setState({
-	      isMouseOver: this.state.isMouseOver ? false : true
-	    });
-	  },
+	    changeBack: function changeBack() {
+	        this.setState({
+	            isMouseOver: this.state.isMouseOver ? false : true
+	        });
+	    },
 
-	  render: function render() {
-	    var backcolor = 'rgba(255,255,255,0.4)';
-	    if (this.state.isMouseOver) backcolor = 'rgba(255,245,142,0.4)';
-	    return React.createElement(Image, { src: this.props.src, style: { width: '36%', backgroundColor: backcolor }, circle: true, onMouseOver: this.changeBack, onMouseOut: this.changeBack });
-	  }
+	    goSub: function goSub() {
+	        document.getElementById('form').action = this.props.url;
+	        document.getElementById('form').submit();
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        var backcolor = 'rgba(255,255,255,0.4)';
+	        if (this.state.isMouseOver) backcolor = 'rgba(255,245,142,0.4)';
+	        return React.createElement(Image, { src: this.props.src, style: { width: '36%', backgroundColor: backcolor }, circle: true, onClick: function onClick() {
+	                _this.goSub();
+	            },
+	            onMouseOver: this.changeBack, onMouseOut: this.changeBack });
+	    }
 
 	});
 
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
 	var MyDiv = React.createClass({
-	  displayName: 'MyDiv',
+	    displayName: 'MyDiv',
 
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      windowWidth: window.innerWidth,
-	      windowHeight: window.innerHeight
-	    };
-	  },
+	    getInitialState: function getInitialState() {
+	        return {
+	            windowWidth: window.innerWidth,
+	            windowHeight: window.innerHeight
+	        };
+	    },
 
-	  handleResize: function handleResize(e) {
-	    this.setState({
-	      windowWidth: window.innerWidth,
-	      windowHeight: window.innerHeight
-	    });
-	  },
+	    handleResize: function handleResize(e) {
+	        this.setState({
+	            windowWidth: window.innerWidth,
+	            windowHeight: window.innerHeight
+	        });
+	    },
 
-	  componentDidMount: function componentDidMount() {
-	    window.addEventListener('resize', this.handleResize);
-	  },
+	    componentDidMount: function componentDidMount() {
+	        window.addEventListener('resize', this.handleResize);
+	    },
 
-	  componentWillUnmount: function componentWillUnmount() {
-	    window.removeEventListener('resize', this.handleResize);
-	  },
+	    componentWillUnmount: function componentWillUnmount() {
+	        window.removeEventListener('resize', this.handleResize);
+	    },
 
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { style: { textAlign: 'center', backgroundImage: 'url(/assets/i/shuji-2.jpg)', backgroundSize: 'cover',
-	          height: this.state.windowHeight, width: this.state.windowWidth } },
-	      React.createElement(
-	        'p',
-	        { style: { fontFamily: '微软雅黑', fontSize: '60', paddingTop: '8%' } },
-	        '乐读'
-	      ),
-	      React.createElement(
-	        'p',
-	        { style: { marginTop: '2%', fontFamily: '微软雅黑', fontSize: '20' } },
-	        '记录阅读，更好的阅读'
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: { marginTop: '8%' } },
-	        React.createElement(
-	          Grid,
-	          null,
-	          React.createElement(
-	            Row,
-	            null,
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            { style: { textAlign: 'center', backgroundImage: 'url(/assets/i/shuji-2.jpg)', backgroundSize: 'cover',
+	                    height: this.state.windowHeight, width: this.state.windowWidth } },
 	            React.createElement(
-	              Col,
-	              { xs: 6, md: 3 },
-	              React.createElement(MyImage, { src: '/assets/i/biji.png' }),
-	              React.createElement(
 	                'p',
-	                { style: tip },
-	                '笔记'
-	              )
+	                { style: { fontFamily: '微软雅黑', fontSize: '60', paddingTop: '8%' } },
+	                '乐读'
 	            ),
 	            React.createElement(
-	              Col,
-	              { xs: 6, md: 3 },
-	              React.createElement(MyImage, { src: '/assets/i/shuqian.png' }),
-	              React.createElement(
 	                'p',
-	                { style: tip },
-	                '书签'
-	              )
+	                { style: { marginTop: '2%', fontFamily: '微软雅黑', fontSize: '20' } },
+	                '记录阅读，更好的阅读'
 	            ),
 	            React.createElement(
-	              Col,
-	              { xs: 6, md: 3 },
-	              React.createElement(MyImage, { src: '/assets/i/shoucang.png' }),
-	              React.createElement(
-	                'p',
-	                { style: tip },
-	                '收藏'
-	              )
-	            ),
-	            React.createElement(
-	              Col,
-	              { xs: 6, md: 3 },
-	              React.createElement(MyImage, { src: '/assets/i/fenxiang.png' }),
-	              React.createElement(
-	                'p',
-	                { style: tip },
-	                '分享'
-	              )
+	                'div',
+	                { style: { marginTop: '8%' } },
+	                React.createElement(
+	                    Grid,
+	                    null,
+	                    React.createElement(
+	                        Row,
+	                        null,
+	                        React.createElement(
+	                            Col,
+	                            { xs: 6, md: 3 },
+	                            React.createElement(MyImage, { src: '/assets/i/biji.png', url: '/calculate' }),
+	                            React.createElement(
+	                                'p',
+	                                { style: tip },
+	                                '笔记'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            Col,
+	                            { xs: 6, md: 3 },
+	                            React.createElement(MyImage, { src: '/assets/i/shuqian.png', url: '/cal' }),
+	                            React.createElement(
+	                                'p',
+	                                { style: tip },
+	                                '书签'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            Col,
+	                            { xs: 6, md: 3 },
+	                            React.createElement(MyImage, { src: '/assets/i/shoucang.png', url: '/calc' }),
+	                            React.createElement(
+	                                'p',
+	                                { style: tip },
+	                                '收藏'
+	                            )
+	                        ),
+	                        React.createElement(
+	                            Col,
+	                            { xs: 6, md: 3 },
+	                            React.createElement(MyImage, { src: '/assets/i/fenxiang.png', url: '/calcu' }),
+	                            React.createElement(
+	                                'p',
+	                                { style: tip },
+	                                '分享'
+	                            )
+	                        )
+	                    )
+	                )
 	            )
-	          )
-	        )
-	      )
-	    );
-	  }
+	        );
+	    }
 	});
 
 	var content = React.createElement(
-	  'div',
-	  { style: {} },
-	  React.createElement(MyDiv, null)
+	    'div',
+	    { style: {} },
+	    React.createElement(MyDiv, null)
 	);
 
 	ReactDOM.render(content, document.getElementById('content'));

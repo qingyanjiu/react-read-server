@@ -29,12 +29,20 @@ var tip = {
             });
         },
         
+        goSub:function(){
+            document.getElementById('form').action = this.props.url;
+            document.getElementById('form').submit();
+        },
+        
+        
         render:function(){
             var backcolor = 'rgba(255,255,255,0.4)';
             if(this.state.isMouseOver)
                 backcolor = 'rgba(255,245,142,0.4)';
             return(
-            <Image src={this.props.src} style={{width:'36%',backgroundColor:backcolor}} circle onMouseOver={this.changeBack} onMouseOut={this.changeBack}>
+            <Image src={this.props.src} style={{width:'36%',backgroundColor:backcolor}} circle onClick={()=>{this.goSub()}}  
+                onMouseOver={this.changeBack} onMouseOut={this.changeBack} >
+                
             </Image>
             );
         }
@@ -66,6 +74,7 @@ var tip = {
           componentWillUnmount: function() {
             window.removeEventListener('resize', this.handleResize);
           },
+          
         
           render: function() {
             return (
@@ -74,29 +83,29 @@ var tip = {
                     <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:'8%'}}>乐读</p>
                     <p style={{marginTop:'2%',fontFamily:'微软雅黑',fontSize:'20'}}>记录阅读，更好的阅读</p>
                     
-                    
                     <div style={{marginTop:'8%'}}>
                         <Grid>
                             <Row>
                               <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/biji.png"/>
+                                <MyImage src="/assets/i/biji.png" url='/calculate'/>
                                 <p style={tip}>笔记</p>
                               </Col>
                               <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/shuqian.png"/>
+                                <MyImage src="/assets/i/shuqian.png" url='/cal'/>
                                 <p style={tip}>书签</p>
                               </Col>
                               <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/shoucang.png"/>
+                                <MyImage src="/assets/i/shoucang.png" url='/calc'/>
                                 <p style={tip}>收藏</p>
                               </Col>
                               <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/fenxiang.png"/>
+                                <MyImage src="/assets/i/fenxiang.png" url='/calcu'/>
                                 <p style={tip}>分享</p>
                               </Col>
                             </Row>
                         </Grid>
                     </div>
+                    
                 </div>
             );
           }
