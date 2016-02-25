@@ -12,6 +12,9 @@ webpackJsonp([0,1],[
 	var Row = __webpack_require__(159).Row;
 	var Col = __webpack_require__(159).Col;
 
+	var Head = __webpack_require__(404);
+	var Foot = __webpack_require__(405);
+
 	var tip = {
 	    fontFamily: '微软雅黑',
 	    fontSize: '18',
@@ -87,6 +90,7 @@ webpackJsonp([0,1],[
 	            'div',
 	            { style: { textAlign: 'center', backgroundImage: 'url(/assets/i/shuji-2.jpg)', backgroundSize: 'cover',
 	                    height: this.state.windowHeight, width: this.state.windowWidth } },
+	            React.createElement(Head, null),
 	            React.createElement(
 	                'p',
 	                { style: { fontFamily: '微软雅黑', fontSize: '60', paddingTop: '8%' } },
@@ -148,14 +152,15 @@ webpackJsonp([0,1],[
 	                        )
 	                    )
 	                )
-	            )
+	            ),
+	            React.createElement(Foot, null)
 	        );
 	    }
 	});
 
 	var content = React.createElement(
 	    'div',
-	    { style: {} },
+	    null,
 	    React.createElement(MyDiv, null)
 	);
 
@@ -36845,6 +36850,179 @@ webpackJsonp([0,1],[
 
 	exports['default'] = Well;
 	module.exports = exports['default'];
+
+/***/ },
+/* 404 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Image = __webpack_require__(159).Image;
+	var Grid = __webpack_require__(159).Grid;
+	var Row = __webpack_require__(159).Row;
+	var Col = __webpack_require__(159).Col;
+
+	var styles = {
+	    headStyle: {
+	        width: '100%',
+	        height: '60',
+	        backgroundColor: 'rgba(219,188,86,0.4)'
+	    },
+	    imageStyle: {
+	        width: '100%',
+	        paddingTop: '14%'
+	    }
+	};
+
+	//页面header
+	var Head = React.createClass({
+	    displayName: 'Head',
+
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            isLogined: false
+	        };
+	    },
+
+	    logined: function logined() {
+	        this.setState({
+	            isLogined: this.state.isLogined ? false : true
+	        });
+	    },
+
+	    render: function render() {
+	        var content = React.createElement(
+	            'p',
+	            { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12', color: '#FFFFFF' } },
+	            '乐读'
+	        );
+
+	        return React.createElement(
+	            Grid,
+	            { style: styles.headStyle },
+	            React.createElement(
+	                Row,
+	                null,
+	                React.createElement(
+	                    Col,
+	                    { xsHidden: true, smHidden: true, md: 2, lg: 2 },
+	                    React.createElement('image', { src: '/assets/i/logo.png', style: { paddingTop: '10' } })
+	                ),
+	                React.createElement(
+	                    Col,
+	                    { xs: 4, sm: 4, md: 8, lg: 8 },
+	                    content
+	                ),
+	                React.createElement(
+	                    Col,
+	                    { xs: 4, sm: 4, md: 1, lg: 1 },
+	                    React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle })
+	                ),
+	                React.createElement(
+	                    Col,
+	                    { xs: 4, sm: 4, md: 1, lg: 1 },
+	                    React.createElement('image', { src: '/assets/i/login.png', style: styles.imageStyle })
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Head;
+
+/***/ },
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Button = __webpack_require__(159).Button;
+	var Image = __webpack_require__(159).Image;
+	var Grid = __webpack_require__(159).Grid;
+	var Row = __webpack_require__(159).Row;
+	var Col = __webpack_require__(159).Col;
+
+	var styles = {
+	    footStyle: {
+	        height: '60',
+	        width: '100%',
+	        backgroundColor: 'rgba(219,188,86,0.4)',
+	        bottom: '0',
+	        position: 'fixed'
+	    },
+	    imageStyle: {
+	        width: '26%',
+	        paddingTop: '10%',
+	        paddingRight: '8%'
+	    },
+	    tip: {
+	        fontFamily: '微软雅黑',
+	        fontSize: '16',
+	        paddingTop: '20',
+	        color: '#FFFFFF'
+	    }
+	};
+
+	//页面header
+	var Foot = React.createClass({
+	    displayName: 'Foot',
+
+
+	    render: function render() {
+	        var content = React.createElement(
+	            'p',
+	            { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12' } },
+	            '乐读'
+	        );
+
+	        return React.createElement(
+	            'div',
+	            { style: styles.footStyle },
+	            React.createElement(
+	                Grid,
+	                null,
+	                React.createElement(
+	                    Row,
+	                    null,
+	                    React.createElement(
+	                        Col,
+	                        { xsHidden: true, smHidden: true, md: 2, lg: 2 },
+	                        React.createElement('image', { src: '/assets/i/weixin.png', style: styles.imageStyle }),
+	                        React.createElement('image', { src: '/assets/i/weibo.png', style: styles.imageStyle })
+	                    ),
+	                    React.createElement(
+	                        Col,
+	                        { xs: 6, sm: 6, md: 1, lg: 1 },
+	                        React.createElement(
+	                            'p',
+	                            { style: styles.tip },
+	                            '关于乐读'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        Col,
+	                        { xs: 6, sm: 6, md: 1, lg: 1 },
+	                        React.createElement(
+	                            'p',
+	                            { style: styles.tip },
+	                            '联系我们'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        Col,
+	                        { xsHidden: true, smHidden: true, md: 8, lg: 8 },
+	                        React.createElement('p', null)
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Foot;
 
 /***/ }
 ]);

@@ -5,6 +5,9 @@ var Image = require('react-bootstrap').Image;
 var Grid = require('react-bootstrap').Grid;
 var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
+
+var Head = require('./Head');
+var Foot = require('./Foot');
     
 var tip = {
         fontFamily:'微软雅黑',
@@ -80,6 +83,7 @@ var tip = {
             return (
                 <div style={{textAlign:'center',backgroundImage:'url(/assets/i/shuji-2.jpg)',backgroundSize:'cover',
                     height:this.state.windowHeight,width:this.state.windowWidth}}>
+                    <Head/>
                     <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:'8%'}}>乐读</p>
                     <p style={{marginTop:'2%',fontFamily:'微软雅黑',fontSize:'20'}}>记录阅读，更好的阅读</p>
                     
@@ -105,6 +109,7 @@ var tip = {
                             </Row>
                         </Grid>
                     </div>
+                    <Foot/>
                     
                 </div>
             );
@@ -113,7 +118,7 @@ var tip = {
    
     
     var content = (
-        <div style={{}}>
+        <div>
             <MyDiv/>
         </div>
     );
