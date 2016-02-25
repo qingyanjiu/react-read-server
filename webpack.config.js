@@ -1,13 +1,13 @@
 var webpack = require('webpack');
-var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('public/common.js');
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('/public/build/common.js');
 
 module.exports = {
     entry: {
-        index:__dirname+'/public/src/index.js'
+        index:__dirname+'/src/index.js'
     },
     output: {
         path: __dirname,
-        filename: 'public/build/[name].js'
+        filename: '/public/build/[name].js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
