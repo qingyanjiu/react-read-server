@@ -40,13 +40,13 @@ var Foot = React.createClass({
                     <image src='/assets/i/weixin.png' style={styles.imageStyle}/>
                     <image src='/assets/i/weibo.png' style={styles.imageStyle}/>
                 </Col>
-                <Col xs={6} sm={6} md={1} lg={1}>
+                <Col xs={6} sm={6} md={2} lg={2}>
                     <p style={styles.tip}>关于乐读</p>
                 </Col>
-                <Col xs={6} sm={6} md={1} lg={1}>
+                <Col xs={6} sm={6} md={2} lg={2}>
                     <p style={styles.tip}>联系我们</p>
                 </Col>
-                <Col xsHidden smHidden md={8} lg={8}>
+                <Col xsHidden smHidden md={6} lg={6}>
                     <p></p>
                 </Col>
                 </Row>

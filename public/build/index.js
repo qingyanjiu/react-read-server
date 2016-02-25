@@ -36870,8 +36870,9 @@ webpackJsonp([0,1],[
 	        backgroundColor: 'rgba(219,188,86,0.4)'
 	    },
 	    imageStyle: {
-	        width: '100%',
-	        paddingTop: '14%'
+	        height: '50',
+	        paddingTop: '10',
+	        paddingLeft: '8%'
 	    }
 	};
 
@@ -36900,30 +36901,30 @@ webpackJsonp([0,1],[
 	        );
 
 	        return React.createElement(
-	            Grid,
+	            'div',
 	            { style: styles.headStyle },
 	            React.createElement(
-	                Row,
-	                null,
+	                Grid,
+	                { style: { width: '100%' } },
 	                React.createElement(
-	                    Col,
-	                    { xsHidden: true, smHidden: true, md: 2, lg: 2 },
-	                    React.createElement('image', { src: '/assets/i/logo.png', style: { paddingTop: '10' } })
-	                ),
-	                React.createElement(
-	                    Col,
-	                    { xs: 4, sm: 4, md: 8, lg: 8 },
-	                    content
-	                ),
-	                React.createElement(
-	                    Col,
-	                    { xs: 4, sm: 4, md: 1, lg: 1 },
-	                    React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle })
-	                ),
-	                React.createElement(
-	                    Col,
-	                    { xs: 4, sm: 4, md: 1, lg: 1 },
-	                    React.createElement('image', { src: '/assets/i/login.png', style: styles.imageStyle })
+	                    Row,
+	                    null,
+	                    React.createElement(
+	                        Col,
+	                        { xsHidden: true, smHidden: true, md: 4, lg: 4 },
+	                        React.createElement('image', { src: '/assets/i/logo.png', style: { paddingTop: '10' } })
+	                    ),
+	                    React.createElement(
+	                        Col,
+	                        { xs: 4, sm: 4, md: 4, lg: 4 },
+	                        content
+	                    ),
+	                    React.createElement(
+	                        Col,
+	                        { xs: 8, sm: 8, md: 4, lg: 4 },
+	                        React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle }),
+	                        React.createElement('image', { src: '/assets/i/login.png', style: styles.imageStyle })
+	                    )
 	                )
 	            )
 	        );
@@ -36995,7 +36996,7 @@ webpackJsonp([0,1],[
 	                    ),
 	                    React.createElement(
 	                        Col,
-	                        { xs: 6, sm: 6, md: 1, lg: 1 },
+	                        { xs: 6, sm: 6, md: 2, lg: 2 },
 	                        React.createElement(
 	                            'p',
 	                            { style: styles.tip },
@@ -37004,7 +37005,7 @@ webpackJsonp([0,1],[
 	                    ),
 	                    React.createElement(
 	                        Col,
-	                        { xs: 6, sm: 6, md: 1, lg: 1 },
+	                        { xs: 6, sm: 6, md: 2, lg: 2 },
 	                        React.createElement(
 	                            'p',
 	                            { style: styles.tip },
@@ -37013,7 +37014,7 @@ webpackJsonp([0,1],[
 	                    ),
 	                    React.createElement(
 	                        Col,
-	                        { xsHidden: true, smHidden: true, md: 8, lg: 8 },
+	                        { xsHidden: true, smHidden: true, md: 6, lg: 6 },
 	                        React.createElement('p', null)
 	                    )
 	                )
