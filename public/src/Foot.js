@@ -16,13 +16,15 @@ var styles ={
         imageStyle:{
             width:'26%',
             paddingTop:'10%',
-            paddingRight:'8%'
+            paddingRight:'8%',
+            cursor:'pointer'
         },
         tip:{
             fontFamily:'微软雅黑',
             fontSize:'16',
             paddingTop:'20',
-            color:'#FFFFFF'
+            color:'#FFFFFF',
+            cursor:'pointer'
         }
     };
 

@@ -11,9 +11,10 @@ var styles ={
             backgroundColor:'rgba(219,188,86,0.4)'
         },
         imageStyle:{
-            height:'50',
-            paddingTop:'10',
-            paddingLeft:'8%',
+            height:'46',
+            paddingTop:'16',
+            paddingLeft:'2%',
+            cursor:'pointer'
         }
     };
 
