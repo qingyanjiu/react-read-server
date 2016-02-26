@@ -8,6 +8,7 @@ var Col = require('react-bootstrap').Col;
 
 var Head = require('./Head');
 var Foot = require('./Foot');
+var Login = require('./Login');
     
 var tip = {
         fontFamily:'微软雅黑',
@@ -43,7 +44,7 @@ var tip = {
             if(this.state.isMouseOver)
                 backcolor = 'rgba(255,245,142,0.4)';
             return(
-            <Image src={this.props.src} style={{width:'36%',backgroundColor:backcolor}} circle onClick={()=>{this.goSub()}}  
+            <Image src={this.props.src} style={{width:'36%',backgroundColor:backcolor,cursor:'pointer'}} circle onClick={()=>{this.goSub()}}  
                 onMouseOver={this.changeBack} onMouseOut={this.changeBack} >
                 
             </Image>
@@ -54,12 +55,17 @@ var tip = {
     
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
+    //currentPage
+    //index--首页
+    //regist--注册
+    //login--登录
     var MyDiv = React.createClass({
         
         getInitialState: function() {
             return ({
                 windowWidth: window.innerWidth,
                 windowHeight: window.innerHeight,
+                currentPage:'index'
             });
           },
         
@@ -78,40 +84,58 @@ var tip = {
             window.removeEventListener('resize', this.handleResize);
           },
           
+          callbackHandler:function(args){
+            this.setState({
+              currentPage:args
+            });
+
+          },
+          
         
           render: function() {
+            var background = 'url(/assets/i/shuji-2.jpg)';
+            if(this.state.currentPage !== 'index')
+              background = 'url(/assets/i/log.jpg)';
+              
+            var cont;
+            if(this.state.currentPage === 'index')
+              cont=
+                    <div>
+                      <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:'8%'}}>乐读</p>
+                      <p style={{marginTop:'2%',fontFamily:'微软雅黑',fontSize:'20'}}>记录阅读，更好的阅读</p>
+                      <div style={{marginTop:'8%'}}>
+                          <Grid>
+                              <Row>
+                                <Col xs={6} md={3}>
+                                  <MyImage src="/assets/i/biji.png" url='/calculate'/>
+                                  <p style={tip}>笔记</p>
+                                </Col>
+                                <Col xs={6} md={3}>
+                                  <MyImage src="/assets/i/shuqian.png" url='/cal'/>
+                                  <p style={tip}>书签</p>
+                                </Col>
+                                <Col xs={6} md={3}>
+                                  <MyImage src="/assets/i/shoucang.png" url='/calc'/>
+                                  <p style={tip}>收藏</p>
+                                </Col>
+                                <Col xs={6} md={3}>
+                                  <MyImage src="/assets/i/fenxiang.png" url='/calcu'/>
+                                  <p style={tip}>分享</p>
+                                </Col>
+                              </Row>
+                          </Grid>
+                      </div></div>;
+            else if(this.state.currentPage === 'login')
+                  cont = <Login/>;
+            
+            
             return (
-                <div style={{textAlign:'center',backgroundImage:'url(/assets/i/shuji-2.jpg)',backgroundSize:'cover',
-                    height:this.state.windowHeight,width:this.state.windowWidth}}>
-                    <Head/>
-                    <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:'8%'}}>乐读</p>
-                    <p style={{marginTop:'2%',fontFamily:'微软雅黑',fontSize:'20'}}>记录阅读，更好的阅读</p>
-                    
-                    <div style={{marginTop:'8%'}}>
-                        <Grid>
-                            <Row>
-                              <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/biji.png" url='/calculate'/>
-                                <p style={tip}>笔记</p>
-                              </Col>
-                              <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/shuqian.png" url='/cal'/>
-                                <p style={tip}>书签</p>
-                              </Col>
-                              <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/shoucang.png" url='/calc'/>
-                                <p style={tip}>收藏</p>
-                              </Col>
-                              <Col xs={6} md={3}>
-                                <MyImage src="/assets/i/fenxiang.png" url='/calcu'/>
-                                <p style={tip}>分享</p>
-                              </Col>
-                            </Row>
-                        </Grid>
-                    </div>
-                    <Foot/>
-                    
-                </div>
+              <div style={{textAlign:'center',backgroundImage:background,backgroundSize:'cover',
+                height:this.state.windowHeight,width:this.state.windowWidth}}>
+                <Head callback={(tag)=>{this.callbackHandler(tag)}}/>
+                {cont}
+                <Foot/>
+              </div>
             );
           }
     });

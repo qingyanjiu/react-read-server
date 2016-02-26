@@ -32,6 +32,11 @@ var Head = React.createClass({
                 isLogined:this.state.isLogined? false:true
             });
         },
+        //回调
+        toLogin:function(){
+          this.props.callback('login');
+        },
+        
         
         render:function(){
             var content = <p style={{fontSize:'24',fontFamily:'微软雅黑',paddingTop:'12',color:'#FFFFFF'}}>乐读</p>;
@@ -48,7 +53,7 @@ var Head = React.createClass({
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
                 <image src="/assets/i/regist.png" style={styles.imageStyle}/>
-                <image src="/assets/i/login.png" style={styles.imageStyle}/>
+                <image src="/assets/i/login.png" style={styles.imageStyle} onClick={()=>{this.toLogin()}}/>
                 </Col>
                 </Row>
             </Grid>
