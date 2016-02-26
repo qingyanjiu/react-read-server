@@ -20,7 +20,7 @@ var Login = React.createClass({
   render:function(){
           return(
 
-                  <div style={{backgroundColor:'#FFFFFF',borderRadius:'10',width:'400',height:'300',
+                  <div style={{backgroundColor:'rgba(255,255,255,0.6)',borderRadius:'10',width:'400',height:'300',
                     left:window.innerWidth/2-200,top:window.innerHeight/2-150,
                     position:'fixed'}}>
                     <div><h3>用户登录</h3></div>

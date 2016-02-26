@@ -37098,7 +37098,7 @@ webpackJsonp([0,1],[
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { style: { backgroundColor: '#FFFFFF', borderRadius: '10', width: '400', height: '300',
+	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '300',
 	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 150,
 	          position: 'fixed' } },
 	      React.createElement(
@@ -37164,7 +37164,7 @@ webpackJsonp([0,1],[
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { style: { backgroundColor: '#FFFFFF', borderRadius: '10', width: '400', height: '400',
+	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
 	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
 	          position: 'fixed' } },
 	      React.createElement(
