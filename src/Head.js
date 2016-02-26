@@ -36,6 +36,10 @@ var Head = React.createClass({
         toLogin:function(){
           this.props.callback('login');
         },
+        //回调
+        toRegister:function(){
+          this.props.callback('register');
+        },
         
         
         render:function(){
@@ -52,7 +56,7 @@ var Head = React.createClass({
                     {content}
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
-                <image src="/assets/i/regist.png" style={styles.imageStyle}/>
+                <image src="/assets/i/regist.png" style={styles.imageStyle} onClick={()=>{this.toRegister()}}/>
                 <image src="/assets/i/login.png" style={styles.imageStyle} onClick={()=>{this.toLogin()}}/>
                 </Col>
                 </Row>

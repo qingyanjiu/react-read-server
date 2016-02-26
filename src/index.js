@@ -9,6 +9,7 @@ var Col = require('react-bootstrap').Col;
 var Head = require('./Head');
 var Foot = require('./Foot');
 var Login = require('./Login');
+var Register = require('./Register');
     
 var tip = {
         fontFamily:'微软雅黑',
@@ -57,7 +58,7 @@ var tip = {
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
     //currentPage
     //index--首页
-    //regist--注册
+    //register--注册
     //login--登录
     var MyDiv = React.createClass({
         
@@ -127,7 +128,8 @@ var tip = {
                       </div></div>;
             else if(this.state.currentPage === 'login')
                   cont = <Login/>;
-            
+            else if(this.state.currentPage === 'register')
+                  cont = <Register/>;
             
             return (
               <div style={{textAlign:'center',backgroundImage:background,backgroundSize:'cover',

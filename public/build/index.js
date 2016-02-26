@@ -15,6 +15,7 @@ webpackJsonp([0,1],[
 	var Head = __webpack_require__(404);
 	var Foot = __webpack_require__(405);
 	var Login = __webpack_require__(406);
+	var Register = __webpack_require__(407);
 
 	var tip = {
 	  fontFamily: '微软雅黑',
@@ -62,7 +63,7 @@ webpackJsonp([0,1],[
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
 	//currentPage
 	//index--首页
-	//regist--注册
+	//register--注册
 	//login--登录
 	var MyDiv = React.createClass({
 	  displayName: 'MyDiv',
@@ -169,7 +170,7 @@ webpackJsonp([0,1],[
 	          )
 	        )
 	      )
-	    );else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);
+	    );else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
 
 	    return React.createElement(
 	      'div',
@@ -36923,6 +36924,10 @@ webpackJsonp([0,1],[
 	    toLogin: function toLogin() {
 	        this.props.callback('login');
 	    },
+	    //回调
+	    toRegister: function toRegister() {
+	        this.props.callback('register');
+	    },
 
 	    render: function render() {
 	        var _this = this;
@@ -36955,7 +36960,9 @@ webpackJsonp([0,1],[
 	                    React.createElement(
 	                        Col,
 	                        { xs: 8, sm: 8, md: 4, lg: 4 },
-	                        React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle }),
+	                        React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle, onClick: function onClick() {
+	                                _this.toRegister();
+	                            } }),
 	                        React.createElement('image', { src: '/assets/i/login.png', style: styles.imageStyle, onClick: function onClick() {
 	                                _this.toLogin();
 	                            } })
@@ -37127,6 +37134,77 @@ webpackJsonp([0,1],[
 	});
 
 	module.exports = Login;
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Button = __webpack_require__(159).Button;
+	var Input = __webpack_require__(159).Input;
+
+	var input = {
+	  paddingLeft: '10%',
+	  paddingRight: '10%',
+	  marginTop: '30'
+	};
+
+	var Register = React.createClass({
+	  displayName: 'Register',
+
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      isMouseOver: false
+	    };
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { style: { backgroundColor: '#FFFFFF', borderRadius: '10', width: '400', height: '400',
+	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
+	          position: 'fixed' } },
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h3',
+	          null,
+	          '用户注册'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { type: 'password', bsSize: 'large', placeholder: '请输入密码' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { type: 'password', bsSize: 'large', placeholder: '请再次输入密码' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' } },
+	          '注册'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Register;
 
 /***/ }
 ]);
