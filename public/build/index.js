@@ -37113,12 +37113,12 @@ webpackJsonp([0,1],[
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
+	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
 	      ),
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { type: 'password', bsSize: 'large', placeholder: '请输入密码' })
+	        React.createElement(Input, { id: 'password', type: 'password', bsSize: 'large', placeholder: '请输入密码' })
 	      ),
 	      React.createElement(
 	        'div',
@@ -37157,12 +37157,25 @@ webpackJsonp([0,1],[
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      isMouseOver: false
+	      differentPass: false
 	    };
 	  },
 
+	  checkPass: function checkPass() {
+	    var pass1 = document.getElementById('password1').value;
+	    var pass2 = document.getElementById('password2').value;
+	    if (pass1 != pass2 && pass1 != '') this.setState({
+	      differentPass: true
+	    });else if (pass1 === pass2 && pass1 != '') this.setState({
+	      differentPass: false
+	    });
+	  },
+
 	  render: function render() {
-	    return React.createElement(
+	    var _this = this;
+
+	    var content;
+	    if (this.state.differentPass) content = React.createElement(
 	      'div',
 	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
 	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
@@ -37179,17 +37192,59 @@ webpackJsonp([0,1],[
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
+	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', hasFeedback: true })
 	      ),
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { type: 'password', bsSize: 'large', placeholder: '请输入密码' })
+	        React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', bsStyle: 'error', hasFeedback: true })
 	      ),
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { type: 'password', bsSize: 'large', placeholder: '请再次输入密码' })
+	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', bsStyle: 'error', hasFeedback: true, onKeyUp: function onKeyUp() {
+	            _this.checkPass();
+	          } })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
+	          '两次密码不一致'
+	        )
+	      )
+	    );else content = React.createElement(
+	      'div',
+	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
+	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
+	          position: 'fixed' } },
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h3',
+	          null,
+	          '用户注册'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { style: input },
+	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', onKeyUp: function onKeyUp() {
+	            _this.checkPass();
+	          } })
 	      ),
 	      React.createElement(
 	        'div',
@@ -37200,6 +37255,11 @@ webpackJsonp([0,1],[
 	          '注册'
 	        )
 	      )
+	    );
+	    return React.createElement(
+	      'div',
+	      null,
+	      content
 	    );
 	  }
 	});
