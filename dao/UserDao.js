@@ -4,7 +4,7 @@ var UserSqlMapping = require('./UserSqlMapping');
 
 module.exports = {
   
-  regist: function (req, res, next) {
+  addUser: function (param) {
     db.pool.getConnection(function(err, connection) {
       var myDate = new Date();
       if(err){
@@ -16,7 +16,6 @@ module.exports = {
       connection.query(bookSqlMapping.insert, [param.username, param.password], function(err, result) {
         if(err){
           console.error(myDate.toLocaleString()+"---"+err);
-          jsonWrite(res,err);
           return "error";
         }
         if(result) {
