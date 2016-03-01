@@ -28,6 +28,33 @@ var Register = React.createClass({
         differentPass:false
       });
   },   
+  
+  regist:function(){
+    fetch('/user/regist', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+  	  body: JSON.stringify({
+    		username: document.getElementById('username').value,
+    		password: document.getElementById('password1').value
+    	})
+    })
+      .then((response) => response.json())
+      .then((json) => {this._registHandler(json)})
+      .catch((error) => {
+        alert("注册失败，请重试");
+      });
+    },
+    
+    _registHandler:function(json){
+        if(json.result === "success")
+          alert("注册成功");
+        else if(json.result === "exist")
+          alert("用户名已被使用");
+
+    },
         
   render:function(){
     var content;
@@ -50,7 +77,7 @@ var Register = React.createClass({
                     <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名" /></div>
                     <div style={input}><Input id="password1" type="password" bsSize="large" placeholder="请输入密码" /></div>
                     <div style={input}><Input id="password2" type="password" bsSize="large" placeholder="请再次输入密码"  onKeyUp={()=>{this.checkPass()}}/></div>
-                    <div style={input}><Button bsStyle="danger" bsSize="large" style={{width:'100%',borderRadius:'24'}} >注册</Button></div>
+                    <div style={input}><Button bsStyle="danger" bsSize="large" style={{width:'100%',borderRadius:'24'}} onClick={()=>{this.regist()}}>注册</Button></div>
                   </div>;
           return(
             <div>

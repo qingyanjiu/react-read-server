@@ -1,0 +1,2 @@
+1.user_info表
+--create table user_info (user_id int(4) key not null auto_increment,user_name varchar(20) not null, password varchar(100) not null,gender varchar(1),head varchar(3),regist_date varchar(20));

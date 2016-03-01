@@ -37171,8 +37171,34 @@ webpackJsonp([0,1],[
 	    });
 	  },
 
-	  render: function render() {
+	  regist: function regist() {
 	    var _this = this;
+
+	    fetch('/user/regist', {
+	      method: 'post',
+	      headers: {
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify({
+	        username: document.getElementById('username').value,
+	        password: document.getElementById('password1').value
+	      })
+	    }).then(function (response) {
+	      return response.json();
+	    }).then(function (json) {
+	      _this._registHandler(json);
+	    }).catch(function (error) {
+	      alert("注册失败，请重试");
+	    });
+	  },
+
+	  _registHandler: function _registHandler(json) {
+	    if (json.result === "success") alert("注册成功");else if (json.result === "exist") alert("用户名已被使用");
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
 
 	    var content;
 	    if (this.state.differentPass) content = React.createElement(
@@ -37203,7 +37229,7 @@ webpackJsonp([0,1],[
 	        'div',
 	        { style: input },
 	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', bsStyle: 'error', hasFeedback: true, onKeyUp: function onKeyUp() {
-	            _this.checkPass();
+	            _this2.checkPass();
 	          } })
 	      ),
 	      React.createElement(
@@ -37243,7 +37269,7 @@ webpackJsonp([0,1],[
 	        'div',
 	        { style: input },
 	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', onKeyUp: function onKeyUp() {
-	            _this.checkPass();
+	            _this2.checkPass();
 	          } })
 	      ),
 	      React.createElement(
@@ -37251,7 +37277,9 @@ webpackJsonp([0,1],[
 	        { style: input },
 	        React.createElement(
 	          Button,
-	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' } },
+	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, onClick: function onClick() {
+	              _this2.regist();
+	            } },
 	          '注册'
 	        )
 	      )
