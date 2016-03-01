@@ -1,6 +1,7 @@
 var React = require('react');
 var Button = require('react-bootstrap').Button;
 var Input = require('react-bootstrap').Input;
+var $ = require('jquery');
 
 var input = {
   paddingLeft:'10%',
@@ -29,32 +30,57 @@ var Register = React.createClass({
       });
   },   
   
-  regist:function(){
-    fetch('/user/regist', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-  	  body: JSON.stringify({
-    		username: document.getElementById('username').value,
-    		password: document.getElementById('password1').value
-    	})
-    })
-      .then((response) => response.json())
-      .then((json) => {this._registHandler(json)})
-      .catch((error) => {
-        alert("注册失败，请重试");
-      });
-    },
+  // regist:function(){
+  //   fetch('/user/regist', {
+  //     method: 'post',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  // 	  body: JSON.stringify({
+  //   		username: document.getElementById('username').value,
+  //   		password: document.getElementById('password1').value
+  //   	})
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => {this._registHandler(json)})
+  //     .catch((error) => {
+  //       alert("注册失败，请重试");
+  //     });
+  //   },
     
-    _registHandler:function(json){
-        if(json.result === "success")
-          alert("注册成功");
-        else if(json.result === "exist")
-          alert("用户名已被使用");
+  //   _registHandler:function(json){
+  //       if(json.result === "success")
+  //         alert("注册成功");
+  //       else if(json.result === "exist")
+  //         alert("用户名已被使用");
 
-    },
+  //   },
+  regist:function(){
+    $.ajax({
+          data: JSON.stringify({
+        		username: document.getElementById('username').value,
+        		password: document.getElementById('password1').value
+        	}),
+          url: '/user/regist',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          type:'post',
+          dataType: 'json',
+          cache: false,
+          timeout: 5000,
+          success: function(data){
+            if(data.result === "success")
+              alert("注册成功");
+            else if(data.result === "exist")
+              alert("用户名已被使用");
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert('error ' + textStatus + " " + errorThrown);  
+          }
+        });
+  },
+  
         
   render:function(){
     var content;
