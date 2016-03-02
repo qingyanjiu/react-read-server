@@ -7,12 +7,14 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var session = require('express-session');
 var flash = require('connect-flash');
+var fs = require('fs');
 // var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 
 var routes = require('./routes/index');
 var book = require('./routes/Books');
 var user = require('./routes/Users');
+
 
 var app = express();
 
@@ -24,7 +26,9 @@ app.use(partials());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
+
+  
 app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
 app.use(bodyParser.urlencoded({            //此项必须在 bodyParser.json 下面,为参数编码
   extended: true
@@ -38,6 +42,11 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// create a write stream (in append mode) 
+var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
+
+app.use(logger('common',
+  {stream: accessLogStream}));
 
 // app.use(session({
 //       secret: settings.cookieSecret, 
@@ -84,6 +93,8 @@ app.use('/', routes);
 app.use('/book', book);
 app.use('/user', user);
 
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -114,6 +125,8 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
 
 
 module.exports = app;

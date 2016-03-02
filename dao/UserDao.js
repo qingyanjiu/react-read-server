@@ -53,7 +53,7 @@ module.exports = {
     db.pool.getConnection(function(err, connection) {
       var myDate = new Date();
       if(err){
-        console.error(myDate.toLocaleString()+"---"+err);
+        console.log(myDate.toLocaleString()+"---"+err);
         throw err;
       }
 

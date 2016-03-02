@@ -66,6 +66,8 @@ var Register = React.createClass({
 
   //   },
   regist:function(){
+    document.getElementById('button').disabled = true;
+    
     //判断是否有为空的空格
     var username = document.getElementById('username').value;
     var password1 = document.getElementById('password1').value;
@@ -99,7 +101,7 @@ var Register = React.createClass({
               }
             },
             error: function(jqXHR, textStatus, errorThrown){
-              alert("系统出错，请稍后再试");  
+              alert("系统出错，请稍后再试");
             }
           });
       }

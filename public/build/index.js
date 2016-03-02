@@ -37107,6 +37107,8 @@ webpackJsonp([0,1],[
 	  login: function login() {
 	    var _this = this;
 
+	    document.getElementById('button').disabled = true;
+
 	    var username = document.getElementById('username').value;
 	    var password = document.getElementById('password').value;
 	    if (username === "" || password === "") {
@@ -37254,7 +37256,7 @@ webpackJsonp([0,1],[
 	            { style: input },
 	            React.createElement(
 	              Button,
-	              { bsStyle: 'success', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, onClick: function onClick() {
+	              { bsStyle: 'success', id: 'button', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, onClick: function onClick() {
 	                  _this2.login();
 	                } },
 	              '登录'
@@ -47184,6 +47186,8 @@ webpackJsonp([0,1],[
 	  //   },
 	  regist: function regist() {
 	    var _this = this;
+
+	    document.getElementById('button').disabled = true;
 
 	    //判断是否有为空的空格
 	    var username = document.getElementById('username').value;
