@@ -37158,7 +37158,9 @@ webpackJsonp([0,1],[
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      differentPass: false
+	      differentPass: false,
+	      inputEmpty: false,
+	      nameExist: false
 	    };
 	  },
 
@@ -37170,6 +37172,14 @@ webpackJsonp([0,1],[
 	    });else if (pass1 === pass2 && pass1 != '') this.setState({
 	      differentPass: false
 	    });
+	  },
+
+	  _inputHandler: function _inputHandler() {
+	    this.setState({
+	      inputEmpty: false,
+	      nameExist: false
+	    });
+	    this.checkPass();
 	  },
 
 	  // regist:function(){
@@ -37198,33 +37208,49 @@ webpackJsonp([0,1],[
 
 	  //   },
 	  regist: function regist() {
-	    $.ajax({
-	      data: JSON.stringify({
-	        username: document.getElementById('username').value,
-	        password: document.getElementById('password1').value
-	      }),
-	      url: '/user/regist',
-	      headers: {
-	        'Content-Type': 'application/json'
-	      },
-	      type: 'post',
-	      dataType: 'json',
-	      cache: false,
-	      timeout: 5000,
-	      success: function success(data) {
-	        if (data.result === "success") alert("注册成功");else if (data.result === "exist") alert("用户名已被使用");
-	      },
-	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert('error ' + textStatus + " " + errorThrown);
-	      }
-	    });
+	    var _this = this;
+
+	    //判断是否有为空的空格
+	    var username = document.getElementById('username').value;
+	    var password1 = document.getElementById('password1').value;
+	    var password2 = document.getElementById('password2').value;
+	    if (username === "" || password1 === "" || password2 === "") {
+	      this.setState({
+	        inputEmpty: true
+	      });
+	    } else {
+	      $.ajax({
+	        data: JSON.stringify({
+	          username: document.getElementById('username').value,
+	          password: document.getElementById('password1').value
+	        }),
+	        url: '/user/regist',
+	        headers: {
+	          'Content-Type': 'application/json'
+	        },
+	        type: 'post',
+	        dataType: 'json',
+	        cache: false,
+	        timeout: 5000,
+	        success: function success(data) {
+	          if (data.result === "success") alert("注册成功");else if (data.result === "exist") {
+	            _this.setState({
+	              nameExist: true
+	            });
+	          }
+	        },
+	        error: function error(jqXHR, textStatus, errorThrown) {
+	          alert('error ' + textStatus + " " + errorThrown);
+	        }
+	      });
+	    }
 	  },
 
 	  render: function render() {
-	    var _this = this;
+	    var _this2 = this;
 
 	    var content;
-	    if (this.state.differentPass) content = React.createElement(
+	    if (this.state.inputEmpty) content = React.createElement(
 	      'div',
 	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
 	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
@@ -37241,18 +37267,22 @@ webpackJsonp([0,1],[
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', hasFeedback: true })
+	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', hasFeedback: true, onChange: function onChange() {
+	            _this2._inputHandler();
+	          } })
 	      ),
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', bsStyle: 'error', hasFeedback: true })
+	        React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', hasFeedback: true, onChange: function onChange() {
+	            _this2._inputHandler();
+	          } })
 	      ),
 	      React.createElement(
 	        'div',
 	        { style: input },
-	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', bsStyle: 'error', hasFeedback: true, onKeyUp: function onKeyUp() {
-	            _this.checkPass();
+	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', hasFeedback: true, onChange: function onChange() {
+	            _this2._inputHandler();
 	          } })
 	      ),
 	      React.createElement(
@@ -37260,53 +37290,149 @@ webpackJsonp([0,1],[
 	        { style: input },
 	        React.createElement(
 	          Button,
-	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
-	          '两次密码不一致'
+	          { id: 'button', bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
+	          '输入内容不能为空'
 	        )
 	      )
-	    );else content = React.createElement(
-	      'div',
-	      { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
-	          left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
-	          position: 'fixed' } },
-	      React.createElement(
+	    );else {
+	      if (this.state.nameExist) content = React.createElement(
 	        'div',
-	        null,
+	        { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
+	            left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
+	            position: 'fixed' } },
 	        React.createElement(
-	          'h3',
+	          'div',
 	          null,
-	          '用户注册'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: input },
-	        React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名' })
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: input },
-	        React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码' })
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: input },
-	        React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', onKeyUp: function onKeyUp() {
-	            _this.checkPass();
-	          } })
-	      ),
-	      React.createElement(
-	        'div',
-	        { style: input },
+	          React.createElement(
+	            'h3',
+	            null,
+	            '用户注册'
+	          )
+	        ),
 	        React.createElement(
-	          Button,
-	          { bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, onClick: function onClick() {
-	              _this.regist();
-	            } },
-	          '注册'
+	          'div',
+	          { style: input },
+	          React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', bsStyle: 'error', hasFeedback: true, onChange: function onChange() {
+	              _this2._inputHandler();
+	            } })
+	        ),
+	        React.createElement(
+	          'div',
+	          { style: input },
+	          React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', hasFeedback: true, onChange: function onChange() {
+	              _this2._inputHandler();
+	            } })
+	        ),
+	        React.createElement(
+	          'div',
+	          { style: input },
+	          React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', hasFeedback: true, onChange: function onChange() {
+	              _this2._inputHandler();
+	            } })
+	        ),
+	        React.createElement(
+	          'div',
+	          { style: input },
+	          React.createElement(
+	            Button,
+	            { id: 'button', bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
+	            '用户名已存在'
+	          )
 	        )
-	      )
-	    );
+	      );else {
+	        if (this.state.differentPass) content = React.createElement(
+	          'div',
+	          { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
+	              left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
+	              position: 'fixed' } },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'h3',
+	              null,
+	              '用户注册'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', hasFeedback: true, onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', bsStyle: 'error', hasFeedback: true, onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', bsStyle: 'error', hasFeedback: true, onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(
+	              Button,
+	              { id: 'button', bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
+	              '两次密码不一致'
+	            )
+	          )
+	        );else content = React.createElement(
+	          'div',
+	          { style: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: '10', width: '400', height: '400',
+	              left: window.innerWidth / 2 - 200, top: window.innerHeight / 2 - 200,
+	              position: 'fixed' } },
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'h3',
+	              null,
+	              '用户注册'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'username', type: 'text', bsSize: 'large', placeholder: '请输入用户名', onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'password1', type: 'password', bsSize: 'large', placeholder: '请输入密码', onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(Input, { id: 'password2', type: 'password', bsSize: 'large', placeholder: '请再次输入密码', onChange: function onChange() {
+	                _this2._inputHandler();
+	              } })
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: input },
+	            React.createElement(
+	              Button,
+	              { id: 'button', bsStyle: 'danger', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, onClick: function onClick() {
+	                  _this2.regist();
+	                } },
+	              '注册'
+	            )
+	          )
+	        );
+	      }
+	    }
 	    return React.createElement(
 	      'div',
 	      null,
