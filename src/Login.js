@@ -1,6 +1,7 @@
 var React = require('react');
 var Button = require('react-bootstrap').Button;
 var Input = require('react-bootstrap').Input;
+var $ = require('jquery');
 
 var input = {
   paddingLeft:'10%',

@@ -1,7 +1,10 @@
 var UserDao = require('../dao/UserDao');
 
 module.exports = {
-  
+  //注册用户
+  //@param param
+  //param.username 用户名
+  //param.password1 密码
   regist: function (param,callback) {
     //先检查用户名是否已有人使用
     UserDao.checkName(param,function(err,result){
@@ -30,6 +33,35 @@ module.exports = {
 
       }
     });
-  }
+  },
+  
+  //登录系统
+  //@param param
+  //param.username 用户名
+  //param.password 密码
+  login: function (param,callback) {
+    //先检查用户名是否已有人使用
+    UserDao.getUser(param,function(err,result){
+      var ret;
+      if(err){
+        console.error("UserBusiness--regist--getUser--error");
+        throw err;
+        }
+      if(result){
+        //登录成功
+        if(result.length != 0){
+          ret = {"result":"success"};
+          callback(err,ret);
+        }
+        //用户名密码错误
+        else{
+          ret = {"result":"fail"};
+          callback(err,ret);
+        }
+
+      }
+    });
+  },
+  
   
 };

@@ -5,6 +5,7 @@ var md5 = require('md5');
 
 module.exports = {
   
+  //判断用户名是否在用户表中已经存在
   checkName:function (param,callback) {
     db.pool.getConnection(function(err, connection) {
       var myDate = new Date();
@@ -25,6 +26,7 @@ module.exports = {
     });
   },
   
+  //新增用户
   addUser: function (param,callback) {
     db.pool.getConnection(function(err, connection) {
       var myDate = new Date();
@@ -37,6 +39,28 @@ module.exports = {
       connection.query(UserSqlMapping.addUser, [param.username, md5(param.password)], function(err, result) {
         if(err){
           console.error("addUser--"+myDate.toLocaleString()+"---"+err);
+          throw err;
+        }
+        // 释放连接 
+        connection.release();
+        callback(err,result);
+      });
+    });
+  },
+  
+  //通过用户名和密码查询用户信息
+  getUser: function (param,callback) {
+    db.pool.getConnection(function(err, connection) {
+      var myDate = new Date();
+      if(err){
+        console.error(myDate.toLocaleString()+"---"+err);
+        throw err;
+      }
+
+      // 建立连接，向表中插入值
+      connection.query(UserSqlMapping.getUser, [param.username, md5(param.password)], function(err, result) {
+        if(err){
+          console.error("getUser--"+myDate.toLocaleString()+"---"+err);
           throw err;
         }
         // 释放连接 

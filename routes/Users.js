@@ -20,4 +20,21 @@ router.post('/regist', function(req, res, next) {
   });
 });
 
+router.post('/login', function(req, res, next) {
+  // 获取前台页面传过来的参数
+  var param = req.body;
+  UserBusiness.login(param,function(err,result){
+    if(err){
+      res.json({result:'error'});
+      return;
+    }
+    if(result){
+      if(result.result === "fail")
+        res.json({result:'fail'});
+      else
+        res.json({result:'success'});
+    }
+  });
+});
+
 module.exports = router;
