@@ -8,8 +8,8 @@ router.post('/regist', function(req, res, next) {
   var param = req.body;
   UserBusiness.regist(param,function(err,result){
     if(err){
-      res.json({result:'error'});
-      return;
+      console.error("UserRouter--post--regist--error");
+      throw err;
     }
     if(result){
       if(result.result === "exist")
@@ -25,8 +25,8 @@ router.post('/login', function(req, res, next) {
   var param = req.body;
   UserBusiness.login(param,function(err,result){
     if(err){
-      res.json({result:'error'});
-      return;
+      console.error("UserRouter--post--login--error");
+      throw err;
     }
     if(result){
       if(result.result === "fail")
