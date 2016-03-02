@@ -13,7 +13,7 @@ var styles ={
         imageStyle:{
             height:'46',
             paddingTop:'16',
-            paddingLeft:'2%',
+            paddingLeft:'2%', 
             cursor:'pointer'
         }
     };
