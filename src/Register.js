@@ -99,7 +99,7 @@ var Register = React.createClass({
               }
             },
             error: function(jqXHR, textStatus, errorThrown){
-              alert('error ' + textStatus + " " + errorThrown);  
+              alert("系统出错，请稍后再试");  
             }
           });
       }

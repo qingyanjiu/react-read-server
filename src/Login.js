@@ -12,23 +12,93 @@ var Login = React.createClass({
   
   getInitialState:function(){   
     return({
-      isMouseOver:false,
+      nameOrPassError:false,
+      inputEmpty:false,
     });
+  },
+  
+  _inputHandler:function(){
+    this.setState({
+      nameOrPassError:false,
+      inputEmpty:false,
+    });
+  },
+  
+  login:function(){
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    if(username === "" || password === ""){
+      this.setState({
+        inputEmpty:true
+      });
+    }
+    else{
+      $.ajax({
+            data: JSON.stringify({
+          		username: document.getElementById('username').value,
+          		password: document.getElementById('password').value
+          	}),
+            url: '/user/login',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            type:'post',
+            dataType: 'json',
+            cache: false,
+            timeout: 5000,
+            success: (data)=>{
+              if(data.result === "success")
+                alert("登录成功");
+              else if(data.result === "fail"){
+                this.setState({
+                  nameOrPassError:true
+                })
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("系统出错，请稍后再试");  
+            }
+        });
+    }
   },
         
         
   render:function(){
-          return(
-
-                  <div style={{backgroundColor:'rgba(255,255,255,0.6)',borderRadius:'10',width:'400',height:'300',
+    var content;
+    if(this.state.inputEmpty)
+      content = <div style={{backgroundColor:'rgba(255,255,255,0.6)',borderRadius:'10',width:'400',height:'300',
                     left:window.innerWidth/2-200,top:window.innerHeight/2-150,
                     position:'fixed'}}>
                     <div><h3>用户登录</h3></div>
-                    <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名"/></div>
-                    <div style={input}><Input id="password" type="password" bsSize="large" placeholder="请输入密码"/></div>
-                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}}>登录</Button></div>
-                  </div>
-
+                    <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Input id="password" type="password" bsSize="large" placeholder="请输入密码"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}} disabled>输入内容不能为空</Button></div>
+                  </div>;
+    else{
+      if(this.state.nameOrPassError)
+      content = <div style={{backgroundColor:'rgba(255,255,255,0.6)',borderRadius:'10',width:'400',height:'300',
+                    left:window.innerWidth/2-200,top:window.innerHeight/2-150,
+                    position:'fixed'}}>
+                    <div><h3>用户登录</h3></div>
+                    <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Input id="password" type="password" bsSize="large" placeholder="请输入密码"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}} disabled>用户名或密码错误</Button></div>
+                  </div>;
+      else{
+        content = <div style={{backgroundColor:'rgba(255,255,255,0.6)',borderRadius:'10',width:'400',height:'300',
+                    left:window.innerWidth/2-200,top:window.innerHeight/2-150,
+                    position:'fixed'}}>
+                    <div><h3>用户登录</h3></div>
+                    <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Input id="password" type="password" bsSize="large" placeholder="请输入密码"  onChange={()=>{this._inputHandler()}}/></div>
+                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}} onClick={()=>{this.login()}}>登录</Button></div>
+                  </div>;
+      }
+    }
+          return(
+              <div>
+                {content}
+              </div>
           );
       }
 });
