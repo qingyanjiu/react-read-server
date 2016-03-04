@@ -18,11 +18,7 @@
     "morgan": "~1.6.1",
     "mysql": "latest",
     "serve-favicon": "~2.3.0",
-    "webpack": "^1.12.13",
-    "babel-core": "^6.5.2",
-    "babel-loader": "^6.2.3",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0"
+    "webpack": "^1.12.13"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",

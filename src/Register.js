@@ -83,7 +83,7 @@ var Register = React.createClass({
           		username: document.getElementById('username').value,
           		password: document.getElementById('password1').value
           	}),
-            url: '/user/regist',
+            url: '/read/user/regist',
             headers: {
               'Content-Type': 'application/json',
             },

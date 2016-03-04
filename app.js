@@ -1,13 +1,15 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var session = require('express-session');
 var flash = require('connect-flash');
 var fs = require('fs');
+
+
 // var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 
@@ -15,8 +17,8 @@ var routes = require('./routes/index');
 var book = require('./routes/Books');
 var user = require('./routes/Users');
 
-
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,44 +30,41 @@ app.use(partials());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
-  
 app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
 app.use(bodyParser.urlencoded({            //此项必须在 bodyParser.json 下面,为参数编码
   extended: true
 }));
 app.use(cookieParser());
 
+
+//
+//session控制，过滤用户是否登录
+//
 app.use(session({
   secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
   cookie: { maxAge: 60 * 1000 }
 }));
 
+app.get('/read/', function (req, res, next) {
+  // 检查 session 中的 字段判断是否登录
+  // 如果存在则通过，否则跳转到首页
+  if(req.session.user_id) {
+    // next();
+    res.send("<div>session 在，不用重新登录哟</div>");
+  } else {
+    res.redirect('/');
+  }
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// create a write stream (in append mode) 
-var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
 
-app.use(logger('common',
-  {stream: accessLogStream}));
+app.use(morgan('common'));
 
-// app.use(session({
-//       secret: settings.cookieSecret, 
-//       key:'sid',
-//       store: new MongoStore({
-//         url: settings.url,
-//       }),
-//       resave: true,
-//       saveUninitialized: true,
-// }));
 
 app.use(flash());
 
-//app.helpers() 
-// app.locals({
-  // config: config,
-  // title: 'title'
-// });
-//app.dynamicHelpers
+
 app.use(function(req, res, next){
 
   // res.locals.title = config['title']
@@ -90,9 +89,8 @@ app.use(function(req, res, next){
 
 
 app.use('/', routes);
-app.use('/book', book);
-app.use('/user', user);
-
+app.use('/read/book', book);
+app.use('/read/user', user);
 
 
 // catch 404 and forward to error handler

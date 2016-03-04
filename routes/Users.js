@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var UserBusiness = require('../business/UserBusiness');
 
+//用户注册
 router.post('/regist', function(req, res, next) {
   // 获取前台页面传过来的参数
   // var param = req.query || req.params;
@@ -20,6 +21,15 @@ router.post('/regist', function(req, res, next) {
   });
 });
 
+//用户登录，暂时用不到
+// router.get('/login', function(req, res, next) {
+//   res.render('login', 
+// 		{
+// 	    title: '用户登录'
+// 		});
+// });
+
+//用户登录
 router.post('/login', function(req, res, next) {
   // 获取前台页面传过来的参数
   var param = req.body;
@@ -29,10 +39,18 @@ router.post('/login', function(req, res, next) {
       throw err;
     }
     if(result){
-      if(result.result === "fail")
-        res.json({result:'fail'});
-      else
+      //登录成功
+      if(result.length !== 0){
+        //用户session写入
+        req.session.user_name = result[0].user_name;
+        req.session.user_id = result[0].user_id;
+        console.log(req.session.user_name+"----"+req.session.user_id);
         res.json({result:'success'});
+      }
+      //登录失败
+      else{
+        res.json({result:'fail'});
+      }
     }
   });
 });

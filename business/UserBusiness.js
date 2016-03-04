@@ -48,17 +48,7 @@ module.exports = {
         throw err;
         }
       if(result){
-        //登录成功
-        if(result.length != 0){
-          ret = {"result":"success"};
-          callback(err,ret);
-        }
-        //用户名密码错误
-        else{
-          ret = {"result":"fail"};
-          callback(err,ret);
-        }
-
+        callback(err,result);
       }
     });
   },
