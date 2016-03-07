@@ -55,4 +55,16 @@ router.post('/login', function(req, res, next) {
   });
 });
 
+  
+  //获取当前登录用户信息
+router.post('/getUserInSession', function(req, res, next) {
+      var session = req.session;
+      
+      //用户session存在
+      if(session.user_id){
+        res.json({userInfo:{user_id:session.user_id,user_name:session.user_name}});
+        console.log("---------------"+userInfo.user_name);
+      }
+});
+
 module.exports = router;

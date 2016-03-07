@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><%=title%></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/favicon.ico?v=2" type="image/x-icon" rel="shortcut icon">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.28.3/react-bootstrap.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>-->
+<script src="/build/common.js"></script>
+
+
+
+</head>
+<body>
+<!-- form放在div上面，用于跳转，因为js是顺序加载的-->
+  <form id="form">
+    <div id="content"/>
+  </form>
+    
+  <!--这里不需要加type了，因为已经用webpack转成普通js了 -->
+  <!-- <script type="text/babel" src="/build/index.js"></script> -->
+  
+  <script type="text/javascript" src="/build/main.js"></script>
+  <!--<script type="text/javascript" src="/build/index.min.js"></script>-->
+</body>
+</html>

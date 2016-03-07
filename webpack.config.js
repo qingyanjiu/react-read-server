@@ -3,7 +3,8 @@ var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('/public/build/commo
 
 module.exports = {
     entry: {
-        index:__dirname+'/src/index.js'
+        index:__dirname+'/src/index.js',
+        main:__dirname+'/src/main.js',
         // ,DirectLogin:__dirname+'/src/DirectLogin.js' //直接登录的页面入口配置 暂时用不到
     },
     output: {

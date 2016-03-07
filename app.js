@@ -42,22 +42,25 @@ app.use(cookieParser());
 //
 app.use(session({
   secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-  cookie: { maxAge: 60 * 1000 }
+  cookie: { maxAge: 60 * 1000},
+  
 }));
 
-app.get('/read/', function (req, res, next) {
-  // 检查 session 中的 字段判断是否登录
-  // 如果存在则通过，否则跳转到首页
-  if(req.session.user_id) {
-    // next();
-    res.send("<div>session 在，不用重新登录哟</div>");
-  } else {
-    res.redirect('/');
-  }
-});
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//
+app.use(function (req, res, next) {
+  // 检查 session 中的 字段判断是否登录
+  // 如果存在则通过，否则跳转到首页
+  var url = req.originalUrl;
+    if (url != "/" && !req.session.user_id) {
+        return res.redirect("/");
+    }
+    next();
+});
 
 app.use(morgan('common'));
 

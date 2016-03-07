@@ -50,8 +50,11 @@ var Login = React.createClass({
             cache: false,
             timeout: 5000,
             success: (data)=>{
-              if(data.result === "success")
-                alert("登录成功");
+              //
+              if(data.result === "success"){
+                  document.getElementById('form').action = "/read/book/main";
+                  document.getElementById('form').submit();
+              }
               else if(data.result === "fail"){
                 this.setState({
                   nameOrPassError:true
