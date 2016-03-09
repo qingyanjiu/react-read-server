@@ -97,14 +97,12 @@ webpackJsonp([1],{
 	  },
 
 	  render: function render() {
-	    var background = 'url(/assets/i/shuji-2.jpg)';
-
 	    var cont;
 	    if (this.state.currentPage === 'index') cont = React.createElement('div', null);else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
 
 	    return React.createElement(
 	      'div',
-	      { style: { textAlign: 'center', backgroundImage: background, backgroundSize: 'cover',
+	      { style: { textAlign: 'center', backgroundColor: '#FFFFFF', backgroundSize: 'cover',
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
 	      React.createElement(MainHead, null),
 	      cont
@@ -132,6 +130,9 @@ webpackJsonp([1],{
 	var Grid = __webpack_require__(159).Grid;
 	var Row = __webpack_require__(159).Row;
 	var Col = __webpack_require__(159).Col;
+	var DropdownButton = __webpack_require__(159).DropdownButton;
+	var MenuItem = __webpack_require__(159).MenuItem;
+	var Glyphicon = __webpack_require__(159).Glyphicon;
 
 	var $ = __webpack_require__(406);
 
@@ -139,15 +140,26 @@ webpackJsonp([1],{
 	  headStyle: {
 	    width: '100%',
 	    height: '60',
-	    backgroundColor: 'rgba(219,188,86,0.4)',
+	    backgroundColor: 'rgba(0,0,0,0.3)',
 	    top: '0',
 	    position: 'fixed'
 	  },
 	  imageStyle: {
 	    height: '46',
-	    paddingTop: '16',
-	    paddingLeft: '2%',
-	    cursor: 'pointer'
+	    width: '46',
+	    marginTop: '7',
+	    marginLeft: '2%',
+	    cursor: 'pointer',
+	    backgroundColor: 'rgba(255,255,255,1)'
+	  },
+	  dropdown: {
+	    height: '46',
+	    marginTop: '7',
+	    marginLeft: '2%',
+	    cursor: 'pointer',
+	    backgroundColor: 'rgba(255,255,255,0)',
+	    border: 'none',
+	    color: '#FFFFFF'
 	  }
 	};
 
@@ -196,8 +208,7 @@ webpackJsonp([1],{
 	    var content = React.createElement(
 	      'p',
 	      { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12', color: '#FFFFFF' } },
-	      this.state.userInfo.user_name,
-	      '的乐读'
+	      '我的乐读'
 	    );
 
 	    return React.createElement(
@@ -222,12 +233,24 @@ webpackJsonp([1],{
 	          React.createElement(
 	            Col,
 	            { xs: 8, sm: 8, md: 4, lg: 4 },
-	            React.createElement('image', { src: '/assets/i/regist.png', style: styles.imageStyle, onClick: function onClick() {
+	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, onClick: function onClick() {
 	                _this2.toRegister();
-	              } }),
-	            React.createElement('image', { src: '/assets/i/login.png', style: styles.imageStyle, onClick: function onClick() {
-	                _this2.toLogin();
-	              } })
+	              }, circle: true }),
+	            React.createElement(
+	              DropdownButton,
+	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown },
+	              React.createElement(
+	                MenuItem,
+	                { eventKey: '1' },
+	                React.createElement(Glyphicon, { glyph: 'log-out' }),
+	                '    ',
+	                React.createElement(
+	                  'b',
+	                  null,
+	                  '退出登录'
+	                )
+	              )
+	            )
 	          )
 	        )
 	      )

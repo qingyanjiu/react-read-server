@@ -91,18 +91,19 @@ var tip = {
           
         
           render: function() {
-            var background = 'url(/assets/i/shuji-2.jpg)';
-              
             var cont;
             if(this.state.currentPage === 'index')
-              cont= <div/>;
+              cont= 
+                <div>
+                  
+                </div>
             else if(this.state.currentPage === 'login')
                   cont = <Login/>;
             else if(this.state.currentPage === 'register')
                   cont = <Register/>;
             
             return (
-              <div style={{textAlign:'center',backgroundImage:background,backgroundSize:'cover',
+              <div style={{textAlign:'center',backgroundColor:'#FFFFFF',backgroundSize:'cover',
                 height:this.state.windowHeight,width:this.state.windowWidth}}>
                 
                 <MainHead/>
