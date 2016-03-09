@@ -178,7 +178,6 @@ webpackJsonp([1],{
 	        _this.setState({
 	          userInfo: data.userInfo
 	        });
-	        alert(_this.state.userInfo.user_id);
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
 	        alert("系统出错，请稍后再试");

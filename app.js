@@ -55,8 +55,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
   // 检查 session 中的 字段判断是否登录
   // 如果存在则通过，否则跳转到首页
+  //首页、登录、注册请求，不会被过滤
   var url = req.originalUrl;
-    if (url != "/" && !req.session.user_id) {
+    if (url != "/" && url != "/read/user/login" && url != "/read/user/regist" && !req.session.user_id) {
         return res.redirect("/");
     }
     next();
