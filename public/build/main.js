@@ -12,6 +12,8 @@ webpackJsonp([1],{
 	var Grid = __webpack_require__(159).Grid;
 	var Row = __webpack_require__(159).Row;
 	var Col = __webpack_require__(159).Col;
+	var Carousel = __webpack_require__(159).Carousel;
+	var CarouselItem = __webpack_require__(159).CarouselItem;
 
 	var MainHead = __webpack_require__(408);
 
@@ -23,39 +25,98 @@ webpackJsonp([1],{
 	  textAlign: 'center'
 	};
 
-	//菜单按钮
-	var MyImage = React.createClass({
-	  displayName: 'MyImage',
-
-
+	//滚动图片组建
+	var SlideWindow = React.createClass({
+	  displayName: 'SlideWindow',
 	  getInitialState: function getInitialState() {
 	    return {
-	      isMouseOver: false
+	      index: 0,
+	      direction: null,
+	      h: '300'
 	    };
 	  },
-
-	  changeBack: function changeBack() {
+	  handleSelect: function handleSelect(selectedIndex, selectedDirection) {
+	    // alert('selected=' + selectedIndex + ', direction=' + selectedDirection);
 	    this.setState({
-	      isMouseOver: this.state.isMouseOver ? false : true
+	      index: selectedIndex,
+	      direction: selectedDirection
 	    });
 	  },
-
-	  goSub: function goSub() {
-	    document.getElementById('form').action = this.props.url;
-	    document.getElementById('form').submit();
-	  },
-
 	  render: function render() {
-	    var _this = this;
-
-	    var backcolor = 'rgba(255,255,255,0.4)';
-	    if (this.state.isMouseOver) backcolor = 'rgba(255,245,142,0.4)';
-	    return React.createElement(Image, { src: this.props.src, style: { width: '36%', backgroundColor: backcolor, cursor: 'pointer' }, circle: true, onClick: function onClick() {
-	        _this.goSub();
-	      },
-	      onMouseOver: this.changeBack, onMouseOut: this.changeBack });
+	    return React.createElement(
+	      Carousel,
+	      { activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect },
+	      React.createElement(
+	        CarouselItem,
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'carousel-caption' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'First slide label'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        CarouselItem,
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'carousel-caption' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'First slide label'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        CarouselItem,
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'carousel-caption' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'First slide label'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+	          )
+	        )
+	      )
+	    );
 	  }
-
 	});
 
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
@@ -98,7 +159,16 @@ webpackJsonp([1],{
 
 	  render: function render() {
 	    var cont;
-	    if (this.state.currentPage === 'index') cont = React.createElement('div', null);else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
+	    if (this.state.currentPage === 'index') cont = React.createElement(
+	      'div',
+	      { style: { paddingTop: '60', paddingBottom: '60' } },
+	      React.createElement(
+	        'p',
+	        { style: { fontFamily: '微软雅黑', fontSize: '40', paddingTop: this.state.windowHeight / 10 } },
+	        '乐读'
+	      ),
+	      React.createElement(SlideWindow, null)
+	    );else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
 
 	    return React.createElement(
 	      'div',
@@ -155,7 +225,6 @@ webpackJsonp([1],{
 	  dropdown: {
 	    height: '46',
 	    marginTop: '7',
-	    marginLeft: '2%',
 	    cursor: 'pointer',
 	    backgroundColor: 'rgba(255,255,255,0)',
 	    border: 'none',
@@ -208,9 +277,8 @@ webpackJsonp([1],{
 	    var content = React.createElement(
 	      'p',
 	      { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12', color: '#FFFFFF' } },
-	      '我的乐读'
+	      '乐读'
 	    );
-
 	    return React.createElement(
 	      'div',
 	      { style: styles.headStyle },

@@ -29,7 +29,6 @@ var styles ={
         dropdown:{
             height:'46',
             marginTop:'7',
-            marginLeft:'2%', 
             cursor:'pointer',
             backgroundColor:'rgba(255,255,255,0)',
             border:'none',
@@ -74,8 +73,10 @@ var MainHead = React.createClass({
         
         
         render:function(){
-            var content = <p style={{fontSize:'24',fontFamily:'微软雅黑',paddingTop:'12',color:'#FFFFFF'}}>我的乐读</p>;
-
+            var content = 
+              <p style={{fontSize:'24',fontFamily:'微软雅黑',paddingTop:'12',color:'#FFFFFF'}}>
+                乐读
+              </p>;
             return(
             <div style={styles.headStyle}>
             <Grid style={{width:'100%'}}>

@@ -102,7 +102,7 @@ var tip = {
             if(this.state.currentPage === 'index')
               cont=
                     <div>
-                      <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:'8%'}}>乐读</p>
+                      <p style={{fontFamily:'微软雅黑',fontSize:'60',paddingTop:this.state.windowHeight/10 + 60}}>乐读</p>
                       <p style={{marginTop:'2%',fontFamily:'微软雅黑',fontSize:'20'}}>记录阅读，更好的阅读</p>
                       <div style={{marginTop:'8%'}}>
                           <Grid>

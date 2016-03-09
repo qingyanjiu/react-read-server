@@ -111,7 +111,7 @@ webpackJsonp([0],{
 	      null,
 	      React.createElement(
 	        'p',
-	        { style: { fontFamily: '微软雅黑', fontSize: '60', paddingTop: '8%' } },
+	        { style: { fontFamily: '微软雅黑', fontSize: '60', paddingTop: this.state.windowHeight / 10 + 60 } },
 	        '乐读'
 	      ),
 	      React.createElement(
