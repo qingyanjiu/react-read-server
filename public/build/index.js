@@ -211,7 +211,7 @@ webpackJsonp([0],{
 	    headStyle: {
 	        width: '100%',
 	        height: '60',
-	        backgroundColor: 'rgba(219,188,86,0.4)',
+	        backgroundColor: 'rgba(219,188,86,0.6)',
 	        top: '0',
 	        position: 'fixed'
 	    },
@@ -293,101 +293,6 @@ webpackJsonp([0],{
 	});
 
 	module.exports = Head;
-
-/***/ },
-
-/***/ 404:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Button = __webpack_require__(159).Button;
-	var Image = __webpack_require__(159).Image;
-	var Grid = __webpack_require__(159).Grid;
-	var Row = __webpack_require__(159).Row;
-	var Col = __webpack_require__(159).Col;
-
-	var styles = {
-	    footStyle: {
-	        height: '60',
-	        width: '100%',
-	        backgroundColor: 'rgba(219,188,86,0.4)',
-	        bottom: '0',
-	        position: 'fixed'
-	    },
-	    imageStyle: {
-	        width: '26%',
-	        paddingTop: '10%',
-	        paddingRight: '8%',
-	        cursor: 'pointer'
-	    },
-	    tip: {
-	        fontFamily: '微软雅黑',
-	        fontSize: '16',
-	        paddingTop: '20',
-	        color: '#FFFFFF',
-	        cursor: 'pointer'
-	    }
-	};
-
-	//页面header
-	var Foot = React.createClass({
-	    displayName: 'Foot',
-
-
-	    render: function render() {
-	        var content = React.createElement(
-	            'p',
-	            { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12' } },
-	            '乐读'
-	        );
-
-	        return React.createElement(
-	            'div',
-	            { style: styles.footStyle },
-	            React.createElement(
-	                Grid,
-	                null,
-	                React.createElement(
-	                    Row,
-	                    null,
-	                    React.createElement(
-	                        Col,
-	                        { xsHidden: true, smHidden: true, md: 2, lg: 2 },
-	                        React.createElement('image', { src: '/assets/i/weixin.png', style: styles.imageStyle }),
-	                        React.createElement('image', { src: '/assets/i/weibo.png', style: styles.imageStyle })
-	                    ),
-	                    React.createElement(
-	                        Col,
-	                        { xs: 6, sm: 6, md: 2, lg: 2 },
-	                        React.createElement(
-	                            'p',
-	                            { style: styles.tip },
-	                            '关于乐读'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        Col,
-	                        { xs: 6, sm: 6, md: 2, lg: 2 },
-	                        React.createElement(
-	                            'p',
-	                            { style: styles.tip },
-	                            '联系我们'
-	                        )
-	                    ),
-	                    React.createElement(
-	                        Col,
-	                        { xsHidden: true, smHidden: true, md: 6, lg: 6 },
-	                        React.createElement('p', null)
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Foot;
 
 /***/ },
 

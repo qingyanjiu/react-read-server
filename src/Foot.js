@@ -9,7 +9,7 @@ var styles ={
         footStyle:{
             height:'60',
             width:'100%',
-            backgroundColor:'rgba(219,188,86,0.4)',
+            backgroundColor:'rgba(219,188,86,0.6)',
             bottom:'0',
             position:'fixed'
         },

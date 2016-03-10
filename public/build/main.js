@@ -14,8 +14,11 @@ webpackJsonp([1],{
 	var Col = __webpack_require__(159).Col;
 	var Carousel = __webpack_require__(159).Carousel;
 	var CarouselItem = __webpack_require__(159).CarouselItem;
+	var Panel = __webpack_require__(159).Panel;
 
 	var MainHead = __webpack_require__(408);
+	var Foot = __webpack_require__(404);
+	var PullButton = __webpack_require__(409);
 
 	var tip = {
 	  fontFamily: '微软雅黑',
@@ -32,7 +35,7 @@ webpackJsonp([1],{
 	    return {
 	      index: 0,
 	      direction: null,
-	      h: '300'
+	      h: 300
 	    };
 	  },
 	  handleSelect: function handleSelect(selectedIndex, selectedDirection) {
@@ -45,7 +48,7 @@ webpackJsonp([1],{
 	  render: function render() {
 	    return React.createElement(
 	      Carousel,
-	      { activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect },
+	      { activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect, indicators: false },
 	      React.createElement(
 	        CarouselItem,
 	        null,
@@ -53,20 +56,6 @@ webpackJsonp([1],{
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
 	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'carousel-caption' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            'First slide label'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-	          )
 	        )
 	      ),
 	      React.createElement(
@@ -76,20 +65,6 @@ webpackJsonp([1],{
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
 	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'carousel-caption' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            'First slide label'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-	          )
 	        )
 	      ),
 	      React.createElement(
@@ -99,20 +74,6 @@ webpackJsonp([1],{
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
 	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'carousel-caption' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            'First slide label'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Nulla vitae elit libero, a pharetra augue mollis interdum.'
-	          )
 	        )
 	      )
 	    );
@@ -161,21 +122,63 @@ webpackJsonp([1],{
 	    var cont;
 	    if (this.state.currentPage === 'index') cont = React.createElement(
 	      'div',
-	      { style: { paddingTop: '60', paddingBottom: '60' } },
+	      { style: { paddingTop: '60', paddingBottom: '60', height: '100%' } },
 	      React.createElement(
-	        'p',
-	        { style: { fontFamily: '微软雅黑', fontSize: '40', paddingTop: this.state.windowHeight / 10 } },
-	        '乐读'
+	        'div',
+	        null,
+	        React.createElement(SlideWindow, null)
 	      ),
-	      React.createElement(SlideWindow, null)
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          Grid,
+	          { style: { width: '100%' } },
+	          React.createElement(
+	            Row,
+	            null,
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#FFCC00', text: '做笔记' })
+	            ),
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#99CC00', text: '做笔记' })
+	            ),
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#CC3333', text: '做笔记' })
+	            ),
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#99CCFF', text: '做笔记' })
+	            ),
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#CC99FF', text: '做笔记' })
+	            ),
+	            React.createElement(
+	              Col,
+	              { md: 2 },
+	              React.createElement(PullButton, { backColor: '#CCCCCC', text: '做笔记' })
+	            )
+	          )
+	        )
+	      )
 	    );else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
 
 	    return React.createElement(
 	      'div',
 	      { style: { textAlign: 'center', backgroundColor: '#FFFFFF', backgroundSize: 'cover',
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
+	      cont,
 	      React.createElement(MainHead, null),
-	      cont
+	      React.createElement(Foot, null)
 	    );
 	  }
 	});
@@ -210,7 +213,7 @@ webpackJsonp([1],{
 	  headStyle: {
 	    width: '100%',
 	    height: '60',
-	    backgroundColor: 'rgba(0,0,0,0.3)',
+	    backgroundColor: 'rgba(219,188,86,0.6)',
 	    top: '0',
 	    position: 'fixed'
 	  },
@@ -327,6 +330,89 @@ webpackJsonp([1],{
 	});
 
 	module.exports = MainHead;
+
+/***/ },
+
+/***/ 409:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	//下拉按钮
+	//props:backColor 背景颜色
+	var PullButton = React.createClass({
+	  displayName: 'PullButton',
+
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      focused: false
+	    };
+	  },
+
+	  //鼠标放在按钮上时
+	  _mouseOverHandler: function _mouseOverHandler() {
+	    this.setState({
+	      focused: true
+	    });
+	  },
+
+	  //鼠标离开按钮上时
+	  _mouseOutHandler: function _mouseOutHandler() {
+	    this.setState({
+	      focused: false
+	    });
+	  },
+
+	  //回调
+	  _clickHandler: function _clickHandler() {
+	    this.props.callback('login');
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    var buttonStyle;
+	    if (this.state.focused) buttonStyle = {
+	      backgroundColor: this.props.backColor,
+	      fontFamily: '微软雅黑',
+	      fontSize: '18',
+	      paddingTop: '16',
+	      height: '60',
+	      opacity: '0.8',
+	      cursor: 'pointer',
+	      color: '#FFFFFF'
+	    };else buttonStyle = {
+	      backgroundColor: this.props.backColor,
+	      fontFamily: '微软雅黑',
+	      fontSize: '18',
+	      paddingTop: '6',
+	      height: '40',
+	      opacity: '0.8',
+	      cursor: 'pointer',
+	      color: '#000000'
+	    };
+
+	    var content = React.createElement(
+	      'div',
+	      { style: buttonStyle, onMouseOver: function onMouseOver() {
+	          _this._mouseOverHandler();
+	        }, onMouseOut: function onMouseOut() {
+	          _this._mouseOutHandler();
+	        } },
+	      this.props.text
+	    );
+	    return React.createElement(
+	      'div',
+	      null,
+	      content
+	    );
+	  }
+	});
+
+	module.exports = PullButton;
 
 /***/ }
 

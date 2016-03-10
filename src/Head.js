@@ -8,7 +8,7 @@ var styles ={
         headStyle:{
             width:'100%',
             height:'60',
-            backgroundColor:'rgba(219,188,86,0.4)',
+            backgroundColor:'rgba(219,188,86,0.6)',
             top:'0',
             position:'fixed'
         },

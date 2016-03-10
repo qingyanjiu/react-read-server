@@ -7,8 +7,11 @@ var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
 var Carousel = require('react-bootstrap').Carousel;
 var CarouselItem = require('react-bootstrap').CarouselItem;
+var Panel = require('react-bootstrap').Panel;
 
 var MainHead = require('./MainHead');
+var Foot = require('./Foot');
+var PullButton = require('./PullButton');
     
 var tip = {
         fontFamily:'微软雅黑',
@@ -17,6 +20,7 @@ var tip = {
         marginTop:'4%',
         textAlign:'center',
     };
+
     
   //滚动图片组建
   const SlideWindow = React.createClass({
@@ -24,7 +28,7 @@ var tip = {
     return {
       index: 0,
       direction: null,
-      h:'300',
+      h:300,
     };
   },
 
@@ -38,27 +42,15 @@ var tip = {
 
   render() {
     return (
-      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} >
+      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} indicators={false}>
         <CarouselItem>
           <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}><img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg"/></div>
-          <div className="carousel-caption">
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </div>
         </CarouselItem>
         <CarouselItem>
           <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}><img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg"/></div>
-          <div className="carousel-caption">
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </div>
         </CarouselItem>
         <CarouselItem>
           <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}><img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg"/></div>
-          <div className="carousel-caption">
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </div>
         </CarouselItem>
       </Carousel>
     );
@@ -108,9 +100,34 @@ var tip = {
             var cont;
             if(this.state.currentPage === 'index')
               cont= 
-                  <div style={{paddingTop:'60',paddingBottom:'60'}}>
-                    <p style={{fontFamily:'微软雅黑',fontSize:'40',paddingTop:this.state.windowHeight/10}}>乐读</p>
-                    <SlideWindow/>
+                  <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
+                    <div>
+                      <SlideWindow/>
+                    </div>
+                    <div>
+                      <Grid style={{width:'100%'}}>
+                        <Row>
+                          <Col md={2}>
+                          <PullButton backColor="#FFCC00" text="做笔记"/>
+                          </Col>
+                          <Col md={2}>
+                          <PullButton backColor="#99CC00" text="做笔记"/>
+                          </Col>
+                          <Col md={2}>
+                          <PullButton backColor="#CC3333" text="做笔记"/>
+                          </Col>
+                          <Col md={2}>
+                          <PullButton backColor="#99CCFF" text="做笔记"/>
+                          </Col>
+                          <Col md={2}>
+                          <PullButton backColor="#CC99FF" text="做笔记"/>
+                          </Col>
+                          <Col md={2}>
+                          <PullButton backColor="#CCCCCC" text="做笔记"/>
+                          </Col>
+                        </Row> 
+                      </Grid>
+                    </div>
                   </div>;
             else if(this.state.currentPage === 'login')
                   cont = <Login/>;
@@ -120,9 +137,9 @@ var tip = {
             return (
               <div style={{textAlign:'center',backgroundColor:'#FFFFFF',backgroundSize:'cover',
                 height:this.state.windowHeight,width:this.state.windowWidth}}>
-                
-                <MainHead/>
                 {cont}
+                <MainHead/>
+                <Foot/>
                 
               </div>
             );
