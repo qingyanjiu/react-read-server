@@ -55,7 +55,7 @@ webpackJsonp([1],{
 	        React.createElement(
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
 	        )
 	      ),
 	      React.createElement(
@@ -64,7 +64,7 @@ webpackJsonp([1],{
 	        React.createElement(
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
 	        )
 	      ),
 	      React.createElement(
@@ -73,7 +73,7 @@ webpackJsonp([1],{
 	        React.createElement(
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg' })
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
 	        )
 	      )
 	    );
@@ -91,15 +91,16 @@ webpackJsonp([1],{
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      windowWidth: window.innerWidth,
+	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight,
-	      currentPage: 'index'
+	      selectPage: '0',
+	      subPageBack: '#FFFFFF'
 	    };
 	  },
 
 	  handleResize: function handleResize(e) {
 	    this.setState({
-	      windowWidth: window.innerWidth,
+	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight
 	    });
 	  },
@@ -114,13 +115,23 @@ webpackJsonp([1],{
 
 	  callbackHandler: function callbackHandler(args) {
 	    this.setState({
-	      currentPage: args
+	      subPageBack: args.color,
+	      selectPage: args.currentPage
 	    });
 	  },
 
 	  render: function render() {
-	    var cont;
-	    if (this.state.currentPage === 'index') cont = React.createElement(
+	    var _this = this;
+
+	    var subContent;
+
+	    subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, opacity: '0.4', height: this.state.windowHeight - 300 - 100 - 60 - 60 } },
+	      'adkfjaklsdjflka'
+	    );
+
+	    var content = React.createElement(
 	      'div',
 	      { style: { paddingTop: '60', paddingBottom: '60', height: '100%' } },
 	      React.createElement(
@@ -140,56 +151,69 @@ webpackJsonp([1],{
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#FFCC00', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: '#99CC00', text: '启读', icon: 'book', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#99CC00', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: '#FFCC00', text: '笔记', icon: 'edit', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#CC3333', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: '#99CCFF', text: '书签', icon: 'bookmark', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#99CCFF', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: '#FA8072', text: '书评', icon: 'comment', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#CC99FF', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: '#8FBC8F', text: '毕读', icon: 'check', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { backColor: '#CCCCCC', text: '做笔记' })
+	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: '#FF69B4', text: '最爱', icon: 'heart', callback: function callback(tag) {
+	                  _this.callbackHandler(tag);
+	                } })
 	            )
 	          )
 	        )
-	      )
-	    );else if (this.state.currentPage === 'login') cont = React.createElement(Login, null);else if (this.state.currentPage === 'register') cont = React.createElement(Register, null);
+	      ),
+	      subContent
+	    );
 
 	    return React.createElement(
 	      'div',
 	      { style: { textAlign: 'center', backgroundColor: '#FFFFFF', backgroundSize: 'cover',
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
-	      cont,
+	      content,
 	      React.createElement(MainHead, null),
 	      React.createElement(Foot, null)
 	    );
 	  }
 	});
 
-	var content = React.createElement(
+	var cont = React.createElement(
 	  'div',
 	  null,
 	  React.createElement(MyDiv, null)
 	);
 
-	ReactDOM.render(content, document.getElementById('content'));
+	ReactDOM.render(cont, document.getElementById('content'));
 
 /***/ },
 
@@ -340,16 +364,35 @@ webpackJsonp([1],{
 
 	var React = __webpack_require__(1);
 
+	var Glyphicon = __webpack_require__(159).Glyphicon;
+
 	//下拉按钮
-	//props:backColor 背景颜色
+	//props:
+	//backColor 背景颜色
+	//text 文字
+	//icon 图标
+	//focused 是否激活
+	//callback 回调
+	//page 当前页面编号
 	var PullButton = React.createClass({
 	  displayName: 'PullButton',
 
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      focused: false
+	      focused: false,
+	      active: false
 	    };
+	  },
+
+	  //点击某一项时通过回调方法修改父容器中的prop值为新选中的项目selectPage值
+	  //然后将最新的selectPage值通过props传递给本组件
+	  //在该方法中对新的选中selectPage值与本组件的固定page值作比较
+	  //如果是一致的说明被选中，如果不一致说明未选中
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({
+	      active: nextProps.selectPage === nextProps.bPage ? true : false
+	    });
 	  },
 
 	  //鼠标放在按钮上时
@@ -367,29 +410,29 @@ webpackJsonp([1],{
 	  },
 
 	  //回调
-	  _clickHandler: function _clickHandler() {
-	    this.props.callback('login');
+	  _onclickHandler: function _onclickHandler() {
+	    this.props.callback({ color: this.props.backColor, currentPage: this.props.bPage });
 	  },
 
 	  render: function render() {
 	    var _this = this;
 
 	    var buttonStyle;
-	    if (this.state.focused) buttonStyle = {
+	    if (this.state.active || this.state.focused) buttonStyle = {
 	      backgroundColor: this.props.backColor,
 	      fontFamily: '微软雅黑',
-	      fontSize: '18',
-	      paddingTop: '16',
-	      height: '60',
+	      fontSize: '20',
+	      paddingTop: '35',
+	      height: '100',
 	      opacity: '0.8',
 	      cursor: 'pointer',
 	      color: '#FFFFFF'
 	    };else buttonStyle = {
 	      backgroundColor: this.props.backColor,
 	      fontFamily: '微软雅黑',
-	      fontSize: '18',
-	      paddingTop: '6',
-	      height: '40',
+	      fontSize: '20',
+	      paddingTop: '15',
+	      height: '60',
 	      opacity: '0.8',
 	      cursor: 'pointer',
 	      color: '#000000'
@@ -401,7 +444,11 @@ webpackJsonp([1],{
 	          _this._mouseOverHandler();
 	        }, onMouseOut: function onMouseOut() {
 	          _this._mouseOutHandler();
+	        }, onClick: function onClick() {
+	          _this._onclickHandler();
 	        } },
+	      React.createElement(Glyphicon, { glyph: this.props.icon }),
+	      ' ',
 	      this.props.text
 	    );
 	    return React.createElement(
