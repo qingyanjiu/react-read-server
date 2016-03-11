@@ -58,7 +58,13 @@ webpackJsonp([1],{
 	        React.createElement(
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
+	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } }),
+	          React.createElement('div', { title: '启读历史', style: { backgroundColor: 'rgba(153,204,0,0.4)', width: '30', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 10, left: (window.innerWidth + 210) / 2 } }),
+	          React.createElement('div', { title: '本书笔记', style: { backgroundColor: 'rgba(255,204,0,0.4)', width: '40', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 60, left: (window.innerWidth + 210) / 2 } }),
+	          React.createElement('div', { title: '历史书签', style: { backgroundColor: 'rgba(153,204,255,0.4)', width: '50', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 110, left: (window.innerWidth + 210) / 2 } }),
+	          React.createElement('div', { title: '历史书评', style: { backgroundColor: 'rgba(250,128,114,0.4)', width: '60', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 160, left: (window.innerWidth + 210) / 2 } }),
+	          React.createElement('div', { title: '毕读历史', style: { backgroundColor: 'rgba(143,188,143,0.4)', width: '70', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 210, left: (window.innerWidth + 210) / 2 } }),
+	          React.createElement('div', { title: '分享历史', style: { backgroundColor: 'rgba(255,105,180,0.4)', width: '80', height: '20', zIndex: '10', position: 'fixed', cursor: 'pointer', top: 260, left: (window.innerWidth + 210) / 2 } })
 	        )
 	      ),
 	      React.createElement(
@@ -126,6 +132,7 @@ webpackJsonp([1],{
 	  render: function render() {
 	    var _this = this;
 
+	    //点击不同按钮，展示不同界面
 	    var subContent;
 	    if (this.state.selectPage === '1') subContent = React.createElement(
 	      'div',
