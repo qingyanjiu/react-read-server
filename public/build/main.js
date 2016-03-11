@@ -35,7 +35,7 @@ webpackJsonp([1],{
 	    return {
 	      index: 0,
 	      direction: null,
-	      h: 300
+	      h: 400
 	    };
 	  },
 	  handleSelect: function handleSelect(selectedIndex, selectedDirection) {
@@ -127,7 +127,7 @@ webpackJsonp([1],{
 
 	    subContent = React.createElement(
 	      'div',
-	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, opacity: '0.4', height: this.state.windowHeight - 300 - 100 - 60 - 60 } },
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, opacity: '0.1', height: this.state.windowHeight - 400 - 100 - 60 - 60 } },
 	      'adkfjaklsdjflka'
 	    );
 
