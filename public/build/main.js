@@ -15,6 +15,9 @@ webpackJsonp([1],{
 	var Carousel = __webpack_require__(159).Carousel;
 	var CarouselItem = __webpack_require__(159).CarouselItem;
 	var Panel = __webpack_require__(159).Panel;
+	var ProgressBar = __webpack_require__(159).ProgressBar;
+	var Input = __webpack_require__(159).Input;
+	var Glyphicon = __webpack_require__(159).Glyphicon;
 
 	var MainHead = __webpack_require__(408);
 	var Foot = __webpack_require__(404);
@@ -35,7 +38,7 @@ webpackJsonp([1],{
 	    return {
 	      index: 0,
 	      direction: null,
-	      h: 400
+	      h: 300
 	    };
 	  },
 	  handleSelect: function handleSelect(selectedIndex, selectedDirection) {
@@ -124,11 +127,106 @@ webpackJsonp([1],{
 	    var _this = this;
 
 	    var subContent;
-
-	    subContent = React.createElement(
+	    if (this.state.selectPage === '1') subContent = React.createElement(
 	      'div',
-	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, opacity: '0.1', height: this.state.windowHeight - 400 - 100 - 60 - 60 } },
-	      'adkfjaklsdjflka'
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(
+	          'p',
+	          { style: { fontSize: '24', fontFamily: '微软雅黑', color: '#000000', paddingBottom: '10' } },
+	          '还没有开始读'
+	        ),
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'success', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'file' }),
+	          ' 开始读第 1 遍'
+	        )
+	      )
+	    );else if (this.state.selectPage === '2') subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(Input, { id: 'page', type: 'number', min: '0', max: '200', bsSize: 'large', placeholder: '页码' }),
+	        React.createElement(Input, { id: 'content', type: 'textarea', bsSize: 'large', placeholder: '文字' }),
+	        React.createElement(Input, { type: 'textarea', bsSize: 'large', placeholder: '笔记' }),
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'warning', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'pencil' }),
+	          ' 记笔记'
+	        )
+	      )
+	    );else if (this.state.selectPage === '3') subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(Input, { id: 'page', type: 'number', min: '0', max: '200', bsSize: 'large', placeholder: '页码' }),
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'info', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'pencil' }),
+	          ' 做书签'
+	        )
+	      )
+	    );else if (this.state.selectPage === '4') subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(Input, { type: 'textarea', bsSize: 'large', placeholder: '评论' }),
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'danger', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'pencil' }),
+	          ' 写书评'
+	        )
+	      )
+	    );else if (this.state.selectPage === '5') subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(
+	          'p',
+	          { style: { fontSize: '24', fontFamily: '微软雅黑', color: '#000000', paddingBottom: '10' } },
+	          '离开始读已经过了 3 天'
+	        ),
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'success', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'ok' }),
+	          ' 第 1 遍读完啦'
+	        )
+	      )
+	    );else if (this.state.selectPage === '6') subContent = React.createElement(
+	      'div',
+	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	      React.createElement(
+	        'div',
+	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'success', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'send' }),
+	          ' 分享'
+	        ),
+	        '    ',
+	        React.createElement(
+	          Button,
+	          { bsStyle: 'danger', style: { fontSize: '20' } },
+	          React.createElement(Glyphicon, { glyph: 'star' }),
+	          ' 收藏'
+	        )
+	      )
 	    );
 
 	    var content = React.createElement(
@@ -151,42 +249,42 @@ webpackJsonp([1],{
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: '#99CC00', text: '启读', icon: 'book', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: 'rgba(153,204,0,0.2)', text: '启读', icon: 'book', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: '#FFCC00', text: '笔记', icon: 'edit', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: 'rgba(255,204,0,0.2)', text: '笔记', icon: 'edit', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: '#99CCFF', text: '书签', icon: 'bookmark', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: 'rgba(153,204,255,0.2)', text: '书签', icon: 'bookmark', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: '#FA8072', text: '书评', icon: 'comment', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: 'rgba(250,128,114,0.2)', text: '书评', icon: 'comment', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: '#8FBC8F', text: '毕读', icon: 'check', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: 'rgba(143,188,143,0.2)', text: '毕读', icon: 'check', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: '#FF69B4', text: '最爱', icon: 'heart', callback: function callback(tag) {
+	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: 'rgba(255,105,180,0.2)', text: '收藏', icon: 'heart', callback: function callback(tag) {
 	                  _this.callbackHandler(tag);
 	                } })
 	            )
@@ -422,17 +520,17 @@ webpackJsonp([1],{
 	      backgroundColor: this.props.backColor,
 	      fontFamily: '微软雅黑',
 	      fontSize: '20',
-	      paddingTop: '35',
-	      height: '100',
+	      paddingTop: '25',
+	      height: '80',
 	      opacity: '0.8',
 	      cursor: 'pointer',
-	      color: '#FFFFFF'
+	      color: '#666666'
 	    };else buttonStyle = {
 	      backgroundColor: this.props.backColor,
 	      fontFamily: '微软雅黑',
 	      fontSize: '20',
-	      paddingTop: '15',
-	      height: '60',
+	      paddingTop: '12',
+	      height: '54',
 	      opacity: '0.8',
 	      cursor: 'pointer',
 	      color: '#000000'

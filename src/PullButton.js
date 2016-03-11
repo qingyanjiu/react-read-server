@@ -58,11 +58,11 @@ var PullButton = React.createClass({
                 backgroundColor:this.props.backColor,
                 fontFamily:'微软雅黑',
                 fontSize:'20',
-                paddingTop:'35',
-                height:'100',
+                paddingTop:'25',
+                height:'80',
                 opacity:'0.8',
                 cursor:'pointer',
-                color:'#FFFFFF',
+                color:'#666666',
               };
 
                 else
@@ -70,8 +70,8 @@ var PullButton = React.createClass({
                     backgroundColor:this.props.backColor,
                     fontFamily:'微软雅黑',
                     fontSize:'20',
-                    paddingTop:'15',
-                    height:'60',
+                    paddingTop:'12',
+                    height:'54',
                     opacity:'0.8',
                     cursor:'pointer',
                     color:'#000000',

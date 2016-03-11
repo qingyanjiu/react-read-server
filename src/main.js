@@ -8,6 +8,9 @@ var Col = require('react-bootstrap').Col;
 var Carousel = require('react-bootstrap').Carousel;
 var CarouselItem = require('react-bootstrap').CarouselItem;
 var Panel = require('react-bootstrap').Panel;
+var ProgressBar = require('react-bootstrap').ProgressBar;
+var Input = require('react-bootstrap').Input;
+var Glyphicon = require('react-bootstrap').Glyphicon;
 
 var MainHead = require('./MainHead');
 var Foot = require('./Foot');
@@ -28,7 +31,7 @@ var tip = {
     return {
       index: 0,
       direction: null,
-      h:400,
+      h:300,
     };
   },
 
@@ -99,12 +102,57 @@ var tip = {
         
           render: function() {
             var subContent;
-            
-            subContent = 
-                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,opacity:'0.1',height:this.state.windowHeight-400-100-60-60}}>
-                      adkfjaklsdjflka
+              if(this.state.selectPage === '1')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>还没有开始读</p>
+                        <Button bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="file"/>&nbsp;开始读第 1 遍</Button>  
+                      </div>
                     </div>;
-            
+              else if(this.state.selectPage === '2')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <Input id="page" type="number" min='0' max='200' bsSize="large" placeholder="页码"/>
+                        <Input id="content" type="textarea" bsSize="large" placeholder="文字"/>
+                        <Input type="textarea" bsSize="large" placeholder="笔记"/>
+                        <Button bsStyle="warning" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;记笔记</Button>
+                      </div>
+                    </div>;
+              else if(this.state.selectPage === '3')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <Input id="page" type="number" min='0' max='200' bsSize="large" placeholder="页码"/>
+                        <Button bsStyle="info" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;做书签</Button>
+                      </div>
+                    </div>;      
+              else if(this.state.selectPage === '4')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <Input type="textarea" bsSize="large" placeholder="评论"/>
+                        <Button bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;写书评</Button>
+                      </div>
+                    </div>;
+              else if(this.state.selectPage === '5')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>离开始读已经过了 3 天</p>
+                        <Button bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="ok"/>&nbsp;第 1 遍读完啦</Button>  
+                      </div>
+                    </div>;      
+              else if(this.state.selectPage === '6')
+                subContent = 
+                    <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
+                      <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
+                        <Button bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="send"/>&nbsp;分享</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Button bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="star"/>&nbsp;收藏</Button>  
+                      </div>
+                    </div>;      
+              
             var  content = 
                   <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
                     <div>
@@ -115,22 +163,22 @@ var tip = {
                       <Grid style={{width:'100%'}}>
                         <Row>
                           <Col md={2}>
-                          <PullButton bPage="1" selectPage={this.state.selectPage} backColor="#99CC00" text="启读" icon="book" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="1" selectPage={this.state.selectPage} backColor="rgba(153,204,0,0.2)" text="启读" icon="book" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="2" selectPage={this.state.selectPage} backColor="#FFCC00" text="笔记" icon="edit" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="2" selectPage={this.state.selectPage} backColor="rgba(255,204,0,0.2)" text="笔记" icon="edit" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="3" selectPage={this.state.selectPage} backColor="#99CCFF" text="书签" icon="bookmark" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="3" selectPage={this.state.selectPage} backColor="rgba(153,204,255,0.2)" text="书签" icon="bookmark" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="4" selectPage={this.state.selectPage} backColor="#FA8072" text="书评" icon="comment" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="4" selectPage={this.state.selectPage} backColor="rgba(250,128,114,0.2)" text="书评" icon="comment" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="#8FBC8F" text="毕读" icon="check" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="rgba(143,188,143,0.2)" text="毕读" icon="check" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="6" selectPage={this.state.selectPage} backColor="#FF69B4" text="最爱" icon="heart" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="6" selectPage={this.state.selectPage} backColor="rgba(255,105,180,0.2)" text="收藏" icon="heart" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                         </Row> 
                       </Grid>
