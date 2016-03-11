@@ -55,6 +55,7 @@ var tip = {
             <div title="历史书评" style={{backgroundColor:'rgba(250,128,114,0.4)',width:'60',height:'20',zIndex:'10',position:'fixed',cursor:'pointer',top:160,left:(window.innerWidth+210)/2}}/>
             <div title="毕读历史" style={{backgroundColor:'rgba(143,188,143,0.4)',width:'70',height:'20',zIndex:'10',position:'fixed',cursor:'pointer',top:210,left:(window.innerWidth+210)/2}}/>
             <div title="分享历史" style={{backgroundColor:'rgba(255,105,180,0.4)',width:'80',height:'20',zIndex:'10',position:'fixed',cursor:'pointer',top:260,left:(window.innerWidth+210)/2}}/>
+            
           </div>
         </CarouselItem>
         <CarouselItem>
