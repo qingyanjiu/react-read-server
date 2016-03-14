@@ -6,8 +6,9 @@ var Image = require('react-bootstrap').Image;
 var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 
-var MainHead = require('./MainHead');
+var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
+var MyPagination = require('./MyPagination');
 
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
@@ -50,17 +51,15 @@ var Foot = require('./Foot');
           render: function() {
               
             var content = 
-                  <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
-                    
-                  </div>;
-
-            
+            <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
+              <MyPagination/>;
+            </div>
             
             return (
               <div style={{textAlign:'center',backgroundColor:'#FFFFFF',backgroundSize:'cover',
                 height:this.state.windowHeight,width:this.state.windowWidth}}>
                 {content}
-                <MainHead/>
+                <SearchHead/>
                 <Foot/>
                 
               </div>

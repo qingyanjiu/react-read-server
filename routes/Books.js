@@ -10,8 +10,10 @@ router.get('/main', function(req, res, next) {
 
 
 
-router.get('/addBook', function(req, res, next) {
-  bookDao.add(req, res, next);
+router.get('/search', function(req, res, next) {
+  res.render('searchBook',{ title: '搜索图书' })
 });
+
+
 
 module.exports = router;

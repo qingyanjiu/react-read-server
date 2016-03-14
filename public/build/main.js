@@ -409,9 +409,6 @@ webpackJsonp([1],{
 	  render: function render() {
 	    var _this2 = this;
 
-	    //搜索按钮
-	    var innerGlyphicon = React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' } });
-
 	    return React.createElement(
 	      'div',
 	      { style: styles.headStyle },
@@ -426,15 +423,7 @@ webpackJsonp([1],{
 	            { xsHidden: true, smHidden: true, md: 4, lg: 4 },
 	            React.createElement('image', { src: '/assets/i/logo.png', style: { paddingTop: '10' } })
 	          ),
-	          React.createElement(
-	            Col,
-	            { xs: 4, sm: 4, md: 4, lg: 4 },
-	            React.createElement(
-	              'div',
-	              { style: { paddingLeft: '20%', paddingRight: '20%', paddingTop: '12' } },
-	              React.createElement(Input, { type: 'text', placeholder: '请输入书名搜索', addonAfter: innerGlyphicon })
-	            )
-	          ),
+	          React.createElement(Col, { xs: 4, sm: 4, md: 4, lg: 4 }),
 	          React.createElement(
 	            Col,
 	            { xs: 8, sm: 8, md: 4, lg: 4 },

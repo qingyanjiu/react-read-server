@@ -38,7 +38,7 @@ var styles ={
     };
 
 //页面header
-var MainHead = React.createClass({
+var SearchHead = React.createClass({
         
         getInitialState:function(){   
           return({
@@ -72,7 +72,30 @@ var MainHead = React.createClass({
           this.props.callback('login');
         },
         
+        startSearch:function(){
+          $.ajax({
+            url: '/read/book/search',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            type:'post',
+            dataType: 'json',
+            cache: false,
+            timeout: 5000,
+            success: (data)=>{
+              this.setState({
+                userInfo : data.userInfo
+              });
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("系统出错，请稍后再试");  
+            }
+          });
+        },
+        
         render:function(){
+          //搜索按钮
+            const innerGlyphicon = <Glyphicon glyph="search" style={{cursor:'pointer'}} onClick={()=>{this.startSearch()}}/>;
 
             return(
             <div style={styles.headStyle}>
@@ -82,6 +105,9 @@ var MainHead = React.createClass({
                 <image src="/assets/i/logo.png" style={{paddingTop:'10'}}/>
                 </Col>
                 <Col xs={4} sm={4} md={4} lg={4}>
+                  <div style={{paddingLeft:'20%',paddingRight:'20%',paddingTop:'12'}}>
+                  <Input type="text" placeholder="请输入书名搜索" addonAfter={innerGlyphicon}/>
+                  </div>
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
                 <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} onClick={()=>{this.toRegister()}} circle/>
@@ -97,4 +123,4 @@ var MainHead = React.createClass({
         }
 });
 
-module.exports = MainHead;
+module.exports = SearchHead;
