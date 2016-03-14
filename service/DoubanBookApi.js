@@ -8,6 +8,8 @@ var DoubanBookApi = {
   
   getById:'book/', //:id
   getByIsbn:'book/isbn/', //:name
+  
+  search:'book/search',
 
 };
 

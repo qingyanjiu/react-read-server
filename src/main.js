@@ -8,7 +8,6 @@ var Col = require('react-bootstrap').Col;
 var Carousel = require('react-bootstrap').Carousel;
 var CarouselItem = require('react-bootstrap').CarouselItem;
 var Panel = require('react-bootstrap').Panel;
-var ProgressBar = require('react-bootstrap').ProgressBar;
 var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 
@@ -75,10 +74,13 @@ var tip = {
     
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
-    //currentPage
-    //main--主页
-    //register--注册
-    //login--登录
+    //selectPage
+    //1--启读
+    //2--笔记
+    //3--书签
+    //4--书评
+    //5--毕读
+    //6--收藏
     var MyDiv = React.createClass({
         
         getInitialState: function() {

@@ -1,3 +1,6 @@
-var DoubanBookService = require('DoubanBookService');
+var DoubanBookService = require('./DoubanBookService');
 
-DoubanBookService.
+
+DoubanBookService.search(encodeURI("?q=心理学&fields=id,title,images"),(data)=>{
+  process.stdout.write(data);
+});

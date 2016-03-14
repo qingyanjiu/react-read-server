@@ -6,6 +6,7 @@ var Col = require('react-bootstrap').Col;
 var DropdownButton = require('react-bootstrap').DropdownButton;
 var MenuItem = require('react-bootstrap').MenuItem;
 var Glyphicon = require('react-bootstrap').Glyphicon;
+var Input = require('react-bootstrap').Input;
 
 
 var $ = require('jquery');
@@ -73,10 +74,9 @@ var MainHead = React.createClass({
         
         
         render:function(){
-            var content = 
-              <p style={{fontSize:'24',fontFamily:'微软雅黑',paddingTop:'12',color:'#FFFFFF'}}>
-                乐读
-              </p>;
+          //搜索按钮
+            const innerGlyphicon = <Glyphicon glyph="search" style={{cursor:'pointer'}}/>;
+
             return(
             <div style={styles.headStyle}>
             <Grid style={{width:'100%'}}>
@@ -85,7 +85,9 @@ var MainHead = React.createClass({
                 <image src="/assets/i/logo.png" style={{paddingTop:'10'}}/>
                 </Col>
                 <Col xs={4} sm={4} md={4} lg={4}>
-                    {content}
+                  <div style={{paddingLeft:'20%',paddingRight:'20%',paddingTop:'12'}}>
+                  <Input type="text" placeholder="请输入书名搜索" addonAfter={innerGlyphicon}/>
+                  </div>
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
                 <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} onClick={()=>{this.toRegister()}} circle/>

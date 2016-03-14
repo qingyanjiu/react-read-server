@@ -15,7 +15,6 @@ webpackJsonp([1],{
 	var Carousel = __webpack_require__(159).Carousel;
 	var CarouselItem = __webpack_require__(159).CarouselItem;
 	var Panel = __webpack_require__(159).Panel;
-	var ProgressBar = __webpack_require__(159).ProgressBar;
 	var Input = __webpack_require__(159).Input;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 
@@ -90,10 +89,13 @@ webpackJsonp([1],{
 	});
 
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
-	//currentPage
-	//main--主页
-	//register--注册
-	//login--登录
+	//selectPage
+	//1--启读
+	//2--笔记
+	//3--书签
+	//4--书评
+	//5--毕读
+	//6--收藏
 	var MyDiv = React.createClass({
 	  displayName: 'MyDiv',
 
@@ -335,6 +337,7 @@ webpackJsonp([1],{
 	var DropdownButton = __webpack_require__(159).DropdownButton;
 	var MenuItem = __webpack_require__(159).MenuItem;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
+	var Input = __webpack_require__(159).Input;
 
 	var $ = __webpack_require__(406);
 
@@ -406,11 +409,9 @@ webpackJsonp([1],{
 	  render: function render() {
 	    var _this2 = this;
 
-	    var content = React.createElement(
-	      'p',
-	      { style: { fontSize: '24', fontFamily: '微软雅黑', paddingTop: '12', color: '#FFFFFF' } },
-	      '乐读'
-	    );
+	    //搜索按钮
+	    var innerGlyphicon = React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' } });
+
 	    return React.createElement(
 	      'div',
 	      { style: styles.headStyle },
@@ -428,7 +429,11 @@ webpackJsonp([1],{
 	          React.createElement(
 	            Col,
 	            { xs: 4, sm: 4, md: 4, lg: 4 },
-	            content
+	            React.createElement(
+	              'div',
+	              { style: { paddingLeft: '20%', paddingRight: '20%', paddingTop: '12' } },
+	              React.createElement(Input, { type: 'text', placeholder: '请输入书名搜索', addonAfter: innerGlyphicon })
+	            )
 	          ),
 	          React.createElement(
 	            Col,
