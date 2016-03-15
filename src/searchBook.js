@@ -52,8 +52,8 @@ var MyPagination = require('./MyPagination');
               
             var content = 
             <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
-              <MyPagination/>;
-            </div>
+              <MyPagination/>
+            </div>;
             
             return (
               <div style={{textAlign:'center',backgroundColor:'#FFFFFF',backgroundSize:'cover',

@@ -14,6 +14,9 @@ router.get('/search', function(req, res, next) {
   res.render('searchBook',{ title: '搜索图书' })
 });
 
+router.post('/search', function(req, res, next) {
+  
+});
 
 
 module.exports = router;

@@ -9,7 +9,6 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var fs = require('fs');
 
-
 // var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 
@@ -127,8 +126,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
 
 
 module.exports = app;
