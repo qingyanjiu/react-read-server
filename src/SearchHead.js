@@ -40,7 +40,7 @@ var styles ={
 //页面header
 var SearchHead = React.createClass({
         
-        getInitialState:function(){   
+        getInitialState:function(){
           return({
             userInfo:{},
           });
@@ -62,20 +62,16 @@ var SearchHead = React.createClass({
               });
             },
             error: function(jqXHR, textStatus, errorThrown){
-              alert("系统出错，请稍后再试");  
+              alert("您的登录状态已经失效，请重新登录");  
             }
           });
-        },
-        
-        //回调
-        toLogin:function(){
-          this.props.callback('login');
         },
         
         startSearch:function(){
           $.ajax({
             data: JSON.stringify({
-          		text: document.getElementById('search').value
+          		text:document.getElementById('search').value,
+          		page: 1
           	}),
             url: '/read/book/search',
             headers: {
@@ -86,7 +82,7 @@ var SearchHead = React.createClass({
             cache: false,
             timeout: 5000,
             success: (data)=>{
-              alert(data.books[0].images.large);
+              this.props.callback(data);
             },
             error: function(jqXHR, textStatus, errorThrown){
               alert("系统出错，请稍后再试");  
@@ -96,22 +92,22 @@ var SearchHead = React.createClass({
         
         render:function(){
           //搜索按钮
-            const innerGlyphicon = <Glyphicon glyph="search" style={{cursor:'pointer'}} onClick={()=>{this.startSearch()}}/>;
+            var innerGlyphicon = <Glyphicon glyph="search" style={{cursor:'pointer'}} onClick={()=>{this.startSearch()}}/>;
 
             return(
             <div style={styles.headStyle}>
-            <Grid style={{width:'100%'}}>
+            <Grid style={{width:'100%'}} className="text-center">
                 <Row>
                 <Col xsHidden smHidden md={4} lg={4}>
                 <image src="/assets/i/logo.png" style={{paddingTop:'10'}}/>
                 </Col>
-                <Col xs={4} sm={4} md={4} lg={4}>
-                  <div style={{paddingLeft:'20%',paddingRight:'20%',paddingTop:'12'}}>
+                <Col xs={6} sm={6} md={4} lg={4}>
+                  <div style={{paddingLeft:'30%',paddingRight:'30%',paddingTop:'12'}}>
                   <Input type="text" id="search" placeholder="搜索..." addonAfter={innerGlyphicon}/>
                   </div>
                 </Col>
-                <Col xs={8} sm={8} md={4} lg={4}>
-                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} onClick={()=>{this.toRegister()}} circle/>
+                <Col xs={6} sm={6} md={4} lg={4}>
+                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/>
                 <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown}>
                   <MenuItem eventKey="1"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>

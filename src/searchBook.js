@@ -5,6 +5,8 @@ var Image = require('react-bootstrap').Image;
 
 var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
+var ListGroup = require('react-bootstrap').ListGroup;
+var ListGroupItem = require('react-bootstrap').ListGroupItem;
 
 var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
@@ -20,8 +22,8 @@ var MyPagination = require('./MyPagination');
             return ({
                 windowWidth: window.innerwidth,
                 windowHeight: window.innerHeight,
-                selectPage:'0',
-                subPageBack:'#FFFFFF'
+                bookData:{books:{}},
+                searchText:''
             });
           },
         
@@ -42,24 +44,48 @@ var MyPagination = require('./MyPagination');
           
           callbackHandler:function(args){
             this.setState({
-              subPageBack:args.color,
-              selectPage:args.currentPage
+              bookData:args,
+              searchText:args.text,
             });
           },
           
+          pagerCallbackHandler:function(args){
+            this.setState({
+              bookData:args,
+              searchText:args.text,
+            })
+          },
         
           render: function() {
-              
-            var content = 
-            <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
-              <MyPagination/>
-            </div>;
+            var content = [];
+            if(this.state.bookData.books.length>0){
+              content.push(<ListGroupItem header="书籍列表" bsStyle="success"></ListGroupItem>);
+              for(let i=0;i<this.state.bookData.books.length;i++){
+                content.push(
+                  <ListGroupItem key={this.state.bookData.books[i].id} href="#">
+                  {this.state.bookData.books[i].title} 
+                  ({this.state.bookData.books[i].author})
+                  </ListGroupItem>
+                  );
+              }
+            }
+            
+            var pager;
+            if(this.state.bookData.books.length>0)
+              pager = <MyPagination total={this.state.bookData.total} text={this.state.searchText} callback={(data)=>{this.pagerCallbackHandler(data)}}/>;
             
             return (
-              <div style={{textAlign:'center',backgroundColor:'#FFFFFF',backgroundSize:'cover',
+              <div style={{backgroundColor:'#FFFFFF',backgroundSize:'cover',
                 height:this.state.windowHeight,width:this.state.windowWidth}}>
-                {content}
-                <SearchHead/>
+                <div style={{paddingTop:'60',paddingBottom:'60',width:'100%',}}>
+                  <ListGroup style={{paddingTop:'60',paddingBottom:'60',height:'100%',paddingLeft:'10%',paddingRight:'10%',}}>
+                  {content}
+                  </ListGroup>
+                  <div className="text-center">
+                    {pager}
+                  </div>
+                </div>
+                <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>
                 
               </div>

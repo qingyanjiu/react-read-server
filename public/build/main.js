@@ -407,7 +407,6 @@ webpackJsonp([1],{
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
 
 	    return React.createElement(
 	      'div',
@@ -427,9 +426,7 @@ webpackJsonp([1],{
 	          React.createElement(
 	            Col,
 	            { xs: 8, sm: 8, md: 4, lg: 4 },
-	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, onClick: function onClick() {
-	                _this2.toRegister();
-	              }, circle: true }),
+	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, circle: true }),
 	            React.createElement(
 	              DropdownButton,
 	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown },

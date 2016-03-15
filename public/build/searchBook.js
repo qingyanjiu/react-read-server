@@ -12,6 +12,8 @@ webpackJsonp([2],{
 
 	var Input = __webpack_require__(159).Input;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
+	var ListGroup = __webpack_require__(159).ListGroup;
+	var ListGroupItem = __webpack_require__(159).ListGroupItem;
 
 	var SearchHead = __webpack_require__(410);
 	var Foot = __webpack_require__(404);
@@ -28,8 +30,8 @@ webpackJsonp([2],{
 	    return {
 	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight,
-	      selectPage: '0',
-	      subPageBack: '#FFFFFF'
+	      bookData: { books: {} },
+	      searchText: ''
 	    };
 	  },
 
@@ -50,25 +52,62 @@ webpackJsonp([2],{
 
 	  callbackHandler: function callbackHandler(args) {
 	    this.setState({
-	      subPageBack: args.color,
-	      selectPage: args.currentPage
+	      bookData: args,
+	      searchText: args.text
+	    });
+	  },
+
+	  pagerCallbackHandler: function pagerCallbackHandler(args) {
+	    this.setState({
+	      bookData: args,
+	      searchText: args.text
 	    });
 	  },
 
 	  render: function render() {
+	    var _this = this;
 
-	    var content = React.createElement(
-	      'div',
-	      { style: { paddingTop: '60', paddingBottom: '60', height: '100%' } },
-	      React.createElement(MyPagination, null)
-	    );
+	    var content = [];
+	    if (this.state.bookData.books.length > 0) {
+	      content.push(React.createElement(ListGroupItem, { header: '书籍列表', bsStyle: 'success' }));
+	      for (var i = 0; i < this.state.bookData.books.length; i++) {
+	        content.push(React.createElement(
+	          ListGroupItem,
+	          { key: this.state.bookData.books[i].id, href: '#' },
+	          this.state.bookData.books[i].title,
+	          '(',
+	          this.state.bookData.books[i].author,
+	          ')'
+	        ));
+	      }
+	    }
+
+	    var pager;
+	    if (this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
+	        _this.pagerCallbackHandler(data);
+	      } });
 
 	    return React.createElement(
 	      'div',
-	      { style: { textAlign: 'center', backgroundColor: '#FFFFFF', backgroundSize: 'cover',
+	      { style: { backgroundColor: '#FFFFFF', backgroundSize: 'cover',
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
-	      content,
-	      React.createElement(SearchHead, null),
+	      React.createElement(
+	        'div',
+	        { style: { paddingTop: '60', paddingBottom: '60', width: '100%' } },
+	        React.createElement(
+	          ListGroup,
+	          { style: { paddingTop: '60', paddingBottom: '60', height: '100%', paddingLeft: '10%', paddingRight: '10%' } },
+	          content
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'text-center' },
+	          pager
+	        )
+	      ),
+	      React.createElement(SearchHead, { callback: function callback(data) {
+	          _this.callbackHandler(data);
+	        } }),
 	      React.createElement(Foot, null)
 	    );
 	  }
@@ -156,20 +195,18 @@ webpackJsonp([2],{
 	        });
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert("系统出错，请稍后再试");
+	        alert("您的登录状态已经失效，请重新登录");
 	      }
 	    });
 	  },
 
-	  //回调
-	  toLogin: function toLogin() {
-	    this.props.callback('login');
-	  },
-
 	  startSearch: function startSearch() {
+	    var _this2 = this;
+
 	    $.ajax({
 	      data: JSON.stringify({
-	        text: document.getElementById('search').value
+	        text: document.getElementById('search').value,
+	        page: 1
 	      }),
 	      url: '/read/book/search',
 	      headers: {
@@ -180,7 +217,7 @@ webpackJsonp([2],{
 	      cache: false,
 	      timeout: 5000,
 	      success: function success(data) {
-	        alert(data.books[0].images.large);
+	        _this2.props.callback(data);
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
 	        alert("系统出错，请稍后再试");
@@ -189,11 +226,11 @@ webpackJsonp([2],{
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    //搜索按钮
 	    var innerGlyphicon = React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' }, onClick: function onClick() {
-	        _this2.startSearch();
+	        _this3.startSearch();
 	      } });
 
 	    return React.createElement(
@@ -201,7 +238,7 @@ webpackJsonp([2],{
 	      { style: styles.headStyle },
 	      React.createElement(
 	        Grid,
-	        { style: { width: '100%' } },
+	        { style: { width: '100%' }, className: 'text-center' },
 	        React.createElement(
 	          Row,
 	          null,
@@ -212,19 +249,17 @@ webpackJsonp([2],{
 	          ),
 	          React.createElement(
 	            Col,
-	            { xs: 4, sm: 4, md: 4, lg: 4 },
+	            { xs: 6, sm: 6, md: 4, lg: 4 },
 	            React.createElement(
 	              'div',
-	              { style: { paddingLeft: '20%', paddingRight: '20%', paddingTop: '12' } },
+	              { style: { paddingLeft: '30%', paddingRight: '30%', paddingTop: '12' } },
 	              React.createElement(Input, { type: 'text', id: 'search', placeholder: '搜索...', addonAfter: innerGlyphicon })
 	            )
 	          ),
 	          React.createElement(
 	            Col,
-	            { xs: 8, sm: 8, md: 4, lg: 4 },
-	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, onClick: function onClick() {
-	                _this2.toRegister();
-	              }, circle: true }),
+	            { xs: 6, sm: 6, md: 4, lg: 4 },
+	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, circle: true }),
 	            React.createElement(
 	              DropdownButton,
 	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown },
@@ -260,6 +295,8 @@ webpackJsonp([2],{
 
 	var Pagination = __webpack_require__(159).Pagination;
 
+	var $ = __webpack_require__(406);
+
 	var MyPagination = React.createClass({
 	  displayName: 'MyPagination',
 	  getInitialState: function getInitialState() {
@@ -267,9 +304,40 @@ webpackJsonp([2],{
 	      activePage: 1
 	    };
 	  },
-	  handleSelect: function handleSelect(event, selectedEvent) {
+
+
+	  //页面刷新时（开始新的搜索），将页码置为1
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    this.setState({
-	      activePage: selectedEvent.eventKey
+	      activePage: 1
+	    });
+	  },
+
+	  handleSelect: function handleSelect(event, selectedEvent) {
+	    var _this = this;
+
+	    $.ajax({
+	      data: JSON.stringify({
+	        text: this.props.text,
+	        page: selectedEvent.eventKey
+	      }),
+	      url: '/read/book/search',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this.props.callback(data);
+	        _this.setState({
+	          activePage: selectedEvent.eventKey
+	        });
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("查询书籍出错，请稍后再试");
+	      }
 	    });
 	  },
 	  render: function render() {
@@ -280,10 +348,12 @@ webpackJsonp([2],{
 	      last: true,
 	      ellipsis: true,
 	      boundaryLinks: true,
-	      items: 20,
+	      items: Math.ceil(this.props.total / 10),
 	      maxButtons: 5,
 	      activePage: this.state.activePage,
-	      onSelect: this.handleSelect });
+	      onSelect: this.handleSelect
+
+	    });
 	  }
 	});
 

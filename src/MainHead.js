@@ -76,7 +76,7 @@ var MainHead = React.createClass({
 
             return(
             <div style={styles.headStyle}>
-            <Grid style={{width:'100%'}}>
+            <Grid style={{width:'100%'}} className="text-center">
                 <Row>
                 <Col xsHidden smHidden md={4} lg={4}>
                 <image src="/assets/i/logo.png" style={{paddingTop:'10'}}/>
@@ -84,7 +84,7 @@ var MainHead = React.createClass({
                 <Col xs={4} sm={4} md={4} lg={4}>
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
-                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} onClick={()=>{this.toRegister()}} circle/>
+                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/>
                 <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown}>
                   <MenuItem eventKey="1"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>
