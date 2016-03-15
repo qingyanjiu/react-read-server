@@ -74,6 +74,9 @@ var SearchHead = React.createClass({
         
         startSearch:function(){
           $.ajax({
+            data: JSON.stringify({
+          		text: document.getElementById('search').value
+          	}),
             url: '/read/book/search',
             headers: {
               'Content-Type': 'application/json',
@@ -83,9 +86,7 @@ var SearchHead = React.createClass({
             cache: false,
             timeout: 5000,
             success: (data)=>{
-              this.setState({
-                userInfo : data.userInfo
-              });
+              alert(data.books[0].images.large);
             },
             error: function(jqXHR, textStatus, errorThrown){
               alert("系统出错，请稍后再试");  
@@ -106,7 +107,7 @@ var SearchHead = React.createClass({
                 </Col>
                 <Col xs={4} sm={4} md={4} lg={4}>
                   <div style={{paddingLeft:'20%',paddingRight:'20%',paddingTop:'12'}}>
-                  <Input type="text" placeholder="请输入书名搜索" addonAfter={innerGlyphicon}/>
+                  <Input type="text" id="search" placeholder="搜索..." addonAfter={innerGlyphicon}/>
                   </div>
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>

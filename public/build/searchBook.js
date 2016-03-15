@@ -60,8 +60,7 @@ webpackJsonp([2],{
 	    var content = React.createElement(
 	      'div',
 	      { style: { paddingTop: '60', paddingBottom: '60', height: '100%' } },
-	      React.createElement(MyPagination, null),
-	      ';'
+	      React.createElement(MyPagination, null)
 	    );
 
 	    return React.createElement(
@@ -168,9 +167,10 @@ webpackJsonp([2],{
 	  },
 
 	  startSearch: function startSearch() {
-	    var _this2 = this;
-
 	    $.ajax({
+	      data: JSON.stringify({
+	        text: document.getElementById('search').value
+	      }),
 	      url: '/read/book/search',
 	      headers: {
 	        'Content-Type': 'application/json'
@@ -180,9 +180,7 @@ webpackJsonp([2],{
 	      cache: false,
 	      timeout: 5000,
 	      success: function success(data) {
-	        _this2.setState({
-	          userInfo: data.userInfo
-	        });
+	        alert(data.books[0].images.large);
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
 	        alert("系统出错，请稍后再试");
@@ -191,11 +189,11 @@ webpackJsonp([2],{
 	  },
 
 	  render: function render() {
-	    var _this3 = this;
+	    var _this2 = this;
 
 	    //搜索按钮
 	    var innerGlyphicon = React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' }, onClick: function onClick() {
-	        _this3.startSearch();
+	        _this2.startSearch();
 	      } });
 
 	    return React.createElement(
@@ -218,14 +216,14 @@ webpackJsonp([2],{
 	            React.createElement(
 	              'div',
 	              { style: { paddingLeft: '20%', paddingRight: '20%', paddingTop: '12' } },
-	              React.createElement(Input, { type: 'text', placeholder: '请输入书名搜索', addonAfter: innerGlyphicon })
+	              React.createElement(Input, { type: 'text', id: 'search', placeholder: '搜索...', addonAfter: innerGlyphicon })
 	            )
 	          ),
 	          React.createElement(
 	            Col,
 	            { xs: 8, sm: 8, md: 4, lg: 4 },
 	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, onClick: function onClick() {
-	                _this3.toRegister();
+	                _this2.toRegister();
 	              }, circle: true }),
 	            React.createElement(
 	              DropdownButton,

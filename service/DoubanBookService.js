@@ -3,6 +3,9 @@
 var DoubanBookApi = require('./DoubanBookApi');
 var HttpsRequest = require('./HttpsRequest');
 
+//默认的分页每页数量
+var pageCount = 10;
+
 module.exports = {
   //通过isbn号获取书籍信息 
   getByIsbn: function (isbn,callback) {
@@ -25,7 +28,9 @@ module.exports = {
   // tag	查询的tag	q和tag必传其一
   // start	取结果的offset	默认为0
   // count	取结果的条数	默认为20，最大为100
-  search:function(qString,callback){
+  search:function(q,start,callback){
+    var qString = encodeURI("?q="+q+"&fields=id,title,images&start="+start+"&count="+pageCount);
+    
     let options = {
       hostname: DoubanBookApi.hostUrl,
       port: 443,
