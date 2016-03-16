@@ -119,6 +119,7 @@ var SearchHead = React.createClass({
                 </Col>
                 <Col xs={6} sm={6} md={4} lg={4}>
                   <div style={{paddingLeft:'30%',paddingRight:'30%',paddingTop:'12'}}>
+                  {/*搜索输入框*/}
                   <Input type="text" id="search" placeholder="搜索..."  buttonAfter={button} onKeyDown={(event)=>{this.pressEnterHandler(event)}}/>
                   </div>
                 </Col>
