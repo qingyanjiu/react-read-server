@@ -69,7 +69,7 @@ webpackJsonp([2],{
 
 	    var content = [];
 	    if (this.state.bookData.books.length > 0) {
-	      content.push(React.createElement(ListGroupItem, { header: '书籍列表', bsStyle: 'success' }));
+	      content.push(React.createElement(ListGroupItem, { key: '0000', header: '书籍列表', bsStyle: 'success' }));
 	      for (var i = 0; i < this.state.bookData.books.length; i++) {
 	        content.push(React.createElement(
 	          ListGroupItem,
@@ -137,6 +137,7 @@ webpackJsonp([2],{
 	var MenuItem = __webpack_require__(159).MenuItem;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 	var Input = __webpack_require__(159).Input;
+	var Button = __webpack_require__(159).Button;
 
 	var $ = __webpack_require__(406);
 
@@ -225,13 +226,34 @@ webpackJsonp([2],{
 	    });
 	  },
 
+	  pressEnterHandler: function pressEnterHandler(event) {
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+	    // enter 键
+	    if (e && e.keyCode == 13) {
+	      this.startSearch();
+	    }
+	  },
+
+	  //右侧下拉菜单
+	  handleSelect: function handleSelect(event, eventKey) {
+	    if (eventKey === '0') {
+	      document.getElementById('form').action = "/read/book/main";
+	      document.getElementById('form').submit();
+	    }
+	  },
+
+
 	  render: function render() {
 	    var _this3 = this;
 
 	    //搜索按钮
-	    var innerGlyphicon = React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' }, onClick: function onClick() {
-	        _this3.startSearch();
-	      } });
+	    var button = React.createElement(
+	      Button,
+	      { onClick: function onClick() {
+	          _this3.startSearch();
+	        } },
+	      React.createElement(Glyphicon, { glyph: 'search', style: { cursor: 'pointer' } })
+	    );
 
 	    return React.createElement(
 	      'div',
@@ -253,7 +275,9 @@ webpackJsonp([2],{
 	            React.createElement(
 	              'div',
 	              { style: { paddingLeft: '30%', paddingRight: '30%', paddingTop: '12' } },
-	              React.createElement(Input, { type: 'text', id: 'search', placeholder: '搜索...', addonAfter: innerGlyphicon })
+	              React.createElement(Input, { type: 'text', id: 'search', placeholder: '搜索...', buttonAfter: button, onKeyDown: function onKeyDown(event) {
+	                  _this3.pressEnterHandler(event);
+	                } })
 	            )
 	          ),
 	          React.createElement(
@@ -262,10 +286,21 @@ webpackJsonp([2],{
 	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, circle: true }),
 	            React.createElement(
 	              DropdownButton,
-	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown },
+	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown, onSelect: this.handleSelect },
 	              React.createElement(
 	                MenuItem,
-	                { eventKey: '1' },
+	                { eventKey: '0' },
+	                React.createElement(Glyphicon, { glyph: 'home' }),
+	                '    ',
+	                React.createElement(
+	                  'b',
+	                  null,
+	                  '返回主页'
+	                )
+	              ),
+	              React.createElement(
+	                MenuItem,
+	                { eventKey: '9' },
 	                React.createElement(Glyphicon, { glyph: 'log-out' }),
 	                '    ',
 	                React.createElement(

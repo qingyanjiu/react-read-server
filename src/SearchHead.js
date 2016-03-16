@@ -7,7 +7,7 @@ var DropdownButton = require('react-bootstrap').DropdownButton;
 var MenuItem = require('react-bootstrap').MenuItem;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var Input = require('react-bootstrap').Input;
-
+var Button = require('react-bootstrap').Button;
 
 var $ = require('jquery');
 
@@ -90,9 +90,25 @@ var SearchHead = React.createClass({
           });
         },
         
+        pressEnterHandler:function(event){
+          var e = event || window.event || arguments.callee.caller.arguments[0];
+          // enter 键
+          if(e && e.keyCode==13){
+            this.startSearch();
+          }
+        },
+        
+        //右侧下拉菜单
+        handleSelect(event, eventKey) {
+          if(eventKey === '0'){
+            document.getElementById('form').action="/read/book/main";
+            document.getElementById('form').submit();
+          }
+        },
+        
         render:function(){
           //搜索按钮
-            var innerGlyphicon = <Glyphicon glyph="search" style={{cursor:'pointer'}} onClick={()=>{this.startSearch()}}/>;
+            var button = <Button onClick={()=>{this.startSearch()}}><Glyphicon glyph="search" style={{cursor:'pointer'}}/></Button>;
 
             return(
             <div style={styles.headStyle}>
@@ -103,13 +119,16 @@ var SearchHead = React.createClass({
                 </Col>
                 <Col xs={6} sm={6} md={4} lg={4}>
                   <div style={{paddingLeft:'30%',paddingRight:'30%',paddingTop:'12'}}>
-                  <Input type="text" id="search" placeholder="搜索..." addonAfter={innerGlyphicon}/>
+                  <Input type="text" id="search" placeholder="搜索..."  buttonAfter={button} onKeyDown={(event)=>{this.pressEnterHandler(event)}}/>
                   </div>
                 </Col>
                 <Col xs={6} sm={6} md={4} lg={4}>
+                {/*用户图标*/}
                 <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/>
-                <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown}>
-                  <MenuItem eventKey="1"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
+                {/*下拉菜单*/}
+                <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown} onSelect={this.handleSelect}>
+                  <MenuItem eventKey="0"><Glyphicon glyph="home" />&nbsp;&nbsp;&nbsp;&nbsp;<b>返回主页</b></MenuItem>
+                  <MenuItem eventKey="9"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>
                 </Col>
                 </Row>

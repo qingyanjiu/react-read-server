@@ -59,7 +59,7 @@ var MyPagination = require('./MyPagination');
           render: function() {
             var content = [];
             if(this.state.bookData.books.length>0){
-              content.push(<ListGroupItem header="书籍列表" bsStyle="success"></ListGroupItem>);
+              content.push(<ListGroupItem key="0000" header="书籍列表" bsStyle="success"></ListGroupItem>);
               for(let i=0;i<this.state.bookData.books.length;i++){
                 content.push(
                   <ListGroupItem key={this.state.bookData.books[i].id} href="#">

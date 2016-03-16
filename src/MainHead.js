@@ -62,7 +62,7 @@ var MainHead = React.createClass({
               });
             },
             error: function(jqXHR, textStatus, errorThrown){
-              alert("系统出错，请稍后再试");  
+              alert("您的登录状态已经失效，请重新登录");  
             }
           });
         },
@@ -70,6 +70,14 @@ var MainHead = React.createClass({
         //回调
         toLogin:function(){
           this.props.callback('login');
+        },
+        
+        //右侧下拉菜单
+        handleSelect(event, eventKey) {
+          if(eventKey === '1'){
+            document.getElementById('form').action="/read/book/search";
+            document.getElementById('form').submit();
+          }
         },
         
         render:function(){
@@ -84,9 +92,12 @@ var MainHead = React.createClass({
                 <Col xs={4} sm={4} md={4} lg={4}>
                 </Col>
                 <Col xs={8} sm={8} md={4} lg={4}>
-                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/>
-                <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown}>
-                  <MenuItem eventKey="1"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
+                {/*用户图标*/}
+                <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/> 
+                {/*下拉菜单*/}
+                <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown} onSelect={this.handleSelect}> 
+                  <MenuItem eventKey="1"><Glyphicon glyph="tags" />&nbsp;&nbsp;&nbsp;&nbsp;<b>管理书籍</b></MenuItem>
+                  <MenuItem eventKey="9"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>
                 </Col>
                 </Row>

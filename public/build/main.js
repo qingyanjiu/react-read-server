@@ -396,7 +396,7 @@ webpackJsonp([1],{
 	        });
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert("系统出错，请稍后再试");
+	        alert("您的登录状态已经失效，请重新登录");
 	      }
 	    });
 	  },
@@ -406,6 +406,15 @@ webpackJsonp([1],{
 	    this.props.callback('login');
 	  },
 
+	  //右侧下拉菜单
+	  handleSelect: function handleSelect(event, eventKey) {
+	    if (eventKey === '1') {
+	      document.getElementById('form').action = "/read/book/search";
+	      document.getElementById('form').submit();
+	    }
+	  },
+
+
 	  render: function render() {
 
 	    return React.createElement(
@@ -413,7 +422,7 @@ webpackJsonp([1],{
 	      { style: styles.headStyle },
 	      React.createElement(
 	        Grid,
-	        { style: { width: '100%' } },
+	        { style: { width: '100%' }, className: 'text-center' },
 	        React.createElement(
 	          Row,
 	          null,
@@ -429,10 +438,21 @@ webpackJsonp([1],{
 	            React.createElement(Image, { src: '/assets/i/head_whale.jpg', style: styles.imageStyle, circle: true }),
 	            React.createElement(
 	              DropdownButton,
-	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown },
+	              { bsStyle: 'link', id: 'dropdown-button', bsSize: 'large', title: this.state.userInfo.user_name, style: styles.dropdown, onSelect: this.handleSelect },
 	              React.createElement(
 	                MenuItem,
 	                { eventKey: '1' },
+	                React.createElement(Glyphicon, { glyph: 'tags' }),
+	                '    ',
+	                React.createElement(
+	                  'b',
+	                  null,
+	                  '管理书籍'
+	                )
+	              ),
+	              React.createElement(
+	                MenuItem,
+	                { eventKey: '9' },
 	                React.createElement(Glyphicon, { glyph: 'log-out' }),
 	                '    ',
 	                React.createElement(
