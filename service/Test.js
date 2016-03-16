@@ -1,6 +1,6 @@
 var DoubanBookService = require('./DoubanBookService');
 
 
-DoubanBookService.search('心理学',0,(data)=>{
-  process.stdout.write(data);
+DoubanBookService.getById('11976406',(data)=>{
+  process.stdout.write(data.title);
 });

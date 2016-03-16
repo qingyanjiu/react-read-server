@@ -96,7 +96,7 @@ var MainHead = React.createClass({
                 <Image src="/assets/i/head_whale.jpg" style={styles.imageStyle} circle/> 
                 {/*下拉菜单*/}
                 <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown} onSelect={this.handleSelect}> 
-                  <MenuItem eventKey="1"><Glyphicon glyph="tags" />&nbsp;&nbsp;&nbsp;&nbsp;<b>管理书籍</b></MenuItem>
+                  <MenuItem eventKey="1"><Glyphicon glyph="tags" />&nbsp;&nbsp;&nbsp;&nbsp;<b>阅读管理</b></MenuItem>
                   <MenuItem eventKey="9"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>
                 </Col>

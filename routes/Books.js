@@ -11,15 +11,27 @@ router.get('/main', function(req, res, next) {
 
 
 
-
+//显示搜索页面
 router.get('/search', function(req, res, next) {
   res.render('searchBook',{ title: '搜索图书' })
 });
 
+//搜索图书
 router.post('/search', function(req, res, next) {
   // 获取前台页面传过来的参数
   var param = req.body;
   DoubanBookService.search(param.text,param.page-1,(data)=>{
+    if(data){
+      res.json(data);
+    }
+  });
+});
+
+//点击某一本书查询图书详细信息
+router.post('/detail', function(req, res, next) {
+  // 获取前台页面传过来的参数
+  var param = req.body;
+  DoubanBookService.getById(param.id,(data)=>{
     if(data){
       res.json(data);
     }

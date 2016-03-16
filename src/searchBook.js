@@ -12,6 +12,8 @@ var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
 var MyPagination = require('./MyPagination');
 
+
+var $ = require('jquery');
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
     //currentPage
@@ -23,7 +25,8 @@ var MyPagination = require('./MyPagination');
                 windowWidth: window.innerwidth,
                 windowHeight: window.innerHeight,
                 bookData:{books:{}},
-                searchText:''
+                pageType:'listPage', //当前页面类型listPage是图书列表，detailPage是图书详情
+                searchText:'',
             });
           },
         
@@ -44,6 +47,7 @@ var MyPagination = require('./MyPagination');
           
           callbackHandler:function(args){
             this.setState({
+              pageType : 'listPage',
               bookData:args,
               searchText:args.text,
             });
@@ -51,18 +55,47 @@ var MyPagination = require('./MyPagination');
           
           pagerCallbackHandler:function(args){
             this.setState({
+              pageType : 'listPage',
               bookData:args,
               searchText:args.text,
             })
           },
+          
+          //点击某一行展示书本详细信息
+          showBookDetail:function(args){
+            $.ajax({
+              data: JSON.stringify({
+            		id:args
+            	}),
+              url: '/read/book/detail',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                alert(data.title);
+                this.setState({
+                  // pageType : 'detailPage',
+                  // bookData : data
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("获取书籍信息失败，请重试");  
+              }
+            });
+          },
         
           render: function() {
             var content = [];
-            if(this.state.bookData.books.length>0){
+            if(this.state.pageType === 'listPage' && this.state.bookData.books.length>0){
               content.push(<ListGroupItem key="0000" header="书籍列表" bsStyle="success"></ListGroupItem>);
               for(let i=0;i<this.state.bookData.books.length;i++){
                 content.push(
-                  <ListGroupItem key={this.state.bookData.books[i].id} href="#">
+                  //点击某一行展示书本详细信息
+                  <ListGroupItem key={this.state.bookData.books[i].id} href="#" onClick={()=>{this.showBookDetail(this.state.bookData.books[i].id)}}>
                   {this.state.bookData.books[i].title} 
                   ({this.state.bookData.books[i].author})
                   </ListGroupItem>

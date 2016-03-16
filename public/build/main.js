@@ -447,7 +447,7 @@ webpackJsonp([1],{
 	                React.createElement(
 	                  'b',
 	                  null,
-	                  '管理书籍'
+	                  '阅读管理'
 	                )
 	              ),
 	              React.createElement(

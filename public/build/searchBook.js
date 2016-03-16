@@ -19,6 +19,8 @@ webpackJsonp([2],{
 	var Foot = __webpack_require__(404);
 	var MyPagination = __webpack_require__(411);
 
+	var $ = __webpack_require__(406);
+
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
 	//currentPage
 
@@ -31,6 +33,7 @@ webpackJsonp([2],{
 	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight,
 	      bookData: { books: {} },
+	      pageType: 'listPage', //当前页面类型listPage是图书列表，detailPage是图书详情
 	      searchText: ''
 	    };
 	  },
@@ -52,6 +55,7 @@ webpackJsonp([2],{
 
 	  callbackHandler: function callbackHandler(args) {
 	    this.setState({
+	      pageType: 'listPage',
 	      bookData: args,
 	      searchText: args.text
 	    });
@@ -59,32 +63,71 @@ webpackJsonp([2],{
 
 	  pagerCallbackHandler: function pagerCallbackHandler(args) {
 	    this.setState({
+	      pageType: 'listPage',
 	      bookData: args,
 	      searchText: args.text
 	    });
 	  },
 
-	  render: function render() {
+	  //点击某一行展示书本详细信息
+	  showBookDetail: function showBookDetail(args) {
 	    var _this = this;
 
+	    $.ajax({
+	      data: JSON.stringify({
+	        id: args
+	      }),
+	      url: '/read/book/detail',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        alert(data.title);
+	        _this.setState({
+	          // pageType : 'detailPage',
+	          // bookData : data
+	        });
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("获取书籍信息失败，请重试");
+	      }
+	    });
+	  },
+
+	  render: function render() {
+	    var _this2 = this;
+
 	    var content = [];
-	    if (this.state.bookData.books.length > 0) {
+	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) {
 	      content.push(React.createElement(ListGroupItem, { key: '0000', header: '书籍列表', bsStyle: 'success' }));
-	      for (var i = 0; i < this.state.bookData.books.length; i++) {
-	        content.push(React.createElement(
+
+	      var _loop = function _loop(i) {
+	        content.push(
+	        //点击某一行展示书本详细信息
+	        React.createElement(
 	          ListGroupItem,
-	          { key: this.state.bookData.books[i].id, href: '#' },
-	          this.state.bookData.books[i].title,
+	          { key: _this2.state.bookData.books[i].id, href: '#', onClick: function onClick() {
+	              _this2.showBookDetail(_this2.state.bookData.books[i].id);
+	            } },
+	          _this2.state.bookData.books[i].title,
 	          '(',
-	          this.state.bookData.books[i].author,
+	          _this2.state.bookData.books[i].author,
 	          ')'
 	        ));
+	      };
+
+	      for (var i = 0; i < this.state.bookData.books.length; i++) {
+	        _loop(i);
 	      }
 	    }
 
 	    var pager;
 	    if (this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
-	        _this.pagerCallbackHandler(data);
+	        _this2.pagerCallbackHandler(data);
 	      } });
 
 	    return React.createElement(
@@ -106,7 +149,7 @@ webpackJsonp([2],{
 	        )
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
-	          _this.callbackHandler(data);
+	          _this2.callbackHandler(data);
 	        } }),
 	      React.createElement(Foot, null)
 	    );

@@ -18,7 +18,25 @@ module.exports = {
     
     HttpsRequest.httpsRequest(options,(data) => {
       console.log('DoubanBookApi--getByIsbn');
-      process.stdout.write(data);
+      // process.stdout.write(data);
+    });
+  },
+  
+  //通过id获取书籍信息 
+  getById: function (id,callback) {
+    let options = {
+      hostname: DoubanBookApi.hostUrl,
+      port: 443,
+      path: DoubanBookApi.version + DoubanBookApi.getById + id,
+      method: 'GET',
+    };
+    
+    HttpsRequest.httpsRequest(options,(data) => {
+      console.log('DoubanBookApi--getById');
+      if(data){
+        var d = JSON.parse(data);
+        callback(d);
+      }
     });
   },
   
