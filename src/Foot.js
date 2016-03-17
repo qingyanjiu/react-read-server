@@ -36,7 +36,7 @@ var Foot = React.createClass({
 
             return(
             <div style={styles.footStyle}>
-            <Grid >
+            <Grid className="text-center">
                 <Row>
                 <Col xsHidden smHidden md={2} lg={2}>
                     <image src='/assets/i/weixin.png' style={styles.imageStyle}/>

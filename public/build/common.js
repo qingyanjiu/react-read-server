@@ -36822,7 +36822,7 @@
 	            { style: styles.footStyle },
 	            React.createElement(
 	                Grid,
-	                null,
+	                { className: 'text-center' },
 	                React.createElement(
 	                    Row,
 	                    null,
