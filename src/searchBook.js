@@ -2,7 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Button = require('react-bootstrap').Button;
 var Image = require('react-bootstrap').Image;
-
+var Grid = require('react-bootstrap').Grid;
+var Row = require('react-bootstrap').Row;
+var Col = require('react-bootstrap').Col;
 var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var ListGroup = require('react-bootstrap').ListGroup;
@@ -76,10 +78,9 @@ var $ = require('jquery');
               cache: false,
               timeout: 5000,
               success: (data)=>{
-                alert(data.title);
                 this.setState({
-                  // pageType : 'detailPage',
-                  // bookData : data
+                  pageType : 'detailPage',
+                  bookData : data
                 });
               },
               error: function(jqXHR, textStatus, errorThrown){
@@ -102,13 +103,16 @@ var $ = require('jquery');
                   );
               }
             }
+              
             
             var pager;
-            if(this.state.bookData.books.length>0)
+            if(this.state.pageType === 'listPage' && this.state.bookData.books.length>0)
               pager = <MyPagination total={this.state.bookData.total} text={this.state.searchText} callback={(data)=>{this.pagerCallbackHandler(data)}}/>;
             
-            return (
-              <div style={{backgroundColor:'#FFFFFF',backgroundSize:'cover',
+            var mainContent;
+            if(this.state.pageType === 'listPage')
+              mainContent = 
+              <div style={{backgroundColor:'#FEFEFE',backgroundSize:'cover',
                 height:this.state.windowHeight,width:this.state.windowWidth}}>
                 <div style={{paddingTop:'60',paddingBottom:'60',width:'100%',}}>
                   <ListGroup style={{paddingTop:'60',paddingBottom:'60',height:'100%',paddingLeft:'10%',paddingRight:'10%',}}>
@@ -120,7 +124,38 @@ var $ = require('jquery');
                 </div>
                 <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>
+              </div>;
+              
+            else if(this.state.pageType === 'detailPage')
+              mainContent = 
+              <div style={{backgroundColor:'#FEFEFE',backgroundSize:'cover',
+                height:this.state.windowHeight,width:this.state.windowWidth}}>
+                <div style={{paddingTop:'60',paddingBottom:'60',width:'100%',}}>
+                  <Grid style={{paddingTop:'60'}}>
+                    <Row>
+                      <Col xs={12} sm={12} md={4} lg={4} className="text-center">
+                        <Image src={this.state.bookData.images.large} alt={this.state.bookData.title} 
+                        style={{height:'400',borderStyle:'solid',borderWidth:'1',borderColor:'#DDDDDD'}}/>
+                      </Col>
+                      <Col xs={12} sm={12} md={8} lg={8} className="text-center">
+                        <div className="text-left" style={{height:'400',overflow:'auto'}}>
+                        <h2>{this.state.bookData.title}</h2>
+                        <h4>{this.state.bookData.author}</h4>
+                        <p style={{fontSize:'16'}}>{this.state.bookData.summary}</p>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </div>
                 
+                <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
+                <Foot/>
+              </div>;
+            
+            
+            return (
+              <div>
+                {mainContent}
               </div>
             );
           }

@@ -27,7 +27,7 @@ module.exports = {
     let options = {
       hostname: DoubanBookApi.hostUrl,
       port: 443,
-      path: DoubanBookApi.version + DoubanBookApi.getById + id,
+      path: DoubanBookApi.version + DoubanBookApi.getById + id + "?fields=id,title,images,summary,author",
       method: 'GET',
     };
     

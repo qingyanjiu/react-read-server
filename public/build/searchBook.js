@@ -9,7 +9,9 @@ webpackJsonp([2],{
 	var ReactDOM = __webpack_require__(158);
 	var Button = __webpack_require__(159).Button;
 	var Image = __webpack_require__(159).Image;
-
+	var Grid = __webpack_require__(159).Grid;
+	var Row = __webpack_require__(159).Row;
+	var Col = __webpack_require__(159).Col;
 	var Input = __webpack_require__(159).Input;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 	var ListGroup = __webpack_require__(159).ListGroup;
@@ -86,10 +88,9 @@ webpackJsonp([2],{
 	      cache: false,
 	      timeout: 5000,
 	      success: function success(data) {
-	        alert(data.title);
 	        _this.setState({
-	          // pageType : 'detailPage',
-	          // bookData : data
+	          pageType: 'detailPage',
+	          bookData: data
 	        });
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
@@ -126,13 +127,14 @@ webpackJsonp([2],{
 	    }
 
 	    var pager;
-	    if (this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
+	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
 	        _this2.pagerCallbackHandler(data);
 	      } });
 
-	    return React.createElement(
+	    var mainContent;
+	    if (this.state.pageType === 'listPage') mainContent = React.createElement(
 	      'div',
-	      { style: { backgroundColor: '#FFFFFF', backgroundSize: 'cover',
+	      { style: { backgroundColor: '#FEFEFE', backgroundSize: 'cover',
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
 	      React.createElement(
 	        'div',
@@ -152,6 +154,61 @@ webpackJsonp([2],{
 	          _this2.callbackHandler(data);
 	        } }),
 	      React.createElement(Foot, null)
+	    );else if (this.state.pageType === 'detailPage') mainContent = React.createElement(
+	      'div',
+	      { style: { backgroundColor: '#FEFEFE', backgroundSize: 'cover',
+	          height: this.state.windowHeight, width: this.state.windowWidth } },
+	      React.createElement(
+	        'div',
+	        { style: { paddingTop: '60', paddingBottom: '60', width: '100%' } },
+	        React.createElement(
+	          Grid,
+	          { style: { paddingTop: '60' } },
+	          React.createElement(
+	            Row,
+	            null,
+	            React.createElement(
+	              Col,
+	              { xs: 12, sm: 12, md: 4, lg: 4, className: 'text-center' },
+	              React.createElement(Image, { src: this.state.bookData.images.large, alt: this.state.bookData.title,
+	                style: { height: '400', borderStyle: 'solid', borderWidth: '1', borderColor: '#DDDDDD' } })
+	            ),
+	            React.createElement(
+	              Col,
+	              { xs: 12, sm: 12, md: 8, lg: 8, className: 'text-center' },
+	              React.createElement(
+	                'div',
+	                { className: 'text-left', style: { height: '400', overflow: 'auto' } },
+	                React.createElement(
+	                  'h2',
+	                  null,
+	                  this.state.bookData.title
+	                ),
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  this.state.bookData.author
+	                ),
+	                React.createElement(
+	                  'p',
+	                  { style: { fontSize: '16' } },
+	                  this.state.bookData.summary
+	                )
+	              )
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(SearchHead, { callback: function callback(data) {
+	          _this2.callbackHandler(data);
+	        } }),
+	      React.createElement(Foot, null)
+	    );
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      mainContent
 	    );
 	  }
 	});
