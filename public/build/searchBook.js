@@ -20,6 +20,7 @@ webpackJsonp([2],{
 	var SearchHead = __webpack_require__(410);
 	var Foot = __webpack_require__(404);
 	var MyPagination = __webpack_require__(411);
+	var LoadingButton = __webpack_require__(412);
 
 	var $ = __webpack_require__(406);
 
@@ -182,7 +183,10 @@ webpackJsonp([2],{
 	                React.createElement(
 	                  'h2',
 	                  null,
-	                  this.state.bookData.title
+	                  this.state.bookData.title,
+	                  '   (豆瓣评分:',
+	                  this.state.bookData.rating.average,
+	                  ')'
 	                ),
 	                React.createElement(
 	                  'h4',
@@ -198,6 +202,11 @@ webpackJsonp([2],{
 	            )
 	          )
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'text-center', style: { paddingBottom: '80' } },
+	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的书架', bsStyle: 'success' })
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
 	          _this2.callbackHandler(data);
@@ -493,6 +502,49 @@ webpackJsonp([2],{
 	});
 
 	module.exports = MyPagination;
+
+/***/ },
+
+/***/ 412:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Button = __webpack_require__(159).Button;
+
+	var LoadingButton = React.createClass({
+	  displayName: 'LoadingButton',
+	  getInitialState: function getInitialState() {
+	    return {
+	      isLoading: false
+	    };
+	  },
+	  render: function render() {
+	    var isLoading = this.state.isLoading;
+	    return React.createElement(
+	      Button,
+	      { style: { width: '160', height: '50', fontSize: '20', borderRadius: '25' },
+	        bsStyle: this.props.bsStyle,
+	        disabled: isLoading,
+	        onClick: !isLoading ? this.handleClick : null },
+	      isLoading ? this.props.loadingText : this.props.text
+	    );
+	  },
+	  handleClick: function handleClick() {
+	    var _this = this;
+
+	    this.setState({ isLoading: true });
+
+	    // This probably where you would have an `ajax` call
+	    setTimeout(function () {
+	      // Completed of async action, set loading state back
+	      _this.setState({ isLoading: false });
+	    }, 2000);
+	  }
+	});
+
+	module.exports = LoadingButton;
 
 /***/ }
 

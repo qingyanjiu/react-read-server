@@ -13,7 +13,7 @@ var ListGroupItem = require('react-bootstrap').ListGroupItem;
 var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
 var MyPagination = require('./MyPagination');
-
+var LoadingButton = require('./LoadingButton');
 
 var $ = require('jquery');
     
@@ -139,7 +139,7 @@ var $ = require('jquery');
                       </Col>
                       <Col xs={12} sm={12} md={8} lg={8} className="text-center">
                         <div className="text-left" style={{height:'400',overflow:'auto'}}>
-                        <h2>{this.state.bookData.title}</h2>
+                        <h2>{this.state.bookData.title}   (豆瓣评分:{this.state.bookData.rating.average})</h2>
                         <h4>{this.state.bookData.author}</h4>
                         <p style={{fontSize:'16'}}>{this.state.bookData.summary}</p>
                         </div>
@@ -147,7 +147,9 @@ var $ = require('jquery');
                     </Row>
                   </Grid>
                 </div>
-                
+                <div className="text-center" style={{paddingBottom:'80'}}>
+                  <LoadingButton loadingText="正在添加..." text="加入我的书架" bsStyle="success"/>
+                </div>
                 <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>
               </div>;
