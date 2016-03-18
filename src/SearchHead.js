@@ -37,7 +37,7 @@ var styles ={
         }
     };
 
-//页面header
+//搜索图书的页面header
 var SearchHead = React.createClass({
         
         getInitialState:function(){

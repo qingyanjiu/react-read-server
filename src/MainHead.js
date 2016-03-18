@@ -37,7 +37,7 @@ var styles ={
         }
     };
 
-//页面header
+//图书主界面页面header
 var MainHead = React.createClass({
         
         getInitialState:function(){   

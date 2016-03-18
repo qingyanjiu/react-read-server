@@ -4,6 +4,7 @@ var Pagination = require('react-bootstrap').Pagination;
 
 var $ = require('jquery');
 
+//分页组件，搜索图书界面用到
 const MyPagination = React.createClass({
   getInitialState() {
     return {

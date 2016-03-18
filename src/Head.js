@@ -20,7 +20,7 @@ var styles ={
         }
     };
 
-//页面header
+//首页的页面header
 var Head = React.createClass({
         
         getInitialState:function(){   

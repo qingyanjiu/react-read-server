@@ -10,7 +10,8 @@ var Head = require('./Head');
 var Foot = require('./Foot');
 var Login = require('./Login');
 var Register = require('./Register');
-    
+  
+//网站首页的js文件  
 var tip = {
         fontFamily:'微软雅黑',
         fontSize:'18',

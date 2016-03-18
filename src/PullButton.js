@@ -3,7 +3,7 @@ var React = require('react');
 var Glyphicon = require('react-bootstrap').Glyphicon;
 
 
-//下拉按钮
+//下拉按钮,阅读主界面用到了
 //props:
 //backColor 背景颜色
 //text 文字

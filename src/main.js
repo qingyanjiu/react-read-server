@@ -14,7 +14,8 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 var MainHead = require('./MainHead');
 var Foot = require('./Foot');
 var PullButton = require('./PullButton');
-    
+
+//阅读主界面的js文件    
 var tip = {
         fontFamily:'微软雅黑',
         fontSize:'18',

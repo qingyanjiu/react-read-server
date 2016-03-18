@@ -16,6 +16,7 @@ var MyPagination = require('./MyPagination');
 var LoadingButton = require('./LoadingButton');
 
 var $ = require('jquery');
+//搜索图书界面的js文件
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
     //currentPage
