@@ -148,7 +148,7 @@ var $ = require('jquery');
                   </Grid>
                 </div>
                 <div className="text-center" style={{paddingBottom:'80'}}>
-                  <LoadingButton loadingText="正在添加..." text="加入我的书架" bsStyle="success"/>
+                  <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success"/>
                 </div>
                 <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>

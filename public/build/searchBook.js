@@ -206,7 +206,7 @@ webpackJsonp([2],{
 	      React.createElement(
 	        'div',
 	        { className: 'text-center', style: { paddingBottom: '80' } },
-	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的书架', bsStyle: 'success' })
+	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success' })
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
 	          _this2.callbackHandler(data);
@@ -409,6 +409,17 @@ webpackJsonp([2],{
 	              ),
 	              React.createElement(
 	                MenuItem,
+	                { eventKey: '2' },
+	                React.createElement(Glyphicon, { glyph: 'list-alt' }),
+	                '    ',
+	                React.createElement(
+	                  'b',
+	                  null,
+	                  '阅读计划'
+	                )
+	              ),
+	              React.createElement(
+	                MenuItem,
 	                { eventKey: '9' },
 	                React.createElement(Glyphicon, { glyph: 'log-out' }),
 	                '    ',
@@ -513,6 +524,9 @@ webpackJsonp([2],{
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(159).Button;
 
+	//点击后会显示载入中文字的按钮
+	//props:loadingText:载入中的文字
+	//text:按钮的文字
 	var LoadingButton = React.createClass({
 	  displayName: 'LoadingButton',
 	  getInitialState: function getInitialState() {
@@ -524,7 +538,7 @@ webpackJsonp([2],{
 	    var isLoading = this.state.isLoading;
 	    return React.createElement(
 	      Button,
-	      { style: { width: '160', height: '50', fontSize: '20', borderRadius: '25' },
+	      { style: { height: '50', fontSize: '20', borderRadius: '25' },
 	        bsStyle: this.props.bsStyle,
 	        disabled: isLoading,
 	        onClick: !isLoading ? this.handleClick : null },

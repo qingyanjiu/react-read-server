@@ -447,7 +447,18 @@ webpackJsonp([1],{
 	                React.createElement(
 	                  'b',
 	                  null,
-	                  '阅读管理'
+	                  '选择书籍'
+	                )
+	              ),
+	              React.createElement(
+	                MenuItem,
+	                { eventKey: '2' },
+	                React.createElement(Glyphicon, { glyph: 'list-alt' }),
+	                '    ',
+	                React.createElement(
+	                  'b',
+	                  null,
+	                  '阅读计划'
 	                )
 	              ),
 	              React.createElement(

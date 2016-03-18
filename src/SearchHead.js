@@ -129,6 +129,7 @@ var SearchHead = React.createClass({
                 {/*下拉菜单*/}
                 <DropdownButton bsStyle="link" id="dropdown-button" bsSize="large" title={this.state.userInfo.user_name} style={styles.dropdown} onSelect={this.handleSelect}>
                   <MenuItem eventKey="0"><Glyphicon glyph="home" />&nbsp;&nbsp;&nbsp;&nbsp;<b>返回主页</b></MenuItem>
+                  <MenuItem eventKey="2"><Glyphicon glyph="list-alt" />&nbsp;&nbsp;&nbsp;&nbsp;<b>阅读计划</b></MenuItem>
                   <MenuItem eventKey="9"><Glyphicon glyph="log-out" />&nbsp;&nbsp;&nbsp;&nbsp;<b>退出登录</b></MenuItem>
                 </DropdownButton>
                 </Col>

@@ -1,6 +1,9 @@
 var React = require('react');
 var Button = require('react-bootstrap').Button;
 
+//点击后会显示载入中文字的按钮
+//props:loadingText:载入中的文字
+//text:按钮的文字
 const LoadingButton = React.createClass({
   getInitialState() {
     return {
@@ -11,7 +14,7 @@ const LoadingButton = React.createClass({
   render() {
     let isLoading = this.state.isLoading;
     return (
-      <Button style={{width:'160',height:'50',fontSize:'20',borderRadius:'25'}}
+      <Button style={{height:'50',fontSize:'20',borderRadius:'25'}}
         bsStyle= {this.props.bsStyle}
         disabled={isLoading}
         onClick={!isLoading ? this.handleClick : null}>
