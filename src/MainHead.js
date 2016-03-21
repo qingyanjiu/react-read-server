@@ -78,6 +78,10 @@ var MainHead = React.createClass({
             document.getElementById('form').action="/read/book/search";
             document.getElementById('form').submit();
           }
+          else if(eventKey === '2'){
+            document.getElementById('form').action="/read/book/plan";
+            document.getElementById('form').submit();
+          }
         },
         
         render:function(){

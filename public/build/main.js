@@ -22,6 +22,7 @@ webpackJsonp([1],{
 	var Foot = __webpack_require__(404);
 	var PullButton = __webpack_require__(409);
 
+	//阅读主界面的js文件   
 	var tip = {
 	  fontFamily: '微软雅黑',
 	  fontSize: '18',
@@ -367,7 +368,7 @@ webpackJsonp([1],{
 	  }
 	};
 
-	//页面header
+	//图书主界面页面header
 	var MainHead = React.createClass({
 	  displayName: 'MainHead',
 
@@ -410,6 +411,9 @@ webpackJsonp([1],{
 	  handleSelect: function handleSelect(event, eventKey) {
 	    if (eventKey === '1') {
 	      document.getElementById('form').action = "/read/book/search";
+	      document.getElementById('form').submit();
+	    } else if (eventKey === '2') {
+	      document.getElementById('form').action = "/read/book/plan";
 	      document.getElementById('form').submit();
 	    }
 	  },
@@ -493,7 +497,7 @@ webpackJsonp([1],{
 
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 
-	//下拉按钮
+	//下拉按钮,阅读主界面用到了
 	//props:
 	//backColor 背景颜色
 	//text 文字

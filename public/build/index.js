@@ -18,6 +18,7 @@ webpackJsonp([0],{
 	var Login = __webpack_require__(405);
 	var Register = __webpack_require__(407);
 
+	//网站首页的js文件 
 	var tip = {
 	  fontFamily: '微软雅黑',
 	  fontSize: '18',
@@ -223,7 +224,7 @@ webpackJsonp([0],{
 	    }
 	};
 
-	//页面header
+	//首页的页面header
 	var Head = React.createClass({
 	    displayName: 'Head',
 

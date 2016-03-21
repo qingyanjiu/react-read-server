@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([2],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
@@ -14,13 +14,10 @@ webpackJsonp([3],{
 	var Col = __webpack_require__(159).Col;
 	var Input = __webpack_require__(159).Input;
 	var Glyphicon = __webpack_require__(159).Glyphicon;
-	var ListGroup = __webpack_require__(159).ListGroup;
-	var ListGroupItem = __webpack_require__(159).ListGroupItem;
+	var Thumbnail = __webpack_require__(159).Thumbnail;
 
 	var SearchHead = __webpack_require__(410);
 	var Foot = __webpack_require__(404);
-	var MyPagination = __webpack_require__(411);
-	var LoadingButton = __webpack_require__(412);
 
 	var $ = __webpack_require__(406);
 	//搜索图书界面的js文件
@@ -57,82 +54,60 @@ webpackJsonp([3],{
 	    window.removeEventListener('resize', this.handleResize);
 	  },
 
-	  callbackHandler: function callbackHandler(args) {
-	    this.setState({
-	      pageType: 'listPage',
-	      bookData: args,
-	      searchText: args.text
-	    });
-	  },
-
-	  pagerCallbackHandler: function pagerCallbackHandler(args) {
-	    this.setState({
-	      pageType: 'listPage',
-	      bookData: args,
-	      searchText: args.text
-	    });
-	  },
-
-	  //点击某一行展示书本详细信息
-	  showBookDetail: function showBookDetail(args) {
+	  render: function render() {
 	    var _this = this;
 
-	    $.ajax({
-	      data: JSON.stringify({
-	        id: args
-	      }),
-	      url: '/read/book/detail',
-	      headers: {
-	        'Content-Type': 'application/json'
-	      },
-	      type: 'post',
-	      dataType: 'json',
-	      cache: false,
-	      timeout: 5000,
-	      success: function success(data) {
-	        _this.setState({
-	          pageType: 'detailPage',
-	          bookData: data
-	        });
-	      },
-	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert("获取书籍信息失败，请重试");
-	      }
-	    });
-	  },
-
-	  render: function render() {
-	    var _this2 = this;
-
 	    var content = [];
-	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) {
-	      content.push(React.createElement(ListGroupItem, { key: '0000', header: '书籍列表', bsStyle: 'success' }));
-
-	      var _loop = function _loop(i) {
-	        content.push(
-	        //点击某一行展示书本详细信息
+	    for (var i = 0; i < 2; i++) {
+	      content.push(
+	      //点击某一行展示书本详细信息
+	      React.createElement(
+	        Row,
+	        null,
 	        React.createElement(
-	          ListGroupItem,
-	          { key: _this2.state.bookData.books[i].id, href: '#', onClick: function onClick() {
-	              _this2.showBookDetail(_this2.state.bookData.books[i].id);
-	            } },
-	          _this2.state.bookData.books[i].title,
-	          '(',
-	          _this2.state.bookData.books[i].author,
-	          ')'
-	        ));
-	      };
-
-	      for (var i = 0; i < this.state.bookData.books.length; i++) {
-	        _loop(i);
-	      }
+	          Col,
+	          { md: 4 },
+	          React.createElement(
+	            'div',
+	            { className: 'text-center', style: { paddingBottom: '40' } },
+	            React.createElement(Image, { src: 'https://img1.doubanio.com\\/lpic\\/s1001902.jpg', style: { height: '260', borderRadius: '10', cursor: 'pointer' } }),
+	            React.createElement(
+	              'h4',
+	              null,
+	              'Thumbnail label'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          Col,
+	          { md: 4 },
+	          React.createElement(
+	            'div',
+	            { className: 'text-center', style: { paddingBottom: '40' } },
+	            React.createElement(Image, { src: 'https://img1.doubanio.com\\/lpic\\/s1001902.jpg', style: { height: '260', borderRadius: '10', cursor: 'pointer' } }),
+	            React.createElement(
+	              'h4',
+	              null,
+	              'Thumbnail label'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          Col,
+	          { md: 4 },
+	          React.createElement(
+	            'div',
+	            { className: 'text-center', style: { paddingBottom: '40' } },
+	            React.createElement(Image, { src: 'https://img1.doubanio.com\\/lpic\\/s1001902.jpg', style: { height: '260', borderRadius: '10', cursor: 'pointer' } }),
+	            React.createElement(
+	              'h4',
+	              null,
+	              'Thumbnail label'
+	            )
+	          )
+	        )
+	      ));
 	    }
-
-	    var pager;
-	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
-	        _this2.pagerCallbackHandler(data);
-	      } });
-
 	    var mainContent;
 	    if (this.state.pageType === 'listPage') mainContent = React.createElement(
 	      'div',
@@ -140,77 +115,21 @@ webpackJsonp([3],{
 	          height: this.state.windowHeight, width: this.state.windowWidth } },
 	      React.createElement(
 	        'div',
-	        { style: { paddingTop: '60', paddingBottom: '60', width: '100%' } },
+	        { style: { paddingTop: '60', paddingBottom: '60', width: '100%' }, className: 'text-center' },
 	        React.createElement(
-	          ListGroup,
-	          { style: { paddingTop: '60', paddingBottom: '60', height: '100%', paddingLeft: '10%', paddingRight: '10%' } },
-	          content
+	          'h3',
+	          null,
+	          '我的读书计划'
 	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'text-center' },
-	          pager
-	        )
-	      ),
-	      React.createElement(SearchHead, { callback: function callback(data) {
-	          _this2.callbackHandler(data);
-	        } }),
-	      React.createElement(Foot, null)
-	    );else if (this.state.pageType === 'detailPage') mainContent = React.createElement(
-	      'div',
-	      { style: { backgroundColor: '#FEFEFE', backgroundSize: 'cover',
-	          height: this.state.windowHeight, width: this.state.windowWidth } },
-	      React.createElement(
-	        'div',
-	        { style: { paddingTop: '60', paddingBottom: '60', width: '100%' } },
+	        React.createElement('hr', { width: '80%' }),
 	        React.createElement(
 	          Grid,
-	          { style: { paddingTop: '60' } },
-	          React.createElement(
-	            Row,
-	            null,
-	            React.createElement(
-	              Col,
-	              { xs: 12, sm: 12, md: 4, lg: 4, className: 'text-center' },
-	              React.createElement(Image, { src: this.state.bookData.images.large, alt: this.state.bookData.title,
-	                style: { height: '400', borderStyle: 'solid', borderWidth: '1', borderColor: '#DDDDDD' } })
-	            ),
-	            React.createElement(
-	              Col,
-	              { xs: 12, sm: 12, md: 8, lg: 8, className: 'text-center' },
-	              React.createElement(
-	                'div',
-	                { className: 'text-left', style: { height: '400', overflow: 'auto' } },
-	                React.createElement(
-	                  'h2',
-	                  null,
-	                  this.state.bookData.title,
-	                  '   (豆瓣评分:',
-	                  this.state.bookData.rating.average,
-	                  ')'
-	                ),
-	                React.createElement(
-	                  'h4',
-	                  null,
-	                  this.state.bookData.author
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { style: { fontSize: '16' } },
-	                  this.state.bookData.summary
-	                )
-	              )
-	            )
-	          )
+	          { style: { width: window.innerWidth * 7 / 10 } },
+	          content
 	        )
 	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'text-center', style: { paddingBottom: '80' } },
-	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success' })
-	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
-	          _this2.callbackHandler(data);
+	          _this.callbackHandler(data);
 	        } }),
 	      React.createElement(Foot, null)
 	    );
@@ -439,128 +358,6 @@ webpackJsonp([3],{
 	});
 
 	module.exports = SearchHead;
-
-/***/ },
-
-/***/ 411:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var Pagination = __webpack_require__(159).Pagination;
-
-	var $ = __webpack_require__(406);
-
-	//分页组件，搜索图书界面用到
-	var MyPagination = React.createClass({
-	  displayName: 'MyPagination',
-	  getInitialState: function getInitialState() {
-	    return {
-	      activePage: 1
-	    };
-	  },
-
-
-	  //页面刷新时（开始新的搜索），将页码置为1
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    this.setState({
-	      activePage: 1
-	    });
-	  },
-
-	  handleSelect: function handleSelect(event, selectedEvent) {
-	    var _this = this;
-
-	    $.ajax({
-	      data: JSON.stringify({
-	        text: this.props.text,
-	        page: selectedEvent.eventKey
-	      }),
-	      url: '/read/book/search',
-	      headers: {
-	        'Content-Type': 'application/json'
-	      },
-	      type: 'post',
-	      dataType: 'json',
-	      cache: false,
-	      timeout: 5000,
-	      success: function success(data) {
-	        _this.props.callback(data);
-	        _this.setState({
-	          activePage: selectedEvent.eventKey
-	        });
-	      },
-	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert("查询书籍出错，请稍后再试");
-	      }
-	    });
-	  },
-	  render: function render() {
-	    return React.createElement(Pagination, {
-	      prev: true,
-	      next: true,
-	      first: true,
-	      last: true,
-	      ellipsis: true,
-	      boundaryLinks: true,
-	      items: Math.ceil(this.props.total / 10),
-	      maxButtons: 5,
-	      activePage: this.state.activePage,
-	      onSelect: this.handleSelect
-
-	    });
-	  }
-	});
-
-	module.exports = MyPagination;
-
-/***/ },
-
-/***/ 412:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Button = __webpack_require__(159).Button;
-
-	//点击后会显示载入中文字的按钮
-	//props:loadingText:载入中的文字
-	//text:按钮的文字
-	var LoadingButton = React.createClass({
-	  displayName: 'LoadingButton',
-	  getInitialState: function getInitialState() {
-	    return {
-	      isLoading: false
-	    };
-	  },
-	  render: function render() {
-	    var isLoading = this.state.isLoading;
-	    return React.createElement(
-	      Button,
-	      { style: { height: '50', fontSize: '20', borderRadius: '25' },
-	        bsStyle: this.props.bsStyle,
-	        disabled: isLoading,
-	        onClick: !isLoading ? this.handleClick : null },
-	      isLoading ? this.props.loadingText : this.props.text
-	    );
-	  },
-	  handleClick: function handleClick() {
-	    var _this = this;
-
-	    this.setState({ isLoading: true });
-
-	    // This probably where you would have an `ajax` call
-	    setTimeout(function () {
-	      // Completed of async action, set loading state back
-	      _this.setState({ isLoading: false });
-	    }, 2000);
-	  }
-	});
-
-	module.exports = LoadingButton;
 
 /***/ }
 

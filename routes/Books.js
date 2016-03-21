@@ -38,5 +38,10 @@ router.post('/detail', function(req, res, next) {
   });
 });
 
+//显示阅读计划界面
+router.get('/plan', function(req, res, next) {
+  res.render('readPlan',{ title: '阅读计划' })
+});
+
 
 module.exports = router;
