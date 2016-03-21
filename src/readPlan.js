@@ -55,19 +55,19 @@ var $ = require('jquery');
                     <Col md={4}>
                       <div className="text-center" style={{paddingBottom:'40'}}>
                         <Image src="https://img1.doubanio.com\/lpic\/s1001902.jpg" style={{height:'260',borderRadius:'10',cursor:'pointer'}}/>
-                        <h4>Thumbnail label</h4>
+                        <h4>小王子</h4>
                       </div>
                     </Col>
                     <Col md={4}>
                       <div className="text-center" style={{paddingBottom:'40'}}>
                         <Image src="https://img1.doubanio.com\/lpic\/s1001902.jpg" style={{height:'260',borderRadius:'10',cursor:'pointer'}}/>
-                        <h4>Thumbnail label</h4>
+                        <h4>小王子</h4>
                       </div>
                     </Col>
                     <Col md={4}>
                       <div className="text-center" style={{paddingBottom:'40'}}>
                         <Image src="https://img1.doubanio.com\/lpic\/s1001902.jpg" style={{height:'260',borderRadius:'10',cursor:'pointer'}}/>
-                        <h4>Thumbnail label</h4>
+                        <h4>小王子</h4>
                       </div>
                     </Col>
                   </Row>

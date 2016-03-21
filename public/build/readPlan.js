@@ -74,7 +74,7 @@ webpackJsonp([2],{
 	            React.createElement(
 	              'h4',
 	              null,
-	              'Thumbnail label'
+	              '小王子'
 	            )
 	          )
 	        ),
@@ -88,7 +88,7 @@ webpackJsonp([2],{
 	            React.createElement(
 	              'h4',
 	              null,
-	              'Thumbnail label'
+	              '小王子'
 	            )
 	          )
 	        ),
@@ -102,7 +102,7 @@ webpackJsonp([2],{
 	            React.createElement(
 	              'h4',
 	              null,
-	              'Thumbnail label'
+	              '小王子'
 	            )
 	          )
 	        )
