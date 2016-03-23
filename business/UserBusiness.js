@@ -40,11 +40,10 @@ module.exports = {
   //param.username 用户名
   //param.password 密码
   login: function (param,callback) {
-    //先检查用户名是否已有人使用
     UserDao.getUser(param,function(err,result){
       var ret;
       if(err){
-        console.error("UserBusiness--regist--getUser--error");
+        console.error("UserBusiness--login--error");
         throw err;
         }
       if(result){
