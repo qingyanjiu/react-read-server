@@ -99,7 +99,7 @@ var $ = require('jquery');
                 alert("已添加过阅读计划，无需再次添加");
               }
             }
-          }
+          },
         
           render: function() {
             var content = [];
@@ -160,7 +160,7 @@ var $ = require('jquery');
                   </Grid>
                 </div>
                 <div className="text-center" style={{paddingBottom:'80'}}>
-                  <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
+                  <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="/read/book/addReadPlan" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
                 </div>
                 <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>

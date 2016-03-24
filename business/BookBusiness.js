@@ -13,9 +13,9 @@ module.exports = {
       if(result){
         //如果没有加入阅读计划，则加入计划
         if(result[0].count === 0){
-          BookDao.addUser(param,function(err,res){
+          BookDao.addBookPlan(param,function(err,res){
             if(err){
-              console.error("UserBusiness--regist--addUser--error");
+              console.error("BookBusiness--addReadPlan--addReadPlan--error");
               throw err;
             }
             ret = {"result":"success"};

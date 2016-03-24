@@ -101,6 +101,16 @@ webpackJsonp([3],{
 	    });
 	  },
 
+	  _addReadPlanHandler: function _addReadPlanHandler(args) {
+	    if (args) {
+	      if (args.result === 'success') {
+	        alert("添加到阅读计划成功");
+	      } else if (args.result === 'exist') {
+	        alert("已添加过阅读计划，无需再次添加");
+	      }
+	    }
+	  },
+
 	  render: function render() {
 	    var _this2 = this;
 
@@ -207,7 +217,9 @@ webpackJsonp([3],{
 	      React.createElement(
 	        'div',
 	        { className: 'text-center', style: { paddingBottom: '80' } },
-	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success' })
+	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success', callUrl: '/read/book/addReadPlan', callData: this.state.bookData, callback: function callback(data) {
+	            _this2._addReadPlanHandler(data);
+	          } })
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
 	          _this2.callbackHandler(data);
@@ -526,9 +538,11 @@ webpackJsonp([3],{
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(159).Button;
 
+	var $ = __webpack_require__(406);
 	//点击后会显示载入中文字的按钮
-	//props:loadingText:载入中的文字
-	//text:按钮的文字
+	//props:
+	//callUrl:点击按钮后请求的URL地址
+	//callData:请求时传递过来的提交的data数据
 	var LoadingButton = React.createClass({
 	  displayName: 'LoadingButton',
 	  getInitialState: function getInitialState() {
@@ -536,27 +550,47 @@ webpackJsonp([3],{
 	      isLoading: false
 	    };
 	  },
+
+
+	  //提交请求
+	  handleClick: function handleClick() {
+	    var _this = this;
+
+	    this.setState({ isLoading: true });
+	    $.ajax({
+	      data: JSON.stringify(this.props.callData),
+	      url: this.props.callUrl,
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this.props.callback(data);
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("操作失败，请重试");
+	      }
+	    });
+	    this.setState({ isLoading: false });
+	  },
+
 	  render: function render() {
+	    var _this2 = this;
+
 	    var isLoading = this.state.isLoading;
 	    return React.createElement(
 	      Button,
 	      { style: { height: '50', fontSize: '20', borderRadius: '25' },
 	        bsStyle: this.props.bsStyle,
 	        disabled: isLoading,
-	        onClick: !isLoading ? this.handleClick : null },
-	      isLoading ? this.props.loadingText : this.props.text
+	        onClick: function onClick() {
+	          _this2.handleClick();
+	        } },
+	      this.state.isLoading ? this.props.loadingText : this.props.text
 	    );
-	  },
-	  handleClick: function handleClick() {
-	    var _this = this;
-
-	    this.setState({ isLoading: true });
-
-	    // This probably where you would have an `ajax` call
-	    setTimeout(function () {
-	      // Completed of async action, set loading state back
-	      _this.setState({ isLoading: false });
-	    }, 2000);
 	  }
 	});
 
