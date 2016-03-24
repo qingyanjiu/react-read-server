@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var bookDao = require('../dao/BookDao');
+var BookBusiness = require('../business/BookBusiness');
 
 var DoubanBookService = require('../service/DoubanBookService');
 
@@ -41,6 +41,17 @@ router.post('/detail', function(req, res, next) {
 //显示阅读计划界面
 router.get('/plan', function(req, res, next) {
   res.render('readPlan',{ title: '阅读计划' })
+});
+
+//添加到阅读列表
+router.post('/addReadPlan', function(req, res, next) {
+  // 获取前台页面传过来的参数
+  var param = req.body;
+  BookBusiness.addReadPlan(param,(data)=>{
+    if(data){
+      res.json(data);
+    }
+  });
 });
 
 

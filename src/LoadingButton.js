@@ -2,8 +2,9 @@ var React = require('react');
 var Button = require('react-bootstrap').Button;
 
 //点击后会显示载入中文字的按钮
-//props:loadingText:载入中的文字
-//text:按钮的文字
+//props:
+//callUrl:点击按钮后请求的URL地址
+//callData:请求时传递过来的提交的data数据
 const LoadingButton = React.createClass({
   getInitialState() {
     return {
@@ -23,14 +24,31 @@ const LoadingButton = React.createClass({
     );
   },
 
+  //提交请求
   handleClick() {
     this.setState({isLoading: true});
-
-    // This probably where you would have an `ajax` call
-    setTimeout(() => {
-      // Completed of async action, set loading state back
-      this.setState({isLoading: false});
-    }, 2000);
+    $.ajax({
+              data: JSON.stringify({
+            		this.props.callData
+            	}),
+              url: this.props.callUrl,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.setState({
+                  this.props.callback(data);
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("操作失败，请重试");  
+              }
+    });
+    this.setState({isLoading: false});
   }
 });
 
