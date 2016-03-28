@@ -16,6 +16,7 @@ webpackJsonp([3],{
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 	var ListGroup = __webpack_require__(159).ListGroup;
 	var ListGroupItem = __webpack_require__(159).ListGroupItem;
+	var Alert = __webpack_require__(159).Alert;
 
 	var SearchHead = __webpack_require__(410);
 	var Foot = __webpack_require__(404);
@@ -38,7 +39,8 @@ webpackJsonp([3],{
 	      windowHeight: window.innerHeight,
 	      bookData: { books: {} },
 	      pageType: 'listPage', //当前页面类型listPage是图书列表，detailPage是图书详情
-	      searchText: ''
+	      searchText: '',
+	      tip: ''
 	    };
 	  },
 
@@ -103,16 +105,35 @@ webpackJsonp([3],{
 
 	  _addReadPlanHandler: function _addReadPlanHandler(args) {
 	    if (args) {
-	      if (args.result === 'success') {
-	        alert("添加到阅读计划成功");
-	      } else if (args.result === 'exist') {
-	        alert("已添加过阅读计划，无需再次添加");
-	      }
+	      this.setState({
+	        tip: args.result
+	      });
 	    }
 	  },
 
+	  //提示框事件
+	  handleAlertDismiss: function handleAlertDismiss() {
+	    this.setState({
+	      tip: ''
+	    });
+	  },
+
+
 	  render: function render() {
 	    var _this2 = this;
+
+	    var tipAlert;
+	    if (this.state.tip) {
+	      if (this.state.tip === "success") tipAlert = React.createElement(
+	        Alert,
+	        { onDismiss: this.handleAlertDismiss, style: { marginTop: '40', width: '200', marginLeft: window.innerWidth / 2 - 100 }, bsStyle: 'success', dismissAfter: 3000 },
+	        '添加到阅读计划成功'
+	      );else if (this.state.tip === "exist") tipAlert = React.createElement(
+	        Alert,
+	        { onDismiss: this.handleAlertDismiss, style: { marginTop: '40', width: '200', marginLeft: window.innerWidth / 2 - 100 }, bsStyle: 'danger', dismissAfter: 3000 },
+	        '已存在于阅读计划中'
+	      );else tipAlert = React.createElement('div', null);
+	    }
 
 	    var content = [];
 	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) {
@@ -219,7 +240,8 @@ webpackJsonp([3],{
 	        { className: 'text-center', style: { paddingBottom: '80' } },
 	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success', callUrl: '/read/book/addReadPlan', callData: this.state.bookData, callback: function callback(data) {
 	            _this2._addReadPlanHandler(data);
-	          } })
+	          } }),
+	        tipAlert
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
 	          _this2.callbackHandler(data);

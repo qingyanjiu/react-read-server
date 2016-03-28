@@ -72,4 +72,21 @@ router.post('/addReadPlan', function(req, res, next) {
 });
 
 
+//添加到阅读列表
+router.post('/queryReadPlan', function(req, res, next) {
+  
+  var param = req.session;
+  
+  BookBusiness.queryAllBookPlans(param,(err,data)=>{
+    if(err){
+      console.error("BookRouter--post--queryReadPlan--error");
+      throw err;
+    }
+    if(data){
+      res.json(data);
+    }
+  });
+});
+
+
 module.exports = router;

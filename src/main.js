@@ -15,6 +15,8 @@ var MainHead = require('./MainHead');
 var Foot = require('./Foot');
 var PullButton = require('./PullButton');
 
+var $ = require('jquery');
+
 //阅读主界面的js文件    
 var tip = {
         fontFamily:'微软雅黑',
@@ -32,6 +34,7 @@ var tip = {
       index: 0,
       direction: null,
       h:300,
+      
     };
   },
 
@@ -44,11 +47,14 @@ var tip = {
   },
 
   render() {
-    return (
-      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} indicators={false}>
+    var content = [];
+    let bookPlan = this.props.bookPlan;
+    if(bookPlan.length > 0)
+    for(let i=0;i<bookPlan.length;i++){
+      content.push(
         <CarouselItem>
           <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}>
-            <img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg" style={{height:this.state.h,width:'210'}}/>
+            <img alt={bookPlan[i].name} src={bookPlan[i].image_url} style={{height:this.state.h,width:'210'}}/>
             <div title="启读历史" style={{backgroundColor:'rgba(153,204,0,0.4)',width:'30',height:'20',position:'fixed',cursor:'pointer',top:10,left:(window.innerWidth+210)/2}}/>
             <div title="本书笔记" style={{backgroundColor:'rgba(255,204,0,0.4)',width:'40',height:'20',position:'fixed',cursor:'pointer',top:60,left:(window.innerWidth+210)/2}}/>
             <div title="历史书签" style={{backgroundColor:'rgba(153,204,255,0.4)',width:'50',height:'20',position:'fixed',cursor:'pointer',top:110,left:(window.innerWidth+210)/2}}/>
@@ -58,16 +64,11 @@ var tip = {
             
           </div>
         </CarouselItem>
-        <CarouselItem>
-          <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}>
-            <img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg" style={{height:this.state.h}}/>
-          </div>
-        </CarouselItem>
-        <CarouselItem>
-          <div className="text-center" style={{backgroundColor:'rgba(0,0,0,0.1)'}}>
-            <img alt="白夜行" src="https://img1.doubanio.com/lpic/s4610502.jpg" style={{height:this.state.h}}/>
-          </div>
-        </CarouselItem>
+        );
+      }
+    return (
+      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} indicators={false}>
+        {content}
       </Carousel>
     );
   }
@@ -89,7 +90,8 @@ var tip = {
                 windowWidth: window.innerwidth,
                 windowHeight: window.innerHeight,
                 selectPage:'0',
-                subPageBack:'#FFFFFF'
+                subPageBack:'#FFFFFF',
+                bookPlan:[], //查询到的在当前用户阅读计划中的书籍列表，默认是空的
             });
           },
         
@@ -97,6 +99,27 @@ var tip = {
             this.setState({
                 windowWidth: window.innerwidth,
                 windowHeight: window.innerHeight,
+            });
+          },
+          
+          componentWillMount: function(){
+            $.ajax({
+              url: '/read/book/queryReadPlan',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.setState({
+                  bookPlan : data
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("获取阅读信息失败，请尝试刷新页面重试");  
+              }
             });
           },
         
@@ -173,7 +196,7 @@ var tip = {
             var  content = 
                   <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
                     <div>
-                      <SlideWindow/>
+                      <SlideWindow bookPlan={this.state.bookPlan}/>
                     </div>
                     
                     <div>
@@ -203,7 +226,9 @@ var tip = {
                     {subContent}
                     
                   </div>;
-
+            
+            if(this.state.bookPlan.length === 0)
+              content = <div><h3>阅读计划中没有书籍</h3></div>
             
             
             return (
@@ -218,7 +243,7 @@ var tip = {
           }
     });
    
-    
+
     var cont = (
         <div>
             <MyDiv/>

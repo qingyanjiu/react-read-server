@@ -9,6 +9,7 @@ var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var ListGroup = require('react-bootstrap').ListGroup;
 var ListGroupItem = require('react-bootstrap').ListGroupItem;
+var Alert = require('react-bootstrap').Alert;
 
 var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
@@ -30,6 +31,7 @@ var $ = require('jquery');
                 bookData:{books:{}},
                 pageType:'listPage', //当前页面类型listPage是图书列表，detailPage是图书详情
                 searchText:'',
+                tip:'',
             });
           },
         
@@ -92,16 +94,30 @@ var $ = require('jquery');
           
           _addReadPlanHandler:function(args){
             if(args){
-              if(args.result === 'success'){
-                alert("添加到阅读计划成功");
-              }
-              else if(args.result === 'exist'){
-                alert("已添加过阅读计划，无需再次添加");
-              }
+                this.setState({
+                  tip:args.result
+                });
             }
+          },
+          
+          //提示框事件
+          handleAlertDismiss() {
+            this.setState({
+              tip:''
+            });
           },
         
           render: function() {
+            var tipAlert;
+            if(this.state.tip){
+              if(this.state.tip === "success")
+                tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:window.innerWidth/2 - 100}} bsStyle="success" dismissAfter={3000}>添加到阅读计划成功</Alert>
+              else if(this.state.tip === "exist")
+                tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:window.innerWidth/2 - 100}} bsStyle="danger" dismissAfter={3000}>已存在于阅读计划中</Alert>
+              else
+                tipAlert = <div></div>
+            }
+            
             var content = [];
             if(this.state.pageType === 'listPage' && this.state.bookData.books.length>0){
               content.push(<ListGroupItem key="0000" header="书籍列表" bsStyle="success"></ListGroupItem>);
@@ -161,7 +177,9 @@ var $ = require('jquery');
                 </div>
                 <div className="text-center" style={{paddingBottom:'80'}}>
                   <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="/read/book/addReadPlan" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
+                  {tipAlert}
                 </div>
+                
                 <SearchHead callback={(data)=>{this.callbackHandler(data)}}/>
                 <Foot/>
               </div>;

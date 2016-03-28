@@ -25,7 +25,7 @@ var $ = require('jquery');
                 windowWidth: window.innerwidth,
                 windowHeight: window.innerHeight,
                 bookData:{books:{}},
-                pageType:'listPage', //当前页面类型listPage是图书列表，detailPage是图书详情
+                pageType:'', 
                 searchText:'',
             });
           },

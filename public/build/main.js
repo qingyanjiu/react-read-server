@@ -22,6 +22,8 @@ webpackJsonp([1],{
 	var Foot = __webpack_require__(404);
 	var PullButton = __webpack_require__(409);
 
+	var $ = __webpack_require__(406);
+
 	//阅读主界面的js文件   
 	var tip = {
 	  fontFamily: '微软雅黑',
@@ -39,6 +41,7 @@ webpackJsonp([1],{
 	      index: 0,
 	      direction: null,
 	      h: 300
+
 	    };
 	  },
 	  handleSelect: function handleSelect(selectedIndex, selectedDirection) {
@@ -49,16 +52,16 @@ webpackJsonp([1],{
 	    });
 	  },
 	  render: function render() {
-	    return React.createElement(
-	      Carousel,
-	      { activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect, indicators: false },
-	      React.createElement(
+	    var content = [];
+	    var bookPlan = this.props.bookPlan;
+	    if (bookPlan.length > 0) for (var i = 0; i < bookPlan.length; i++) {
+	      content.push(React.createElement(
 	        CarouselItem,
 	        null,
 	        React.createElement(
 	          'div',
 	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h, width: '210' } }),
+	          React.createElement('img', { alt: bookPlan[i].name, src: bookPlan[i].image_url, style: { height: this.state.h, width: '210' } }),
 	          React.createElement('div', { title: '启读历史', style: { backgroundColor: 'rgba(153,204,0,0.4)', width: '30', height: '20', position: 'fixed', cursor: 'pointer', top: 10, left: (window.innerWidth + 210) / 2 } }),
 	          React.createElement('div', { title: '本书笔记', style: { backgroundColor: 'rgba(255,204,0,0.4)', width: '40', height: '20', position: 'fixed', cursor: 'pointer', top: 60, left: (window.innerWidth + 210) / 2 } }),
 	          React.createElement('div', { title: '历史书签', style: { backgroundColor: 'rgba(153,204,255,0.4)', width: '50', height: '20', position: 'fixed', cursor: 'pointer', top: 110, left: (window.innerWidth + 210) / 2 } }),
@@ -66,25 +69,12 @@ webpackJsonp([1],{
 	          React.createElement('div', { title: '毕读历史', style: { backgroundColor: 'rgba(143,188,143,0.4)', width: '70', height: '20', position: 'fixed', cursor: 'pointer', top: 210, left: (window.innerWidth + 210) / 2 } }),
 	          React.createElement('div', { title: '分享历史', style: { backgroundColor: 'rgba(255,105,180,0.4)', width: '80', height: '20', position: 'fixed', cursor: 'pointer', top: 260, left: (window.innerWidth + 210) / 2 } })
 	        )
-	      ),
-	      React.createElement(
-	        CarouselItem,
-	        null,
-	        React.createElement(
-	          'div',
-	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
-	        )
-	      ),
-	      React.createElement(
-	        CarouselItem,
-	        null,
-	        React.createElement(
-	          'div',
-	          { className: 'text-center', style: { backgroundColor: 'rgba(0,0,0,0.1)' } },
-	          React.createElement('img', { alt: '白夜行', src: 'https://img1.doubanio.com/lpic/s4610502.jpg', style: { height: this.state.h } })
-	        )
-	      )
+	      ));
+	    }
+	    return React.createElement(
+	      Carousel,
+	      { activeIndex: this.state.index, direction: this.state.direction, onSelect: this.handleSelect, indicators: false },
+	      content
 	    );
 	  }
 	});
@@ -106,14 +96,38 @@ webpackJsonp([1],{
 	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight,
 	      selectPage: '0',
-	      subPageBack: '#FFFFFF'
-	    };
+	      subPageBack: '#FFFFFF',
+	      bookPlan: [] };
 	  },
 
+	  //查询到的在当前用户阅读计划中的书籍列表，默认是空的
 	  handleResize: function handleResize(e) {
 	    this.setState({
 	      windowWidth: window.innerwidth,
 	      windowHeight: window.innerHeight
+	    });
+	  },
+
+	  componentWillMount: function componentWillMount() {
+	    var _this = this;
+
+	    $.ajax({
+	      url: '/read/book/queryReadPlan',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this.setState({
+	          bookPlan: data
+	        });
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("获取阅读信息失败，请尝试刷新页面重试");
+	      }
 	    });
 	  },
 
@@ -133,7 +147,7 @@ webpackJsonp([1],{
 	  },
 
 	  render: function render() {
-	    var _this = this;
+	    var _this2 = this;
 
 	    //点击不同按钮，展示不同界面
 	    var subContent;
@@ -245,7 +259,7 @@ webpackJsonp([1],{
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(SlideWindow, null)
+	        React.createElement(SlideWindow, { bookPlan: this.state.bookPlan })
 	      ),
 	      React.createElement(
 	        'div',
@@ -260,48 +274,58 @@ webpackJsonp([1],{
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: 'rgba(153,204,0,0.2)', text: '启读', icon: 'book', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: 'rgba(255,204,0,0.2)', text: '笔记', icon: 'edit', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: 'rgba(153,204,255,0.2)', text: '书签', icon: 'bookmark', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: 'rgba(250,128,114,0.2)', text: '书评', icon: 'comment', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: 'rgba(143,188,143,0.2)', text: '毕读', icon: 'check', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: 'rgba(255,105,180,0.2)', text: '收藏', icon: 'heart', callback: function callback(tag) {
-	                  _this.callbackHandler(tag);
+	                  _this2.callbackHandler(tag);
 	                } })
 	            )
 	          )
 	        )
 	      ),
 	      subContent
+	    );
+
+	    if (this.state.bookPlan.length === 0) content = React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        '阅读计划中没有书籍'
+	      )
 	    );
 
 	    return React.createElement(
