@@ -10,6 +10,8 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 var ListGroup = require('react-bootstrap').ListGroup;
 var ListGroupItem = require('react-bootstrap').ListGroupItem;
 var Alert = require('react-bootstrap').Alert;
+var DropdownButton = require('react-bootstrap').DropdownButton;
+var MenuItem = require('react-bootstrap').MenuItem;
 
 var SearchHead = require('./SearchHead');
 var Foot = require('./Foot');
@@ -18,6 +20,31 @@ var LoadingButton = require('./LoadingButton');
 
 var $ = require('jquery');
 //搜索图书界面的js文件
+
+    //下拉框选择添加到那个月的计划
+    var DropDown = React.createClass({
+      onSelectHanlder:function(event,eventKey){
+        alert(eventKey);
+      },
+      
+      render:function(){
+        var date = new Date();
+        var currentMonth = date.getMonth()+1;
+        
+        let content = [];
+        for(let i=currentMonth;i<=12;i++){
+          content.push(
+            <MenuItem eventKey={i}>{i}月</MenuItem>
+          );
+        }
+        
+        return(
+        <DropdownButton bsStyle="success" title="添加阅读计划" id="down" style={{height:'50',fontSize:'20',borderRadius:'25'}} onSelect={this.onSelectHanlder}>
+          {content}
+        </DropdownButton>  
+        )
+      }
+    });
     
     //展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
     //currentPage
@@ -176,7 +203,10 @@ var $ = require('jquery');
                   </Grid>
                 </div>
                 <div className="text-center" style={{paddingBottom:'80'}}>
-                  <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="/read/book/addReadPlan" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
+                  {/*
+                    <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="/read/book/addReadPlan" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
+                  */}
+                  <DropDown/>
                   {tipAlert}
                 </div>
                 

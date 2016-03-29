@@ -17,6 +17,8 @@ webpackJsonp([3],{
 	var ListGroup = __webpack_require__(159).ListGroup;
 	var ListGroupItem = __webpack_require__(159).ListGroupItem;
 	var Alert = __webpack_require__(159).Alert;
+	var DropdownButton = __webpack_require__(159).DropdownButton;
+	var MenuItem = __webpack_require__(159).MenuItem;
 
 	var SearchHead = __webpack_require__(410);
 	var Foot = __webpack_require__(404);
@@ -25,6 +27,36 @@ webpackJsonp([3],{
 
 	var $ = __webpack_require__(406);
 	//搜索图书界面的js文件
+
+	//下拉框选择添加到那个月的计划
+	var DropDown = React.createClass({
+	  displayName: 'DropDown',
+
+	  onSelectHanlder: function onSelectHanlder(event, eventKey) {
+	    alert(eventKey);
+	  },
+
+	  render: function render() {
+	    var date = new Date();
+	    var currentMonth = date.getMonth() + 1;
+
+	    var content = [];
+	    for (var i = currentMonth; i <= 12; i++) {
+	      content.push(React.createElement(
+	        MenuItem,
+	        { eventKey: i },
+	        i,
+	        '月'
+	      ));
+	    }
+
+	    return React.createElement(
+	      DropdownButton,
+	      { bsStyle: 'success', title: '添加阅读计划', id: 'down', style: { height: '50', fontSize: '20', borderRadius: '25' }, onSelect: this.onSelectHanlder },
+	      content
+	    );
+	  }
+	});
 
 	//展示容器,捕捉窗口改变大小的事件，保证背景图显示正确
 	//currentPage
@@ -238,9 +270,7 @@ webpackJsonp([3],{
 	      React.createElement(
 	        'div',
 	        { className: 'text-center', style: { paddingBottom: '80' } },
-	        React.createElement(LoadingButton, { loadingText: '正在添加...', text: '加入我的阅读计划', bsStyle: 'success', callUrl: '/read/book/addReadPlan', callData: this.state.bookData, callback: function callback(data) {
-	            _this2._addReadPlanHandler(data);
-	          } }),
+	        React.createElement(DropDown, null),
 	        tipAlert
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
