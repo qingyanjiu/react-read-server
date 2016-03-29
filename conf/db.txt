@@ -1,2 +1,16 @@
 1.user_info表
 --create table user_info (user_id int(4) key not null auto_increment,user_name varchar(20) not null, password varchar(100) not null,gender varchar(1),head varchar(3),regist_date varchar(20));
+
+2.book_info
+--CREATE TABLE `book_info` (                                                                                                                                                                                                                                 
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',                                                                                                                                                                                                                     
+  `name` varchar(32) NOT NULL COMMENT '书名',                                                                                                                                                                                                                            
+  `description` varchar(1000) DEFAULT NULL,                                                                                                                                                                                                                              
+  `douban_id` varchar(20) DEFAULT NULL,                                                                                                                                                                                                                                  
+  `image_url` varchar(100) DEFAULT NULL,                                                                                                                                                                                                                                 
+  `plan_date` varchar(20) DEFAULT NULL,                                                                                                                                                                                                                                  
+  `status` varchar(1) DEFAULT NULL,                                                                                                                                                                                                                                      
+  `user_id` int(4) DEFAULT NULL,                                                                                                                                                                                                                                         
+  `read_plan_month` varchar(20) DEFAULT NULL,                                                                                                                                                                                                                            
+  PRIMARY KEY (`id`)                                                                                                                                                                                                                                                     
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='书籍表'
