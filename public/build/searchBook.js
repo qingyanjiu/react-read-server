@@ -33,7 +33,28 @@ webpackJsonp([3],{
 	  displayName: 'DropDown',
 
 	  onSelectHanlder: function onSelectHanlder(event, eventKey) {
-	    alert(eventKey);
+	    var _this = this;
+
+	    $.ajax({
+	      data: JSON.stringify({
+	        month: eventKey,
+	        callData: this.props.callData
+	      }),
+	      url: "/read/book/addReadPlan",
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this.props.callback(data);
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("操作失败，请重试");
+	      }
+	    });
 	  },
 
 	  render: function render() {
@@ -109,7 +130,7 @@ webpackJsonp([3],{
 
 	  //点击某一行展示书本详细信息
 	  showBookDetail: function showBookDetail(args) {
-	    var _this = this;
+	    var _this2 = this;
 
 	    $.ajax({
 	      data: JSON.stringify({
@@ -124,7 +145,7 @@ webpackJsonp([3],{
 	      cache: false,
 	      timeout: 5000,
 	      success: function success(data) {
-	        _this.setState({
+	        _this2.setState({
 	          pageType: 'detailPage',
 	          bookData: data
 	        });
@@ -152,7 +173,7 @@ webpackJsonp([3],{
 
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    var tipAlert;
 	    if (this.state.tip) {
@@ -176,12 +197,12 @@ webpackJsonp([3],{
 	        //点击某一行展示书本详细信息
 	        React.createElement(
 	          ListGroupItem,
-	          { key: _this2.state.bookData.books[i].id, href: '#', onClick: function onClick() {
-	              _this2.showBookDetail(_this2.state.bookData.books[i].id);
+	          { key: _this3.state.bookData.books[i].id, href: '#', onClick: function onClick() {
+	              _this3.showBookDetail(_this3.state.bookData.books[i].id);
 	            } },
-	          _this2.state.bookData.books[i].title,
+	          _this3.state.bookData.books[i].title,
 	          '(',
-	          _this2.state.bookData.books[i].author,
+	          _this3.state.bookData.books[i].author,
 	          ')'
 	        ));
 	      };
@@ -193,7 +214,7 @@ webpackJsonp([3],{
 
 	    var pager;
 	    if (this.state.pageType === 'listPage' && this.state.bookData.books.length > 0) pager = React.createElement(MyPagination, { total: this.state.bookData.total, text: this.state.searchText, callback: function callback(data) {
-	        _this2.pagerCallbackHandler(data);
+	        _this3.pagerCallbackHandler(data);
 	      } });
 
 	    var mainContent;
@@ -216,7 +237,7 @@ webpackJsonp([3],{
 	        )
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
-	          _this2.callbackHandler(data);
+	          _this3.callbackHandler(data);
 	        } }),
 	      React.createElement(Foot, null)
 	    );else if (this.state.pageType === 'detailPage') mainContent = React.createElement(
@@ -270,11 +291,13 @@ webpackJsonp([3],{
 	      React.createElement(
 	        'div',
 	        { className: 'text-center', style: { paddingBottom: '80' } },
-	        React.createElement(DropDown, null),
+	        React.createElement(DropDown, { callback: function callback(data) {
+	            _this3._addReadPlanHandler(data);
+	          }, callData: this.state.bookData }),
 	        tipAlert
 	      ),
 	      React.createElement(SearchHead, { callback: function callback(data) {
-	          _this2.callbackHandler(data);
+	          _this3.callbackHandler(data);
 	        } }),
 	      React.createElement(Foot, null)
 	    );

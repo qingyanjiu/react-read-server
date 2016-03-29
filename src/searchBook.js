@@ -24,7 +24,28 @@ var $ = require('jquery');
     //下拉框选择添加到那个月的计划
     var DropDown = React.createClass({
       onSelectHanlder:function(event,eventKey){
-        alert(eventKey);
+        $.ajax({
+              data:JSON.stringify(
+            		{
+            		  month:eventKey,
+            		  callData:this.props.callData
+            		}
+            	),
+              url: "/read/book/addReadPlan",
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.props.callback(data);
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("操作失败，请重试");  
+              }
+        });   
       },
       
       render:function(){
@@ -206,7 +227,7 @@ var $ = require('jquery');
                   {/*
                     <LoadingButton loadingText="正在添加..." text="加入我的阅读计划" bsStyle="success" callUrl="/read/book/addReadPlan" callData={this.state.bookData} callback={(data)=>{this._addReadPlanHandler(data)}}/>
                   */}
-                  <DropDown/>
+                  <DropDown callback={(data)=>{this._addReadPlanHandler(data)}} callData={this.state.bookData} />
                   {tipAlert}
                 </div>
                 

@@ -48,10 +48,12 @@ router.get('/plan', function(req, res, next) {
 //添加到阅读列表
 router.post('/addReadPlan', function(req, res, next) {
   var myDate = new MyDate();
-  var date = myDate.pattern("yyyy-MM-dd HH:mm:ss") 
+  var date = myDate.pattern("yyyy-MM-dd HH:mm:ss");
+  var year = myDate.pattern("yyyy-");
+  var month = req.body.month < 10 ? "0"+req.body.month : req.body.month;
   
   // 获取前台页面传过来的参数,并设置name、加入日期、状态、用户id、image_url、douban_id等信息
-  var param = req.body;
+  var param = req.body.callData;
   param.name = param.title;
   // param.description = param.summary;
   param.douban_id = param.id;
@@ -59,6 +61,8 @@ router.post('/addReadPlan', function(req, res, next) {
   param.plan_date = date;
   param.user_id = req.session.user_id;
   param.status = '0';//刚添加到阅读列表的状态
+  param.read_plan_month = year + month;
+  
   
   BookBusiness.addReadPlan(param,(err,data)=>{
     if(err){
@@ -74,8 +78,10 @@ router.post('/addReadPlan', function(req, res, next) {
 
 //添加到阅读列表
 router.post('/queryReadPlan', function(req, res, next) {
-  
+  var myDate = new MyDate();
+  var todayMonth = myDate.pattern("yyyy-MM");
   var param = req.session;
+  param.read_plan_month = todayMonth;
   
   BookBusiness.queryAllBookPlans(param,(err,data)=>{
     if(err){

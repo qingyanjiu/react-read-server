@@ -14,7 +14,7 @@ module.exports = {
       }
 
       // 建立连接，向表中插入值
-      connection.query(bookSqlMapping.insert, [param.name, param.description,param.douban_id,param.image_url,param.plan_date,param.status,param.user_id], function(err, result) {
+      connection.query(bookSqlMapping.insert, [param.name, param.description,param.douban_id,param.image_url,param.plan_date,param.status,param.user_id,param.read_plan_month], function(err, result) {
         if(err){
           console.error(myDate.toLocaleString()+"---"+err);
           return;
@@ -40,7 +40,7 @@ module.exports = {
       }
 
       // 建立连接，向表中插入值
-      connection.query(bookSqlMapping.queryAll, [param.user_id], function(err, result) {
+      connection.query(bookSqlMapping.queryAll, [param.user_id,param.read_plan_month], function(err, result) {
         if(err){
           console.error(myDate.toLocaleString()+"---"+err);
           return;
@@ -66,7 +66,7 @@ module.exports = {
       }
 
       // 建立连接，向表中插入值
-      connection.query(bookSqlMapping.queryByDoubanId, [param.douban_id,param.user_id], function(err, result) {
+      connection.query(bookSqlMapping.queryByDoubanId, [param.douban_id,param.user_id,param.read_plan_month], function(err, result) {
         if(err){
           console.error(myDate.toLocaleString()+"---"+err);
           return;
