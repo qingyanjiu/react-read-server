@@ -23,11 +23,11 @@
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',                                                                                                                                                                                                                     
   `douban_id` varchar(32) NOT NULL COMMENT '豆瓣id',                                                                                                                                                                                                                            
   `user_id` varchar(100) DEFAULT NULL,
-  'times' int(3) NOT NULL COMMENT '当前阅读次数',
+  `times` int(3) NOT NULL COMMENT '当前阅读次数',
   `read_time` varchar(5) DEFAULT NULL COMMENT '当前读的遍数',
   `start_date` varchar(20) DEFAULT NULL COMMENT '这一遍启读时间',                                                                                                                                                                                                                                  
   `end_date` varchar(20) DEFAULT NULL COMMENT '这一遍毕读时间',    
-  'tag' varchar(1) DEFAULT NULL COMMENT '表示当前阅读状态0-启读 1-毕读 2-弃坑'
+  `tag` varchar(1) DEFAULT '0' COMMENT '表示当前阅读状态0-启读 1-毕读 2-弃坑',
   PRIMARY KEY (`id`)                                                                                                                                                                                                                                                     
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='阅读历史表'
 
@@ -41,7 +41,7 @@
   `page` varchar(5) DEFAULT NULL COMMENT '页码',
   `content` varchar(100) DEFAULT NULL COMMENT '文字内容',                                                                                                                                                                                                                                  
   `note` varchar(500) DEFAULT NULL COMMENT '笔记内容',   
-  `note_date` varchar(20) DEFAULT NULL COMMENT '做笔记时间'
+  `note_date` varchar(20) DEFAULT NULL COMMENT '做笔记时间',
   PRIMARY KEY (`id`)                                                                                                                                                                                                                                                     
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='阅读笔记表'
 
@@ -53,7 +53,7 @@
   `douban_id` varchar(32) NOT NULL COMMENT '豆瓣id',
   `user_id` varchar(100) DEFAULT NULL,      
   `page` varchar(5) DEFAULT NULL COMMENT '页码',
-  `tag_date` varchar(20) DEFAULT NULL COMMENT '书签时间'
+  `tag_date` varchar(20) DEFAULT NULL COMMENT '书签时间',
   PRIMARY KEY (`id`)                                                                                                                                                                                                                                                     
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='阅读书签表'
 
@@ -65,6 +65,6 @@
   `douban_id` varchar(32) NOT NULL COMMENT '豆瓣id',
   `user_id` varchar(100) DEFAULT NULL,      
   `comment_content` varchar(1000) DEFAULT NULL COMMENT '评价内容',
-  `comment_date` varchar(20) DEFAULT NULL COMMENT '评价时间'
+  `comment_date` varchar(20) DEFAULT NULL COMMENT '评价时间',
   PRIMARY KEY (`id`)                                                                                                                                                                                                                                                     
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='书籍评价表'

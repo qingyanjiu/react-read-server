@@ -2,6 +2,8 @@ var React = require('react');
 
 var Glyphicon = require('react-bootstrap').Glyphicon;
 
+var $ = require('jquery');
+
 
 //下拉按钮,阅读主界面用到了
 //props:
@@ -11,6 +13,7 @@ var Glyphicon = require('react-bootstrap').Glyphicon;
 //focused 是否激活
 //callback 回调
 //page 当前页面编号
+//url 点击的时候要请求数据的url
 var PullButton = React.createClass({
         
         getInitialState:function(){
@@ -46,7 +49,29 @@ var PullButton = React.createClass({
         
         //回调
         _onclickHandler:function(){
-          this.props.callback({color:this.props.backColor,currentPage:this.props.bPage});
+          //如果传入了要访问的url，则发起请求
+          if(this.props.url){
+            $.ajax({
+                data:JSON.stringify(this.props.data),
+                url: this.props.url,
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                type:'post',
+                dataType: 'json',
+                cache: false,
+                timeout: 5000,
+                success: (data)=>{
+                  this.props.callback({color:this.props.backColor,currentPage:this.props.bPage,readInfo:data});
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("获取阅读信息失败，请尝试刷新页面重试");  
+                }
+            });
+          }
+          else{
+            this.props.callback({color:this.props.backColor,currentPage:this.props.bPage});
+          }
         },
         
         

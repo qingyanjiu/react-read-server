@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var BookBusiness = require('../business/BookBusiness');
+var ReadingBusiness = require('../business/ReadingBusiness');
 
 var DoubanBookService = require('../service/DoubanBookService');
 
@@ -76,7 +77,7 @@ router.post('/addReadPlan', function(req, res, next) {
 });
 
 
-//添加到阅读列表
+//获取本月阅读计划信息
 router.post('/queryReadPlan', function(req, res, next) {
   var myDate = new MyDate();
   var todayMonth = myDate.pattern("yyyy-MM");
@@ -94,5 +95,42 @@ router.post('/queryReadPlan', function(req, res, next) {
   });
 });
 
+//获取本书阅读情况
+router.post('/getReadInfo', function(req, res, next) {
+  var param = req.body;
+  var userId = req.session.user_id;
+  param.user_id = userId;
+  
+  ReadingBusiness.getCurrentReadInfo(param,(err,data)=>{
+    if(err){
+      console.error("BookRouter--post--getReadInfo--error");
+      throw err;
+    }
+    if(data){
+      res.json(data);
+    }
+  });
+});
+
+//添加到阅读列表
+router.post('/startRead', function(req, res, next) {
+  var param = req.body;
+  var myDate = new MyDate();
+  var today = myDate.pattern("yyyy-MM-dd");
+  var userId = req.session.user_id;
+  param.start_date = today;
+  param.user_id = userId;
+  param.tag = '0';
+  
+  ReadingBusiness.startRead(param,(err,data)=>{
+    if(err){
+      console.error("BookRouter--post--startRead--error");
+      throw err;
+    }
+    if(data){
+      res.json(data);
+    }
+  });
+});
 
 module.exports = router;

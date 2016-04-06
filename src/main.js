@@ -10,6 +10,7 @@ var CarouselItem = require('react-bootstrap').CarouselItem;
 var Panel = require('react-bootstrap').Panel;
 var Input = require('react-bootstrap').Input;
 var Glyphicon = require('react-bootstrap').Glyphicon;
+var Alert = require('react-bootstrap').Alert;
 
 var MainHead = require('./MainHead');
 var Foot = require('./Foot');
@@ -28,6 +29,9 @@ var tip = {
 
     
   //滚动图片组建
+  //props: 
+  //bookPlan--要展示的滚动的读书计划中的书籍列表
+  //callback--切换书籍以后把当前选择的书籍信息返回父容器
   const SlideWindow = React.createClass({
   getInitialState() {
     return {
@@ -39,11 +43,13 @@ var tip = {
   },
 
   handleSelect(selectedIndex, selectedDirection) {
-    // alert('selected=' + selectedIndex + ', direction=' + selectedDirection);
+    // alert(this.props.bookPlan[selectedIndex].name);
     this.setState({
       index: selectedIndex,
       direction: selectedDirection
     });
+    //当前选中的书籍信息通过回调函数返回给父容器
+    this.props.callback(this.props.bookPlan[selectedIndex]);
   },
 
   render() {
@@ -91,7 +97,10 @@ var tip = {
                 windowHeight: window.innerHeight,
                 selectPage:'0',
                 subPageBack:'#FFFFFF',
-                bookPlan:[], //查询到的在当前用户阅读计划中的书籍列表，默认是空的
+                bookPlan:[], //查询到的在当前用户阅读计划中的书籍列表，默认是空的 book列表
+                currentBook:{},//当前已选择书籍的信息 book对象
+                readInfo:{},//点击选项卡后查询当前书籍的阅读信息 readHistory对象
+                tip:'',//点击选项卡中的按钮返回的信息 可能是success之类的标示
             });
           },
         
@@ -114,7 +123,10 @@ var tip = {
               timeout: 5000,
               success: (data)=>{
                 this.setState({
-                  bookPlan : data
+                  //读书计划列表状态初始化
+                  bookPlan : data,
+                  //默认选择的当前选择书籍为第一本dele
+                  currentBook:data[0],
                 });
               },
               error: function(jqXHR, textStatus, errorThrown){
@@ -134,22 +146,101 @@ var tip = {
           callbackHandler:function(args){
             this.setState({
               subPageBack:args.color,
-              selectPage:args.currentPage
+              selectPage:args.currentPage,
+              //点击选项卡后查询当前书籍的阅读信息并回调写回主页面state
+              readInfo:args.readInfo,
+            });
+          },
+          
+          sildeWindowCallbackHandler:function(args){
+            //切换书的时候，currentBook对象变成已选择书籍的信息，所有选项卡收起
+            this.setState({
+              currentBook:args,
+              selectPage:'0'
+            });
+          },
+          
+          _startRead:function(){
+            $.ajax({
+              data:JSON.stringify({
+                douban_id:this.state.currentBook.douban_id,
+              }),
+              url: '/read/book/startRead',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.setState({
+                  tip:data.result,
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("获取阅读信息失败，请尝试刷新页面重试");  
+              }
+            });
+          },
+          
+          //提示框事件
+          handleAlertDismiss() {
+            this.setState({
+              tip:''
             });
           },
           
         
           render: function() {
+            
+            //点击按钮后返回的提示信息
+            var tipAlert;
+            if(this.state.tip){
+                  //如果返回成功
+                  if(this.state.tip === "success")
+                    tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:500/2 - 100}} bsStyle="success" dismissAfter={3000}>操作成功</Alert>
+                  else if(this.state.tip === "notcomplete")
+                    tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:500/2 - 100}} bsStyle="danger" dismissAfter={3000}>全书未毕读,不能启读</Alert>
+                  else
+                    tipAlert = <div></div>
+            }
+            
             //点击不同按钮，展示不同界面
-            var subContent;
-              if(this.state.selectPage === '1')
+            var subContent;    
+              //启读选项卡的功能
+              if(this.state.selectPage === '1'){
+                var text;
+                var startButton;
+                var times;
+                //如果已经读过，看已经读了多少遍
+                if(this.state.readInfo.length > 0){
+                  text = "正在读第 "+this.state.readInfo[0].read_time+" 遍";
+                  times = this.state.readInfo[0].read_time +1;
+                  
+                  //如果还没有阅读完毕
+                  if(this.state.readInfo[0].tag === '0')
+                    startButton = <Button disabled onClick={()=>{this._startRead()}} bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="file"/>&nbsp;未毕读,不能启读</Button>;
+                  //如果已经阅读完这一遍
+                  else if(this.state.readInfo[0].tag === '1')
+                    startButton = <Button onClick={()=>{this._startRead()}} bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="file"/>&nbsp;开始读第 {times} 遍</Button>;
+                }
+                //如果是还没有开始读过（查询到的书籍阅读信息为空）
+                else if(this.state.readInfo.length === 0){
+                  text = "还没有开始读";
+                  times = 1;
+                  startButton = <Button onClick={()=>{this._startRead()}} bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="file"/>&nbsp;开始读第 {times} 遍</Button>;
+                }
+                
                 subContent = 
                     <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
                       <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
-                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>还没有开始读</p>
-                        <Button bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="file"/>&nbsp;开始读第 1 遍</Button>  
+                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>{text}</p>
+                        {startButton}
+                        {tipAlert}
                       </div>
                     </div>;
+              }
               else if(this.state.selectPage === '2')
                 subContent = 
                     <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
@@ -196,14 +287,14 @@ var tip = {
             var  content = 
                   <div style={{paddingTop:'60',paddingBottom:'60',height:'100%'}}>
                     <div>
-                      <SlideWindow bookPlan={this.state.bookPlan}/>
+                      <SlideWindow bookPlan={this.state.bookPlan} callback={(args)=>{this.sildeWindowCallbackHandler(args)}}/>
                     </div>
                     
                     <div>
                       <Grid style={{width:'100%'}}>
                         <Row>
                           <Col md={2}>
-                          <PullButton bPage="1" selectPage={this.state.selectPage} backColor="rgba(153,204,0,0.2)" text="启读" icon="book" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="1" selectPage={this.state.selectPage} backColor="rgba(153,204,0,0.2)" text="启读" icon="book" url="/read/book/getReadInfo" data={this.state.currentBook} callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
                           <PullButton bPage="2" selectPage={this.state.selectPage} backColor="rgba(255,204,0,0.2)" text="笔记" icon="edit" callback={(tag)=>{this.callbackHandler(tag)}}/>
@@ -215,7 +306,7 @@ var tip = {
                           <PullButton bPage="4" selectPage={this.state.selectPage} backColor="rgba(250,128,114,0.2)" text="书评" icon="comment" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="rgba(143,188,143,0.2)" text="毕读" icon="check" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="rgba(143,188,143,0.2)" text="毕读" icon="check" url="/read/book/getReadInfo" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
                           <PullButton bPage="6" selectPage={this.state.selectPage} backColor="rgba(255,105,180,0.2)" text="收藏" icon="heart" callback={(tag)=>{this.callbackHandler(tag)}}/>
