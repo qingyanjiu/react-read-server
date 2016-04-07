@@ -133,4 +133,26 @@ router.post('/startRead', function(req, res, next) {
   });
 });
 
+
+//结束阅读
+router.post('/completeRead', function(req, res, next) {
+  var param = req.body;
+  var myDate = new MyDate();
+  var today = myDate.pattern("yyyy-MM-dd");
+  var userId = req.session.user_id;
+  param.start_date = today;
+  param.user_id = userId;
+  param.tag = '0';
+  
+  ReadingBusiness.completeRead(param,(err,data)=>{
+    if(err){
+      console.error("BookRouter--post--completeRead--error");
+      throw err;
+    }
+    if(data){
+      res.json(data);
+    }
+  });
+});
+
 module.exports = router;

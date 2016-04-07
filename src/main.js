@@ -179,7 +179,31 @@ var tip = {
                 });
               },
               error: function(jqXHR, textStatus, errorThrown){
-                alert("获取阅读信息失败，请尝试刷新页面重试");  
+                alert("操作失败，请重试");  
+              }
+            });
+          },
+          
+          _completeRead:function(){
+            $.ajax({
+              data:JSON.stringify({
+                douban_id:this.state.currentBook.douban_id,
+              }),
+              url: '/read/book/completeRead',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.setState({
+                  tip:data.result,
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("操作失败，请重试");  
               }
             });
           },
@@ -202,6 +226,8 @@ var tip = {
                     tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:500/2 - 100}} bsStyle="success" dismissAfter={3000}>操作成功</Alert>
                   else if(this.state.tip === "notcomplete")
                     tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:500/2 - 100}} bsStyle="danger" dismissAfter={3000}>全书未毕读,不能启读</Alert>
+                  else if(this.state.tip === "notstart")
+                    tipAlert = <Alert onDismiss={this.handleAlertDismiss} style={{marginTop:'40',width:'200',marginLeft:500/2 - 100}} bsStyle="danger" dismissAfter={3000}>未启读,不能毕读</Alert>
                   else
                     tipAlert = <div></div>
             }
@@ -210,9 +236,9 @@ var tip = {
             var subContent;    
               //启读选项卡的功能
               if(this.state.selectPage === '1'){
-                var text;
-                var startButton;
-                var times;
+                let text;
+                let startButton;
+                let times;
                 //如果已经读过，看已经读了多少遍
                 if(this.state.readInfo.length > 0){
                   text = "正在读第 "+this.state.readInfo[0].read_time+" 遍";
@@ -267,14 +293,39 @@ var tip = {
                         <Button bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;写书评</Button>
                       </div>
                     </div>;
-              else if(this.state.selectPage === '5')
+              else if(this.state.selectPage === '5'){
+                //毕读选项卡的功能
+                let text;
+                let completeButton;
+                let times;
+                //如果已经读过，看已经读了多少遍
+                if(this.state.readInfo.length > 0){
+                  text = "正在读第 "+this.state.readInfo[0].read_time+" 遍";
+                  times = this.state.readInfo[0].read_time;
+                  
+                  //如果还没有启读
+                  if(this.state.readInfo[0].tag === '1')
+                    completeButton = <Button disabled onClick={()=>{this._completeRead()}} bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="ok"/>&nbsp;未启读,不能毕读</Button>;
+                  //如果已经启读
+                  else if(this.state.readInfo[0].tag === '0')
+                    completeButton = <Button onClick={()=>{this._completeRead()}} bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="ok"/>&nbsp;第 {times} 遍读完啦</Button>;
+                }
+                //如果是还没有开始读过（查询到的书籍阅读信息为空）
+                else if(this.state.readInfo.length === 0){
+                  text = "还没有开始读";
+                  times = 1;
+                  completeButton = <Button disabled onClick={()=>{this._completeRead()}} bsStyle="danger" style={{fontSize:'20'}}><Glyphicon glyph="ok"/>&nbsp;未启读,不能毕读</Button>;
+                }
+              
                 subContent = 
                     <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
                       <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
-                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>离开始读已经过了 3 天</p>
-                        <Button bsStyle="success" style={{fontSize:'20'}}><Glyphicon glyph="ok"/>&nbsp;第 1 遍读完啦</Button>  
+                        <p style={{fontSize:'24',fontFamily:'微软雅黑',color:'#000000',paddingBottom:'10'}}>{text}</p>
+                        {completeButton}
+                        {tipAlert}
                       </div>
-                    </div>;      
+                    </div>;    
+              }
               else if(this.state.selectPage === '6')
                 subContent = 
                     <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
@@ -306,7 +357,7 @@ var tip = {
                           <PullButton bPage="4" selectPage={this.state.selectPage} backColor="rgba(250,128,114,0.2)" text="书评" icon="comment" callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
-                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="rgba(143,188,143,0.2)" text="毕读" icon="check" url="/read/book/getReadInfo" callback={(tag)=>{this.callbackHandler(tag)}}/>
+                          <PullButton bPage="5" selectPage={this.state.selectPage} backColor="rgba(143,188,143,0.2)" text="毕读" icon="check" url="/read/book/getReadInfo" data={this.state.currentBook} callback={(tag)=>{this.callbackHandler(tag)}}/>
                           </Col>
                           <Col md={2}>
                           <PullButton bPage="6" selectPage={this.state.selectPage} backColor="rgba(255,105,180,0.2)" text="收藏" icon="heart" callback={(tag)=>{this.callbackHandler(tag)}}/>

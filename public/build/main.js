@@ -189,7 +189,33 @@ webpackJsonp([1],{
 	        });
 	      },
 	      error: function error(jqXHR, textStatus, errorThrown) {
-	        alert("获取阅读信息失败，请尝试刷新页面重试");
+	        alert("操作失败，请重试");
+	      }
+	    });
+	  },
+
+	  _completeRead: function _completeRead() {
+	    var _this3 = this;
+
+	    $.ajax({
+	      data: JSON.stringify({
+	        douban_id: this.state.currentBook.douban_id
+	      }),
+	      url: '/read/book/completeRead',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this3.setState({
+	          tip: data.result
+	        });
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("操作失败，请重试");
 	      }
 	    });
 	  },
@@ -203,7 +229,7 @@ webpackJsonp([1],{
 
 
 	  render: function render() {
-	    var _this3 = this;
+	    var _this4 = this;
 
 	    //点击按钮后返回的提示信息
 	    var tipAlert;
@@ -217,15 +243,20 @@ webpackJsonp([1],{
 	        Alert,
 	        { onDismiss: this.handleAlertDismiss, style: { marginTop: '40', width: '200', marginLeft: 500 / 2 - 100 }, bsStyle: 'danger', dismissAfter: 3000 },
 	        '全书未毕读,不能启读'
+	      );else if (this.state.tip === "notstart") tipAlert = React.createElement(
+	        Alert,
+	        { onDismiss: this.handleAlertDismiss, style: { marginTop: '40', width: '200', marginLeft: 500 / 2 - 100 }, bsStyle: 'danger', dismissAfter: 3000 },
+	        '未启读,不能毕读'
 	      );else tipAlert = React.createElement('div', null);
 	    }
 
 	    //点击不同按钮，展示不同界面
 	    var subContent;
+	    //启读选项卡的功能
 	    if (this.state.selectPage === '1') {
-	      var text;
-	      var startButton;
-	      var times;
+	      var text = undefined;
+	      var startButton = undefined;
+	      var times = undefined;
 	      //如果已经读过，看已经读了多少遍
 	      if (this.state.readInfo.length > 0) {
 	        text = "正在读第 " + this.state.readInfo[0].read_time + " 遍";
@@ -235,7 +266,7 @@ webpackJsonp([1],{
 	        if (this.state.readInfo[0].tag === '0') startButton = React.createElement(
 	          Button,
 	          { disabled: true, onClick: function onClick() {
-	              _this3._startRead();
+	              _this4._startRead();
 	            }, bsStyle: 'danger', style: { fontSize: '20' } },
 	          React.createElement(Glyphicon, { glyph: 'file' }),
 	          ' 未毕读,不能启读'
@@ -244,7 +275,7 @@ webpackJsonp([1],{
 	        else if (this.state.readInfo[0].tag === '1') startButton = React.createElement(
 	            Button,
 	            { onClick: function onClick() {
-	                _this3._startRead();
+	                _this4._startRead();
 	              }, bsStyle: 'success', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'file' }),
 	            ' 开始读第 ',
@@ -259,7 +290,7 @@ webpackJsonp([1],{
 	          startButton = React.createElement(
 	            Button,
 	            { onClick: function onClick() {
-	                _this3._startRead();
+	                _this4._startRead();
 	              }, bsStyle: 'success', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'file' }),
 	            ' 开始读第 ',
@@ -327,25 +358,67 @@ webpackJsonp([1],{
 	          ' 写书评'
 	        )
 	      )
-	    );else if (this.state.selectPage === '5') subContent = React.createElement(
-	      'div',
-	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
-	      React.createElement(
-	        'div',
-	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
-	        React.createElement(
-	          'p',
-	          { style: { fontSize: '24', fontFamily: '微软雅黑', color: '#000000', paddingBottom: '10' } },
-	          '离开始读已经过了 3 天'
-	        ),
-	        React.createElement(
+	    );else if (this.state.selectPage === '5') {
+	      //毕读选项卡的功能
+	      var text = undefined;
+	      var completeButton = undefined;
+	      var times = undefined;
+	      //如果已经读过，看已经读了多少遍
+	      if (this.state.readInfo.length > 0) {
+	        text = "正在读第 " + this.state.readInfo[0].read_time + " 遍";
+	        times = this.state.readInfo[0].read_time;
+
+	        //如果还没有启读
+	        if (this.state.readInfo[0].tag === '1') completeButton = React.createElement(
 	          Button,
-	          { bsStyle: 'success', style: { fontSize: '20' } },
+	          { disabled: true, onClick: function onClick() {
+	              _this4._completeRead();
+	            }, bsStyle: 'danger', style: { fontSize: '20' } },
 	          React.createElement(Glyphicon, { glyph: 'ok' }),
-	          ' 第 1 遍读完啦'
+	          ' 未启读,不能毕读'
+	        );
+	        //如果已经启读
+	        else if (this.state.readInfo[0].tag === '0') completeButton = React.createElement(
+	            Button,
+	            { onClick: function onClick() {
+	                _this4._completeRead();
+	              }, bsStyle: 'success', style: { fontSize: '20' } },
+	            React.createElement(Glyphicon, { glyph: 'ok' }),
+	            ' 第 ',
+	            times,
+	            ' 遍读完啦'
+	          );
+	      }
+	      //如果是还没有开始读过（查询到的书籍阅读信息为空）
+	      else if (this.state.readInfo.length === 0) {
+	          text = "还没有开始读";
+	          times = 1;
+	          completeButton = React.createElement(
+	            Button,
+	            { disabled: true, onClick: function onClick() {
+	                _this4._completeRead();
+	              }, bsStyle: 'danger', style: { fontSize: '20' } },
+	            React.createElement(Glyphicon, { glyph: 'ok' }),
+	            ' 未启读,不能毕读'
+	          );
+	        }
+
+	      subContent = React.createElement(
+	        'div',
+	        { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
+	        React.createElement(
+	          'div',
+	          { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
+	          React.createElement(
+	            'p',
+	            { style: { fontSize: '24', fontFamily: '微软雅黑', color: '#000000', paddingBottom: '10' } },
+	            text
+	          ),
+	          completeButton,
+	          tipAlert
 	        )
-	      )
-	    );else if (this.state.selectPage === '6') subContent = React.createElement(
+	      );
+	    } else if (this.state.selectPage === '6') subContent = React.createElement(
 	      'div',
 	      { style: { width: '100%', paddingBottom: '60', backgroundColor: this.state.subPageBack, height: window.innerHeight - 300 - 80 - 60 - 60 } },
 	      React.createElement(
@@ -374,7 +447,7 @@ webpackJsonp([1],{
 	        'div',
 	        null,
 	        React.createElement(SlideWindow, { bookPlan: this.state.bookPlan, callback: function callback(args) {
-	            _this3.sildeWindowCallbackHandler(args);
+	            _this4.sildeWindowCallbackHandler(args);
 	          } })
 	      ),
 	      React.createElement(
@@ -390,42 +463,42 @@ webpackJsonp([1],{
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: 'rgba(153,204,0,0.2)', text: '启读', icon: 'book', url: '/read/book/getReadInfo', data: this.state.currentBook, callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	                  _this4.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: 'rgba(255,204,0,0.2)', text: '笔记', icon: 'edit', callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	                  _this4.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: 'rgba(153,204,255,0.2)', text: '书签', icon: 'bookmark', callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	                  _this4.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: 'rgba(250,128,114,0.2)', text: '书评', icon: 'comment', callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	                  _this4.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
-	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: 'rgba(143,188,143,0.2)', text: '毕读', icon: 'check', url: '/read/book/getReadInfo', callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: 'rgba(143,188,143,0.2)', text: '毕读', icon: 'check', url: '/read/book/getReadInfo', data: this.state.currentBook, callback: function callback(tag) {
+	                  _this4.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: 'rgba(255,105,180,0.2)', text: '收藏', icon: 'heart', callback: function callback(tag) {
-	                  _this3.callbackHandler(tag);
+	                  _this4.callbackHandler(tag);
 	                } })
 	            )
 	          )

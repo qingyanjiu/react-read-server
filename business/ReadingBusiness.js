@@ -59,7 +59,7 @@ module.exports = {
         console.error("ReadingBusiness--completeRead--checkCurrentComplete--error");
         throw err;
         }
-      if(result){
+      if(result.length > 0){
         //如果最近的一条阅读历史已经结束了，说明还没有开始新的阅读，不能结束阅读
         if(result[0].tag === '1'){
           ret = {"result":"notstart"};
@@ -69,16 +69,19 @@ module.exports = {
         else if(result[0].tag === '0'){
           //id传入
           param.id = result[0].id;
-          ReadHistoryDao.completeRead(param,function(err,res){
+          ReadHistoryDao.completeReadHistory(param,function(err,res){
             if(err){
               console.error("ReadingBusiness--completeRead--completeRead--error");
               throw err;
             }
             ret = {"result":"success"};
             callback(err,ret);
-        });
+          });
         }
-        callback(err,result);
+      }
+      //否则说明一次都没有开始读，也不能毕读
+      else{
+        ret = {"result":"notstart"};
       }
     });
   },
