@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var BookBusiness = require('../business/BookBusiness');
 var ReadingBusiness = require('../business/ReadingBusiness');
+var BookNoteBusiness = require('../business/BookNoteBusiness');
 
 var DoubanBookService = require('../service/DoubanBookService');
 
@@ -151,6 +152,27 @@ router.post('/completeRead', function(req, res, next) {
     }
     if(data){
       res.json(data);
+    }
+  });
+});
+
+
+//添加阅读笔记
+router.post('/addNote', function(req, res, next) {
+  var param = req.body;
+  var myDate = new MyDate();
+  var today = myDate.pattern("yyyy-MM-dd HH:mm:ss");
+  var userId = req.session.user_id;
+  param.note_date = today;
+  param.user_id = userId;
+  BookNoteBusiness.addNote(param,(err,data)=>{
+    if(err){
+      console.error("BookRouter--post--addNote--error");
+      throw err;
+    }
+    if(data){
+      if(data.result === "success")
+        res.json({result:'success'});
     }
   });
 });

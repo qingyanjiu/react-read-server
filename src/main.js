@@ -160,12 +160,41 @@ var tip = {
             });
           },
           
+          //启读按钮触发
           _startRead:function(){
             $.ajax({
               data:JSON.stringify({
                 douban_id:this.state.currentBook.douban_id,
               }),
               url: '/read/book/startRead',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              type:'post',
+              dataType: 'json',
+              cache: false,
+              timeout: 5000,
+              success: (data)=>{
+                this.setState({
+                  tip:data.result,
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("操作失败，请重试");  
+              }
+            });
+          },
+          
+          //记笔记按钮触发
+          _addNote:function(){
+            $.ajax({
+              data:JSON.stringify({
+                douban_id:this.state.currentBook.douban_id,
+                page:$("#page").val(),
+                content:$("#bookcont").val(),
+                note:$("#note").val()
+              }),
+              url: '/read/book/addNote',
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -272,9 +301,10 @@ var tip = {
                     <div style={{width:'100%',paddingBottom:'60',backgroundColor:this.state.subPageBack,height:window.innerHeight-300-80-60-60}}>
                       <div style={{width:'500',height:'400',paddingTop:'10',left:window.innerWidth/2-250,top:(window.innerHeight+300+80+60+60)/2-200,position:'fixed'}}>
                         <Input id="page" type="number" min='0' max='200' bsSize="large" placeholder="页码"/>
-                        <Input id="content" type="textarea" bsSize="large" placeholder="文字"/>
-                        <Input type="textarea" bsSize="large" placeholder="笔记"/>
-                        <Button bsStyle="warning" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;记笔记</Button>
+                        <Input id="bookcont" type="textarea" bsSize="large" placeholder="文字"/>
+                        <Input id="note" type="textarea" bsSize="large" placeholder="笔记"/>
+                        <Button onClick={()=>{this._addNote()}} bsStyle="warning" style={{fontSize:'20'}}><Glyphicon glyph="pencil"/>&nbsp;记笔记</Button>
+                        {tipAlert}
                       </div>
                     </div>;
               else if(this.state.selectPage === '3')

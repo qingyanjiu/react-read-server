@@ -168,6 +168,7 @@ webpackJsonp([1],{
 	    });
 	  },
 
+	  //启读按钮触发
 	  _startRead: function _startRead() {
 	    var _this2 = this;
 
@@ -194,14 +195,18 @@ webpackJsonp([1],{
 	    });
 	  },
 
-	  _completeRead: function _completeRead() {
+	  //记笔记按钮触发
+	  _addNote: function _addNote() {
 	    var _this3 = this;
 
 	    $.ajax({
 	      data: JSON.stringify({
-	        douban_id: this.state.currentBook.douban_id
+	        douban_id: this.state.currentBook.douban_id,
+	        page: $("#page").val(),
+	        content: $("#bookcont").val(),
+	        note: $("#note").val()
 	      }),
-	      url: '/read/book/completeRead',
+	      url: '/read/book/addNote',
 	      headers: {
 	        'Content-Type': 'application/json'
 	      },
@@ -220,6 +225,32 @@ webpackJsonp([1],{
 	    });
 	  },
 
+	  _completeRead: function _completeRead() {
+	    var _this4 = this;
+
+	    $.ajax({
+	      data: JSON.stringify({
+	        douban_id: this.state.currentBook.douban_id
+	      }),
+	      url: '/read/book/completeRead',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      type: 'post',
+	      dataType: 'json',
+	      cache: false,
+	      timeout: 5000,
+	      success: function success(data) {
+	        _this4.setState({
+	          tip: data.result
+	        });
+	      },
+	      error: function error(jqXHR, textStatus, errorThrown) {
+	        alert("操作失败，请重试");
+	      }
+	    });
+	  },
+
 	  //提示框事件
 	  handleAlertDismiss: function handleAlertDismiss() {
 	    this.setState({
@@ -229,7 +260,7 @@ webpackJsonp([1],{
 
 
 	  render: function render() {
-	    var _this4 = this;
+	    var _this5 = this;
 
 	    //点击按钮后返回的提示信息
 	    var tipAlert;
@@ -266,7 +297,7 @@ webpackJsonp([1],{
 	        if (this.state.readInfo[0].tag === '0') startButton = React.createElement(
 	          Button,
 	          { disabled: true, onClick: function onClick() {
-	              _this4._startRead();
+	              _this5._startRead();
 	            }, bsStyle: 'danger', style: { fontSize: '20' } },
 	          React.createElement(Glyphicon, { glyph: 'file' }),
 	          ' 未毕读,不能启读'
@@ -275,7 +306,7 @@ webpackJsonp([1],{
 	        else if (this.state.readInfo[0].tag === '1') startButton = React.createElement(
 	            Button,
 	            { onClick: function onClick() {
-	                _this4._startRead();
+	                _this5._startRead();
 	              }, bsStyle: 'success', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'file' }),
 	            ' 开始读第 ',
@@ -290,7 +321,7 @@ webpackJsonp([1],{
 	          startButton = React.createElement(
 	            Button,
 	            { onClick: function onClick() {
-	                _this4._startRead();
+	                _this5._startRead();
 	              }, bsStyle: 'success', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'file' }),
 	            ' 开始读第 ',
@@ -321,14 +352,17 @@ webpackJsonp([1],{
 	        'div',
 	        { style: { width: '500', height: '400', paddingTop: '10', left: window.innerWidth / 2 - 250, top: (window.innerHeight + 300 + 80 + 60 + 60) / 2 - 200, position: 'fixed' } },
 	        React.createElement(Input, { id: 'page', type: 'number', min: '0', max: '200', bsSize: 'large', placeholder: '页码' }),
-	        React.createElement(Input, { id: 'content', type: 'textarea', bsSize: 'large', placeholder: '文字' }),
-	        React.createElement(Input, { type: 'textarea', bsSize: 'large', placeholder: '笔记' }),
+	        React.createElement(Input, { id: 'bookcont', type: 'textarea', bsSize: 'large', placeholder: '文字' }),
+	        React.createElement(Input, { id: 'note', type: 'textarea', bsSize: 'large', placeholder: '笔记' }),
 	        React.createElement(
 	          Button,
-	          { bsStyle: 'warning', style: { fontSize: '20' } },
+	          { onClick: function onClick() {
+	              _this5._addNote();
+	            }, bsStyle: 'warning', style: { fontSize: '20' } },
 	          React.createElement(Glyphicon, { glyph: 'pencil' }),
 	          ' 记笔记'
-	        )
+	        ),
+	        tipAlert
 	      )
 	    );else if (this.state.selectPage === '3') subContent = React.createElement(
 	      'div',
@@ -372,7 +406,7 @@ webpackJsonp([1],{
 	        if (this.state.readInfo[0].tag === '1') completeButton = React.createElement(
 	          Button,
 	          { disabled: true, onClick: function onClick() {
-	              _this4._completeRead();
+	              _this5._completeRead();
 	            }, bsStyle: 'danger', style: { fontSize: '20' } },
 	          React.createElement(Glyphicon, { glyph: 'ok' }),
 	          ' 未启读,不能毕读'
@@ -381,7 +415,7 @@ webpackJsonp([1],{
 	        else if (this.state.readInfo[0].tag === '0') completeButton = React.createElement(
 	            Button,
 	            { onClick: function onClick() {
-	                _this4._completeRead();
+	                _this5._completeRead();
 	              }, bsStyle: 'success', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'ok' }),
 	            ' 第 ',
@@ -396,7 +430,7 @@ webpackJsonp([1],{
 	          completeButton = React.createElement(
 	            Button,
 	            { disabled: true, onClick: function onClick() {
-	                _this4._completeRead();
+	                _this5._completeRead();
 	              }, bsStyle: 'danger', style: { fontSize: '20' } },
 	            React.createElement(Glyphicon, { glyph: 'ok' }),
 	            ' 未启读,不能毕读'
@@ -447,7 +481,7 @@ webpackJsonp([1],{
 	        'div',
 	        null,
 	        React.createElement(SlideWindow, { bookPlan: this.state.bookPlan, callback: function callback(args) {
-	            _this4.sildeWindowCallbackHandler(args);
+	            _this5.sildeWindowCallbackHandler(args);
 	          } })
 	      ),
 	      React.createElement(
@@ -463,42 +497,42 @@ webpackJsonp([1],{
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '1', selectPage: this.state.selectPage, backColor: 'rgba(153,204,0,0.2)', text: '启读', icon: 'book', url: '/read/book/getReadInfo', data: this.state.currentBook, callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '2', selectPage: this.state.selectPage, backColor: 'rgba(255,204,0,0.2)', text: '笔记', icon: 'edit', callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '3', selectPage: this.state.selectPage, backColor: 'rgba(153,204,255,0.2)', text: '书签', icon: 'bookmark', callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '4', selectPage: this.state.selectPage, backColor: 'rgba(250,128,114,0.2)', text: '书评', icon: 'comment', callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '5', selectPage: this.state.selectPage, backColor: 'rgba(143,188,143,0.2)', text: '毕读', icon: 'check', url: '/read/book/getReadInfo', data: this.state.currentBook, callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            ),
 	            React.createElement(
 	              Col,
 	              { md: 2 },
 	              React.createElement(PullButton, { bPage: '6', selectPage: this.state.selectPage, backColor: 'rgba(255,105,180,0.2)', text: '收藏', icon: 'heart', callback: function callback(tag) {
-	                  _this4.callbackHandler(tag);
+	                  _this5.callbackHandler(tag);
 	                } })
 	            )
 	          )
