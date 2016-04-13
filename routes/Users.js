@@ -46,7 +46,7 @@ router.post('/login', function(req, res, next) {
         req.session.user_id = result[0].user_id;
         //同步到sessionstore里
         req.session.save();
-        console.log(req.session.user_name+"----"+req.session.user_id+"-------"+req.type);
+        console.log(req.session.user_name+"----"+req.session.user_id+"-------"+param.type);
         
         
         /*从app获取sessionstore(用于客户端sessionid)
@@ -68,8 +68,8 @@ router.post('/login', function(req, res, next) {
          */
          
         //如果有登录类型，说明是手机端登录，那么登录玩要返回sessionid
-        if(session.type)
-          res.json({result:'success',sessionid:sessionid})
+        if(param.type)
+          res.json({result:'success',sessionid:req.sessionID})
         else
           res.json({result:'success'});
       }
