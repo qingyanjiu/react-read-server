@@ -1,0 +1,7 @@
+如果是手机端登录，需要在请求中添加一个请求字段type＝mobile
+服务端拦截到这个请求后，会在登录后返回success的同时返回当前的sessisonid给手机客户端
+
+手机客户端提交请求时，需要在请求参数中添加一个sessionid字段，就是在登录时获取的sessionid字段
+服务端拦截到请求后，如果看到有sessionid字段存在，就会先去sessionstore里面查询
+如果session未过期，直接将session塞入request对象，后面和网页端操作一样
+如果session过期了，则什么也不做，后台自然会报错，前台就会提示用户重新登录系统

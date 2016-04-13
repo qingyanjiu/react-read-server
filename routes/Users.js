@@ -46,7 +46,7 @@ router.post('/login', function(req, res, next) {
         req.session.user_id = result[0].user_id;
         //同步到sessionstore里
         req.session.save();
-        console.log(req.session.user_name+"----"+req.session.user_id+"-------"+req.sessionID);
+        console.log(req.session.user_name+"----"+req.session.user_id+"-------"+req.type);
         
         
         /*从app获取sessionstore(用于客户端sessionid)
