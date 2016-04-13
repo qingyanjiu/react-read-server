@@ -51,24 +51,27 @@ router.post('/login', function(req, res, next) {
         
         /*从app获取sessionstore(用于客户端sessionid)
          */
-        var sessionStore = req.app.get('store');
-        //用sessionid查询session
-        sessionStore.get(req.sessionID, function(err,session){
-          if(err || !session){
+        // var sessionStore = req.app.get('store');
+        // //用sessionid查询session
+        // sessionStore.get(req.sessionID, function(err,session){
+        //   if(err || !session){
             
-          }
-          console.log(session);
-          if(session.user_id){
-            console.log(session.user_id);
-          }else{
+        //   }
+        //   console.log(session);
+        //   if(session.user_id){
+        //     console.log(session.user_id);
+        //   }else{
             
-          }
-        })
+        //   }
+        // })
         /*从app获取sessionstore
          */
          
-        
-        res.json({result:'success'});
+        //如果有登录类型，说明是手机端登录，那么登录玩要返回sessionid
+        if(session.type)
+          res.json({result:'success',sessionid:sessionid})
+        else
+          res.json({result:'success'});
       }
       //登录失败
       else{
