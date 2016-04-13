@@ -49,7 +49,7 @@ router.post('/login', function(req, res, next) {
         console.log(req.session.user_name+"----"+req.session.user_id+"-------"+req.sessionID);
         
         
-        /*从app获取sessionstore
+        /*从app获取sessionstore(用于客户端sessionid)
          */
         var sessionStore = req.app.get('store');
         //用sessionid查询session
