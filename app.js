@@ -39,8 +39,13 @@ app.use(cookieParser());
 //
 //session控制，过滤用户是否登录
 //
+
+//将session保存到内存中
+var sessionStore = new session.MemoryStore();
+
 app.use(session({
   secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+  store: sessionStore,
   cookie: { maxAge: 60 * 1000 * 10 * 2 },
   
 }));
