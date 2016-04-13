@@ -44,7 +44,30 @@ router.post('/login', function(req, res, next) {
         //用户session写入
         req.session.user_name = result[0].user_name;
         req.session.user_id = result[0].user_id;
-        console.log(req.session.user_name+"----"+req.session.user_id);
+        //同步到sessionstore里
+        req.session.save();
+        console.log(req.session.user_name+"----"+req.session.user_id+"-------"+req.sessionID);
+        
+        
+        /*从app获取sessionstore
+         */
+        var sessionStore = req.app.get('store');
+        //用sessionid查询session
+        sessionStore.get(req.sessionID, function(err,session){
+          if(err || !session){
+            
+          }
+          console.log(session);
+          if(session.user_id){
+            console.log(session.user_id);
+          }else{
+            
+          }
+        })
+        /*从app获取sessionstore
+         */
+         
+        
         res.json({result:'success'});
       }
       //登录失败

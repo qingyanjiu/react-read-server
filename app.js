@@ -40,15 +40,19 @@ app.use(cookieParser());
 //session控制，过滤用户是否登录
 //
 
-//将session保存到内存中
-var sessionStore = new session.MemoryStore();
+//将sessionstore保存到内存中,sessionstore里包含了所有session的信息
+var sessionStore = new session.MemoryStore({reapInterval: 60000 * 10});
 
 app.use(session({
-  secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+  secret: 'alaien', // 建议使用 128 个字符的随机字符串
   store: sessionStore,
   cookie: { maxAge: 60 * 1000 * 10 * 2 },
-  
+  resave: true,
+  saveUninitialized: true
 }));
+//写入store变量，后台可以通过app。get('store')获取
+app.set('store',sessionStore);
+
 
 
 
