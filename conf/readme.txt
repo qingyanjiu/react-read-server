@@ -5,3 +5,4 @@
 服务端拦截到请求后，如果看到有sessionid字段存在，就会先去sessionstore里面查询
 如果session未过期，直接将session塞入request对象，后面和网页端操作一样
 如果session过期了，则什么也不做，后台自然会报错，前台就会提示用户重新登录系统
+
