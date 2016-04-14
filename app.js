@@ -77,7 +77,9 @@ app.use(function (req, res, next) {
       else{
         //登录类型，如果是手机，登录时带一个登录类型的type字段mobile
         session.type = param.type;
-        req.session = session;
+        req.session.type = session.type;
+        req.session.user_id = session.user_id;
+        req.session.user_name = session.user_name;
       }
     });
   }
