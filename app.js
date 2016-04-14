@@ -63,12 +63,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //过滤器！！！！！！！！！！！！！
 app.use(function (req, res, next) {
   //如果传过来的参数里有sessionid，说明是手机端来的，先去找session，再写入req
-  var sid = req.body.sessionid || req.query.sessionid;
-  if(sid){
+  var param = req.body || req.query;
+  if(param.sessionid){
     //获取sessionstore
     app.get('store');
     //用sessionid去找session
-    sessionStore.get(req.sessionid, function(err,session){
+    sessionStore.get(param.sessionid, function(err,session){
       //如果没找到
       if(err || !session){
         console.log(sid+"session过期了");    
@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
       //如果找到了，把session写入req
       else{
         //登录类型，如果是手机，登录时带一个登录类型的type字段mobile
-        session.type = type;
+        session.type = param.type;
         req.session = session;
       }
     });
