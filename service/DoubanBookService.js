@@ -47,7 +47,7 @@ module.exports = {
   // start	取结果的offset	默认为0
   // count	取结果的条数	默认为20，最大为100
   search:function(tag,start,callback){
-    var qString = encodeURI("?tag="+tag+"&fields=id,title,images,author&start="+start*pageCount+"&count="+pageCount);
+    var qString = encodeURI("?tag="+tag+"&fields=id,title,images,author,rating&start="+start*pageCount+"&count="+pageCount);
     
     let options = {
       hostname: DoubanBookApi.hostUrl,
