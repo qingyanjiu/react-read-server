@@ -412,7 +412,7 @@ webpackJsonp([0],{
 	        React.createElement(
 	          Button,
 	          { bsStyle: 'success', bsSize: 'large', style: { width: '100%', borderRadius: '24' }, disabled: true },
-	          '用户名或密码错误'
+	          '请填写用户名和密码'
 	        )
 	      )
 	    );else {

@@ -78,7 +78,7 @@ var Login = React.createClass({
                     <div><h3>用户登录</h3></div>
                     <div style={input}><Input id="username" type="text" bsSize="large" placeholder="请输入用户名"  onChange={()=>{this._inputHandler()}}/></div>
                     <div style={input}><Input id="password" type="password" bsSize="large" placeholder="请输入密码"  onChange={()=>{this._inputHandler()}}/></div>
-                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}} disabled>用户名或密码错误</Button></div>
+                    <div style={input}><Button bsStyle="success" bsSize="large" style={{width:'100%',borderRadius:'24'}} disabled>请填写用户名和密码</Button></div>
                   </div>;
     else{
       if(this.state.nameOrPassError)
