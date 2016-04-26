@@ -71,7 +71,7 @@ app.use(function (req, res, next) {
     sessionStore.get(param.sessionid, function(err,session){
       //如果没找到
       if(err || !session){
-        console.log(sid+"session过期了");    
+        console.log(param.sessionid+"session过期了");    
         res.json({"result":"expired"});
       }
       //如果找到了，把session写入req
