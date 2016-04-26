@@ -24,11 +24,13 @@ router.get('/search', function(req, res, next) {
 router.post('/search', function(req, res, next) {
   // 获取前台页面传过来的参数
   var param = req.body;
-  DoubanBookService.search(param.text,param.page-1,(data)=>{
-    if(data){
-      res.json(data);
-    }
-  });
+  if(param.user_id){
+    DoubanBookService.search(param.text,param.page-1,(data)=>{
+      if(data){
+        res.json(data);
+      }
+    });
+  }
 });
 
 //点击某一本书查询图书详细信息
