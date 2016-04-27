@@ -16,7 +16,7 @@ webpackJsonp([2],{
 	var Glyphicon = __webpack_require__(159).Glyphicon;
 	var Thumbnail = __webpack_require__(159).Thumbnail;
 
-	var SearchHead = __webpack_require__(410);
+	var SearchHead = __webpack_require__(457);
 	var Foot = __webpack_require__(404);
 
 	var $ = __webpack_require__(406);
@@ -152,7 +152,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 410:
+/***/ 457:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

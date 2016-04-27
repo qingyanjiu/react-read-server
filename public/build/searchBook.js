@@ -20,10 +20,10 @@ webpackJsonp([3],{
 	var DropdownButton = __webpack_require__(159).DropdownButton;
 	var MenuItem = __webpack_require__(159).MenuItem;
 
-	var SearchHead = __webpack_require__(410);
+	var SearchHead = __webpack_require__(457);
 	var Foot = __webpack_require__(404);
-	var MyPagination = __webpack_require__(411);
-	var LoadingButton = __webpack_require__(412);
+	var MyPagination = __webpack_require__(458);
+	var LoadingButton = __webpack_require__(459);
 
 	var $ = __webpack_require__(406);
 	//搜索图书界面的js文件
@@ -320,7 +320,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 410:
+/***/ 457:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -529,7 +529,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 411:
+/***/ 458:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -605,7 +605,7 @@ webpackJsonp([3],{
 
 /***/ },
 
-/***/ 412:
+/***/ 459:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

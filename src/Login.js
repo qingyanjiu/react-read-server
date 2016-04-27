@@ -2,12 +2,16 @@ var React = require('react');
 var Button = require('react-bootstrap').Button;
 var Input = require('react-bootstrap').Input;
 var $ = require('jquery');
+//引入socket客户端
+var io = require('socket.io-client');
 
 var input = {
   paddingLeft:'10%',
   paddingRight:'10%',
   marginTop:'30'
 };
+
+var socket;
 
 var Login = React.createClass({
   
@@ -16,6 +20,11 @@ var Login = React.createClass({
       nameOrPassError:false,
       inputEmpty:false,
     });
+  },
+  
+  componentDidMount :function() {
+    //登录socket服务
+    socket = io.connect();
   },
   
   _inputHandler:function(){
@@ -52,6 +61,12 @@ var Login = React.createClass({
             success: (data)=>{
               //
               if(data.result === "success"){
+                  //登录成功发起socket广播，某用户已登录
+                  socket.emit('login', {
+                    name: document.getElementById('username').value
+                  });
+                  
+                  //跳转页面
                   document.getElementById('form').action = "/read/book/main";
                   document.getElementById('form').submit();
               }
