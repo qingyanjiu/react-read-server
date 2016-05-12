@@ -39,5 +39,9 @@ router.post('/calculate', function(req, res) {
 });
 
 
+router.post('/geo', function(req, res) {
+	var body = req.body;
+	console.log(body);
+});
 
 module.exports = router;
