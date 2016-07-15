@@ -12,6 +12,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "express-partials": "latest",
     "express-session": "latest",
     "jquery": "^2.2.1",
     "md5": "^2.0.0",
