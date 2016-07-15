@@ -48,7 +48,7 @@
 
 
 5.book_tag 阅读书签 
-  CREATE TABLE `book_note` (                                                                                                                                                                                                                                 
+  CREATE TABLE `book_tag` (                                                                                                                                                                                                                                 
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id', 
   `douban_id` varchar(32) NOT NULL COMMENT '豆瓣id',
   `user_id` varchar(100) DEFAULT NULL,      
