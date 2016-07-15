@@ -2,7 +2,7 @@
 
 module.exports = {
   mysql: {
-    host: 'localhost', 
+    host: 'mysql', 
     user: 'root',
     password: '19831226lc',
     database:'book', 
@@ -12,6 +12,17 @@ module.exports = {
   }
 };
 
+// module.exports = {
+//   mysql: {
+//     host: 'localhost', 
+//     user: 'root',
+//     password: '19831226lc',
+//     database:'book', 
+//     port: 3306,
+//     connectionLimit: 10,
+//     supportBigNumbers: true
+//   }
+// };
 
 // module.exports = {
 //   mysql: {
