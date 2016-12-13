@@ -1,11 +1,11 @@
 // MySQL数据库联接配置
 module.exports = {
   mysql: {
-    host: 'rdsym2yqfamaunmprivate.mysql.rds.aliyuncs.com', 
-    user: 'book',
-    password: '19831226lc',
+    host: 'mysql.t0.daoapp.io', 
+    user: 'root',
+    password: '123',
     database:'book', 
-    port: 3306,
+    port: 61923,
     connectionLimit: 10,
     supportBigNumbers: true
   }
