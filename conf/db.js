@@ -2,11 +2,11 @@
 
 module.exports = {
   mysql: {
-    host: 'mysql_test.t0.daoapp.io', 
+    host: 'mysql.t0.daoapp.io', 
     user: 'root',
     password: '123',
     database:'book', 
-    port: 61575,
+    port: 61923,
     connectionLimit: 10,
     supportBigNumbers: true
   }
